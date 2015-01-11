@@ -77,6 +77,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Pages\HomePageView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\Pages\SplashPageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -89,9 +93,14 @@
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainViewModel.cs" />
+    <Compile Include="Views\Pages\HomePageView.xaml.cs">
+      <DependentUpon>HomePageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\IPage.cs" />
     <Compile Include="Views\Pages\SplashPageView.xaml.cs">
       <DependentUpon>SplashPageView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Pages\HomePageViewModel.cs" />
     <Compile Include="Views\Pages\SplashPageViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

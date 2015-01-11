@@ -7,9 +7,9 @@ using Caliburn.Micro;
 
 namespace Caros.Views.Pages
 {
-    public class SplashPageViewModel : PropertyChangedBase, IPage
+    public class HomePageViewModel : PropertyChangedBase, IPage
     {
-        public SplashPageViewModel()
+        public HomePageViewModel()
         {
         }
     }

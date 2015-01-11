@@ -4,10 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro.Platform"
+             xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
              mc:Ignorable="d" 
              Width="1024" Height="600">
     <Grid>
-        <ContentControl cal:View.Model="{Binding ActivePage}" />
+        <metro:TransitioningContentControl Transition="Right" cal:View.Model="{Binding ActivePage}" />
         
         <ContentControl x:Name="Notifications"/>
         <ContentControl x:Name="Menu"/>

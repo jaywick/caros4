@@ -11,9 +11,9 @@ namespace Caros
 {
     class MainViewModel : PropertyChangedBase
     {
-        private SplashPageViewModel _activePage;
+        private IPage _activePage;
 
-        public SplashPageViewModel ActivePage
+        public IPage ActivePage
         {
             get { return _activePage; }
             set
@@ -26,6 +26,13 @@ namespace Caros
         public MainViewModel()
         {
             this.ActivePage = new SplashPageViewModel();
+            StartApplication();
+        }
+
+        private async void StartApplication()
+        {
+            await Task.Delay(2000);
+            this.ActivePage = new HomePageViewModel();
         }
     }
 }
