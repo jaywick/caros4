@@ -15,9 +15,12 @@ using System.Windows.Shapes;
 
 namespace Caros
 {
-    public partial class ShellView
+    /// <summary>
+    /// Interaction logic for AppView.xaml
+    /// </summary>
+    public partial class MainView : UserControl
     {
-        public ShellView()
+        public MainView()
         {
             InitializeComponent();
         }
