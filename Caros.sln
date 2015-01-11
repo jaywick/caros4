@@ -5,6 +5,17 @@ VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Caros", "Caros\Caros.csproj", "{FAB32800-F532-499E-8BF3-99E8E37BEC20}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Caros.Music", "Caros.Music\Caros.Music.csproj", "{185B546A-56E1-422C-9C29-B5166240B606}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Caros.Core", "Caros.Core\Caros.Core.csproj", "{81316879-7801-4AFA-AD7E-5A0C5F033C3C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Caros.Core.Tests", "Tests\Caros.Core.Tests\Caros.Core.Tests.csproj", "{68052C41-6FBB-40C3-BF7B-CC0F8C33B788}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{FB52BDDF-B285-4A1F-BCE7-FC531B58C50C}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +26,18 @@ Global
 		{FAB32800-F532-499E-8BF3-99E8E37BEC20}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FAB32800-F532-499E-8BF3-99E8E37BEC20}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FAB32800-F532-499E-8BF3-99E8E37BEC20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{185B546A-56E1-422C-9C29-B5166240B606}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{185B546A-56E1-422C-9C29-B5166240B606}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{185B546A-56E1-422C-9C29-B5166240B606}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{185B546A-56E1-422C-9C29-B5166240B606}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81316879-7801-4AFA-AD7E-5A0C5F033C3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81316879-7801-4AFA-AD7E-5A0C5F033C3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81316879-7801-4AFA-AD7E-5A0C5F033C3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81316879-7801-4AFA-AD7E-5A0C5F033C3C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68052C41-6FBB-40C3-BF7B-CC0F8C33B788}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68052C41-6FBB-40C3-BF7B-CC0F8C33B788}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68052C41-6FBB-40C3-BF7B-CC0F8C33B788}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68052C41-6FBB-40C3-BF7B-CC0F8C33B788}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

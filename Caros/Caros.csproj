@@ -76,15 +76,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Contracts\ViewModel.cs" />
-    <Page Include="Styles\CarosCommon.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Styles\CarosDark.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="MainView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -102,8 +93,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Bootstrapper.cs" />
-    <Compile Include="Context\Context.cs" />
-    <Compile Include="Context\Theme.cs" />
     <Compile Include="MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
@@ -111,16 +100,11 @@
     <Compile Include="Pages\HomePageView.xaml.cs">
       <DependentUpon>HomePageView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Contracts\IPage.cs" />
     <Compile Include="Pages\SplashPageView.xaml.cs">
       <DependentUpon>SplashPageView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\HomePageViewModel.cs" />
     <Compile Include="Pages\SplashPageViewModel.cs" />
-    <Page Include="Styles\CarosLight.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -150,7 +134,16 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Caros.Core\Caros.Core.csproj">
+      <Project>{81316879-7801-4afa-ad7e-5a0c5f033c3c}</Project>
+      <Name>Caros.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Caros.Music\Caros.Music.csproj">
+      <Project>{185b546a-56e1-422c-9c29-b5166240b606}</Project>
+      <Name>Caros.Music</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

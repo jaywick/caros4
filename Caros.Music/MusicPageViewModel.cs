@@ -7,11 +7,11 @@ using Caliburn.Micro;
 using Caros.Core.Context;
 using Caros.Core.Contracts;
 
-namespace Caros.Pages
+namespace Caros.Music.Pages
 {
-    public class SplashPageViewModel : PageViewModel
+    public class MusicPageViewModel : PageViewModel
     {
-        public SplashPageViewModel(IContext context)
+        public MusicPageViewModel(IContext context)
             : base(context)
         {
         }

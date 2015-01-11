@@ -1,37 +1,46 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace Caros.Context
+namespace Caros.Core.Context
 {
     public class Theme
     {
         public enum Style { Light, Dark }
 
-        internal Theme()
+        private const string LightStyleResource = "Caros.Core;component/Styles/CarosLight.xaml";
+        private const string DarkStyleResource = "Caros.Core;component/Styles/CarosDark.xaml";
+
+        public Theme() { }
+
+        public Theme(Style style)
         {
-            Switch(Style.Light);
+            Set(style);
         }
 
-        private const string LightStyleResource = "Caros;component/Styles/CarosLight.xaml";
-        private const string DarkStyleResource = "Caros;component/Styles/CarosDark.xaml";
-
-        internal void Switch(Style style)
+        public void Set(Style style)
         {
             RemovePreviousStyle(style);
 
             // apply new style
-            var res = new ResourceDictionary();
-            res.Source = GetResource(style);
+            var res = LoadResource(style);
             Application.Current.Resources.MergedDictionaries.Add(res);
+        }
+
+        public ResourceDictionary LoadResource(Style style)
+        {
+            var res = new ResourceDictionary();
+            res.Source = GetResourceUri(style);
+            return res;
         }
 
         private void RemovePreviousStyle(Style style)
         {
-            var previousResUri = GetResource(GetOtherStyle(style));
+            var previousResUri = GetResourceUri(GetOtherStyle(style));
 
             var previousRes = Application.Current.Resources.MergedDictionaries
                 .SingleOrDefault(x => x.Source == previousResUri);
@@ -40,7 +49,7 @@ namespace Caros.Context
                 Application.Current.Resources.MergedDictionaries.Remove(previousRes);
         }
 
-        private Uri GetResource(Style style)
+        public Uri GetResourceUri(Style style)
         {
             string path = "";
 

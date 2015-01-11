@@ -6,17 +6,21 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using Caliburn.Micro;
 using System.Windows;
-using Caros.Context;
-using Caros.Contracts;
+using Caros.Core.Context;
+using Caros.Core.Contracts;
 using Caros.Pages;
 
 namespace Caros
 {
-    class MainViewModel : ViewModel
+    class MainViewModel : RootViewModel
     {
-        private IPage _activePage;
+        #region Properties
 
-        public IPage ActivePage
+        private PageViewModel _activePage;
+
+        public IContext Context { get; set; }
+
+        public PageViewModel ActivePage
         {
             get { return _activePage; }
             set
@@ -26,19 +30,26 @@ namespace Caros
             }
         }
 
+        #endregion
+
         public MainViewModel()
-            : base(null)
         {
-            Context = Caros.Context.Context.Create(this);
+            Context = Caros.Core.Context.Context.Create(this);
+            Context.Navigator.OnNavigate += Navigator_OnNavigate;
             StartApplication();
+        }
+
+        void Navigator_OnNavigate(PageViewModel page)
+        {
+            this.ActivePage = page;
         }
 
         private async void StartApplication()
         {
-            this.ActivePage = new SplashPageViewModel(Context);
+            Context.Navigator.Visit<SplashPageViewModel>();
             await Task.Delay(2000);
 
-            this.ActivePage = new HomePageViewModel(Context);
+            Context.Navigator.Visit<HomePageViewModel>();
         }
     }
 }
