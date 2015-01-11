@@ -15,9 +15,9 @@ using System.Windows.Shapes;
 
 namespace Caros
 {
-    public partial class MainWindow : Window
+    public partial class ShellView
     {
-        public MainWindow()
+        public ShellView()
         {
             InitializeComponent();
         }
