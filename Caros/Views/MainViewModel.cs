@@ -6,10 +6,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using Caliburn.Micro;
+using System.Windows;
+using Caros.Views;
+using Caros.Context;
 
 namespace Caros
 {
-    class MainViewModel : PropertyChangedBase
+    class MainViewModel : ViewModel
     {
         private IPage _activePage;
 
@@ -24,15 +27,18 @@ namespace Caros
         }
 
         public MainViewModel()
+            : base(null)
         {
-            this.ActivePage = new SplashPageViewModel();
+            Context = Caros.Context.Context.Create(this);
             StartApplication();
         }
 
         private async void StartApplication()
         {
+            this.ActivePage = new SplashPageViewModel(Context);
             await Task.Delay(2000);
-            this.ActivePage = new HomePageViewModel();
+
+            this.ActivePage = new HomePageViewModel(Context);
         }
     }
 }
