@@ -1,4 +1,4 @@
-﻿using Caros.Views;
+﻿using Caros.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;

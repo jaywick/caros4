@@ -1,5 +1,4 @@
-﻿using Caros.Views.Pages;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,8 +6,9 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using Caliburn.Micro;
 using System.Windows;
-using Caros.Views;
 using Caros.Context;
+using Caros.Contracts;
+using Caros.Pages;
 
 namespace Caros
 {

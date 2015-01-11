@@ -76,7 +76,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Views\ViewModel.cs" />
+    <Compile Include="Contracts\ViewModel.cs" />
     <Page Include="Styles\CarosCommon.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -85,15 +85,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\MainView.xaml">
+    <Page Include="MainView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Pages\HomePageView.xaml">
+    <Page Include="Pages\HomePageView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Pages\SplashPageView.xaml">
+    <Page Include="Pages\SplashPageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -104,19 +104,19 @@
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Context\Context.cs" />
     <Compile Include="Context\Theme.cs" />
-    <Compile Include="Views\MainView.xaml.cs">
+    <Compile Include="MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\MainViewModel.cs" />
-    <Compile Include="Views\Pages\HomePageView.xaml.cs">
+    <Compile Include="MainViewModel.cs" />
+    <Compile Include="Pages\HomePageView.xaml.cs">
       <DependentUpon>HomePageView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Pages\IPage.cs" />
-    <Compile Include="Views\Pages\SplashPageView.xaml.cs">
+    <Compile Include="Contracts\IPage.cs" />
+    <Compile Include="Pages\SplashPageView.xaml.cs">
       <DependentUpon>SplashPageView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Pages\HomePageViewModel.cs" />
-    <Compile Include="Views\Pages\SplashPageViewModel.cs" />
+    <Compile Include="Pages\HomePageViewModel.cs" />
+    <Compile Include="Pages\SplashPageViewModel.cs" />
     <Page Include="Styles\CarosLight.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -150,6 +150,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

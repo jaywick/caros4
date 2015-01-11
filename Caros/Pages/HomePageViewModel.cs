@@ -5,8 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Caliburn.Micro;
 using Caros.Context;
+using Caros.Contracts;
 
-namespace Caros.Views.Pages
+namespace Caros.Pages
 {
     class HomePageViewModel : ViewModel
     {

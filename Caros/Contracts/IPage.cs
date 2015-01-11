@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Caros.Views.Pages
+namespace Caros.Contracts
 {
     interface IPage
     {

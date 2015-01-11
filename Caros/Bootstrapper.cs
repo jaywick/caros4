@@ -1,6 +1,5 @@
 ﻿using Caliburn.Micro;
 using Caros.Context;
-using Caros.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;

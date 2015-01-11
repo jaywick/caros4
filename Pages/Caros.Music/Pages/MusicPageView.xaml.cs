@@ -13,11 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Caros.Views.Pages
+namespace Caros.Music
 {
-    public partial class SplashPageView : UserControl
+    /// <summary>
+    /// Interaction logic for MusicPageView.xaml
+    /// </summary>
+    public partial class MusicPageView : UserControl
     {
-        public SplashPageView()
+        public MusicPageView()
         {
             InitializeComponent();
         }

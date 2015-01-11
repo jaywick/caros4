@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Caros.Views.Pages
+namespace Caros.Pages
 {
     public partial class HomePageView : UserControl
     {

@@ -1,13 +1,12 @@
 ﻿using Caliburn.Micro;
 using Caros.Context;
-using Caros.Views.Pages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Caros.Views
+namespace Caros.Contracts
 {
     public class ViewModel : PropertyChangedBase, IPage
     {
