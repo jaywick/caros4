@@ -12,9 +12,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Caros.Core.Tests", "Tests\Caros.Core.Tests\Caros.Core.Tests.csproj", "{68052C41-6FBB-40C3-BF7B-CC0F8C33B788}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{FB52BDDF-B285-4A1F-BCE7-FC531B58C50C}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\packages.config = .nuget\packages.config
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
