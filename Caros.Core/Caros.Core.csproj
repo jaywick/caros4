@@ -86,6 +86,8 @@
     <Compile Include="Context\Database.cs" />
     <Compile Include="Context\Navigator.cs" />
     <Compile Include="Context\Theme.cs" />
+    <Compile Include="Extensions\DirectoryInfoExtensions.cs" />
+    <Compile Include="Extensions\IEnumerableExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RootViewModel.cs" />
     <Compile Include="ViewModel.cs" />

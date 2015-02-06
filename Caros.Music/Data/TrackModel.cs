@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Caros.Core.Context;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Caros.Core.Extensions;
 
 namespace Caros.Music
 {
@@ -17,5 +19,10 @@ namespace Caros.Music
         public long Length { get; set; }
         public int PlayCount { get; set; }
         public DateTime DateAdded { get; set; }
+
+        public Uri GetUri(IContext context)
+        {
+            return new Uri(context.Storage.MusicInternalCache.Combine(HashName));
+        }
     }
 }

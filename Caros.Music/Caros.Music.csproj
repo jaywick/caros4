@@ -91,6 +91,7 @@
     <Compile Include="Data\TrackModel.cs" />
     <Compile Include="ImporterService.cs" />
     <Compile Include="PlayerService.cs" />
+    <Compile Include="Playlist.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MusicPageView.xaml.cs">
       <DependentUpon>MusicPageView.xaml</DependentUpon>
