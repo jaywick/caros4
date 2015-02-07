@@ -6,12 +6,13 @@
              mc:Ignorable="d" 
              Width="1024" Height="600">
     <Grid>
-        <ListBox ItemsSource="{Binding AllTracks}">
+        <ListBox ItemsSource="{Binding AllTracks}" SelectedItem="{Binding SelectedTrack}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Title}"/>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+        <Button x:Name="PurgeLibrary" Width="100" Height="100">Purge</Button>
     </Grid>
 </UserControl>

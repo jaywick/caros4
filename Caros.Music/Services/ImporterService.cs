@@ -5,6 +5,7 @@ using System.IO;
 using System.Collections.Generic;
 using TagLib;
 using Caros.Core;
+using System.Linq;
 
 namespace Caros.Music
 {
@@ -23,8 +24,7 @@ namespace Caros.Music
             var ignoredSinkPath = Context.Storage.MusicIgnoredImportFolder.FullName;
 
             var collection = Context.Database.GetCollection<TrackModel>(DatabaseReferences.MusicTracks);
-            collection.RemoveAll();
-
+            
             foreach (var file in importSource.EnumerateFiles("*.mp3", System.IO.SearchOption.AllDirectories))
             {
                 if (file.Directory.FullName == completedSinkPath || file.Directory.FullName == ignoredSinkPath)
@@ -35,15 +35,25 @@ namespace Caros.Music
 
                 if (track != null)
                 {
-                    file.CopyTo(Path.Combine(internalCachePath, hashName));
-                    file.MoveTo(Path.Combine(completedSinkPath, file.Name));
+                    file.CopyTo(Path.Combine(internalCachePath, hashName + file.Extension), true);
+                    file.CopyTo(Path.Combine(completedSinkPath, file.Name), true);
+                    file.Delete();
+
                     collection.Insert(track);
                 }
                 else
                 {
-                    file.MoveTo(Path.Combine(ignoredSinkPath, file.Name));
+                    file.CopyTo(Path.Combine(ignoredSinkPath, file.Name), true);
+                    file.Delete();
                 }
             }
+        }
+
+        public void PurgeLibrary()
+        {
+            Context.Services.Utilise<PlayerService>().Dipose();
+            Context.Storage.MusicInternalCache.EnumerateFiles().ToList().ForEach(x => x.Delete());
+            Context.Database.GetCollection(DatabaseReferences.MusicTracks).RemoveAll();
         }
 
         private TrackModel CreateTrackRecord(FileInfo originalFile, string hashName)
@@ -67,8 +77,10 @@ namespace Caros.Music
                 Artist = tagReader.GetArtist(),
                 Album = tagReader.GetAlbum(),
                 Length = tagReader.GetLength(),
+                Bitrate = tagReader.GetBitrate(),
                 PlayCount = 0,
                 DateAdded = DateTime.Now,
+                Extension = originalFile.Extension,
             };
         }
     }

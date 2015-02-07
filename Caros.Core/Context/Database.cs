@@ -9,13 +9,18 @@ using System.Diagnostics;
 
 namespace Caros.Core.Context
 {
-    public class Database
+    public class Database : ContextComponent
     {
         private const string ConnectionString = "mongodb://localhost";
         private const string DatabaseName = "master";
         
         private const string MongodPath = "/dev/mongodb/bin/mongod.exe";
         private const string MongodArguments = "--dbpath {0}";
+
+        public Database(IContext context)
+            : base(context)
+        {
+        }
 
         public void StartService(IContext context)
         {
@@ -30,6 +35,11 @@ namespace Caros.Core.Context
                 database.CreateCollection(name);
 
             return database.GetCollection<TEntity>(name);
+        }
+
+        public MongoCollection GetCollection(string name)
+        {
+            return GetCollection<object>(name);
         }
     }
 }

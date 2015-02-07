@@ -23,9 +23,13 @@ namespace Caros.Music
 
         public override void Start()
         {
+            ReloadAllSongs();
+        }
+
+        private void ReloadAllSongs()
+        {
             var collection = Context.Database.GetCollection<TrackModel>(DatabaseReferences.MusicTracks);
             AllTracks = new List<TrackModel>(collection.FindAllAs<TrackModel>());
-            
             CurrentPlaylist = new Playlist<TrackModel>(AllTracks);
         }
 
@@ -53,6 +57,12 @@ namespace Caros.Music
         public void PreviousTrack()
         {
             Play(CurrentPlaylist.Previous());
+        }
+
+        public void Dipose()
+        {
+            _mediaPlayer.Stop();
+            _mediaPlayer = null;
         }
     }
 }

@@ -8,18 +8,17 @@ using System.Windows;
 
 namespace Caros.Core.Context
 {
-    public class Theme
+    public class Theme : ContextComponent
     {
         public enum Style { Light, Dark }
 
         private const string LightStyleResource = "Caros.Core;component/Styles/CarosLight.xaml";
         private const string DarkStyleResource = "Caros.Core;component/Styles/CarosDark.xaml";
 
-        public Theme() { }
-
-        public Theme(Style style)
+        public Theme(IContext context)
+            : base(context)
         {
-            Set(style);
+            Set(Style.Light);
         }
 
         public void Set(Style style)

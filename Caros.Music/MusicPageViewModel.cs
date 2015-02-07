@@ -13,17 +13,38 @@ namespace Caros.Music.Pages
     {
         public BindableCollection<TrackModel> AllTracks { get; set; }
 
+        private PlayerService Player { get; set; }
+        private ImporterService Importer { get; set; }
+
         public MusicPageViewModel(IContext context)
             : base(context)
         {
-            var importer = new ImporterService(context);
-            importer.Start();
+            Importer = Context.Services.Utilise<ImporterService>();
+            Player = Context.Services.Utilise<PlayerService>();
+            Player.Start();
 
-            var player = new PlayerService(context);
-            player.Start();
-
-            AllTracks = new BindableCollection<TrackModel>(player.AllTracks);
+            AllTracks = new BindableCollection<TrackModel>(Player.AllTracks);
             NotifyOfPropertyChange(() => AllTracks);
+        }
+
+        private TrackModel _selectedTrack;
+        public TrackModel SelectedTrack
+        {
+            get
+            {
+                return _selectedTrack; 
+            }
+            set
+            {
+                _selectedTrack = value;
+                NotifyOfPropertyChange(() => SelectedTrack);
+                Player.Play(SelectedTrack);
+            }
+        }
+
+        public void PurgeLibrary()
+        {
+            Importer.PurgeLibrary();
         }
     }
 }

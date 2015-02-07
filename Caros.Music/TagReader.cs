@@ -32,9 +32,14 @@ namespace Caros.Music
             return _tagFile.Tag.Album;
         }
 
-        public long GetLength()
+        public TimeSpan GetLength()
         {
-            return _tagFile.Length;
+            return _tagFile.Properties.Duration;
+        }
+
+        public int GetBitrate()
+        {
+            return _tagFile.Properties.AudioBitrate;
         }
 
         private class LocalFileAbstraction : TagLib.File.IFileAbstraction

@@ -7,8 +7,13 @@ using System.Threading.Tasks;
 
 namespace Caros.Core.Context
 {
-    public class Storage
+    public class Storage : ContextComponent
     {
+        public Storage(IContext context)
+            : base(context)
+        {
+        }
+
         private const string SystemDirectory = "/caros/system/";
         private const string DropDirectory = "/caros/drop/";
 

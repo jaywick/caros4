@@ -46,7 +46,7 @@ namespace Caros
 
         private void StartApplication()
         {
-            Context.Services.StartSystemServices(Context);
+            Context.Services.StartSystemServices();
 
             //Context.Navigator.Visit<SplashPageViewModel>();
             //await Task.Delay(2000);

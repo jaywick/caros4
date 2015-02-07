@@ -83,6 +83,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context\Context.cs" />
+    <Compile Include="Context\ContextComponent.cs" />
     <Compile Include="Context\Database.cs" />
     <Compile Include="Context\Navigator.cs" />
     <Compile Include="Context\Services.cs" />

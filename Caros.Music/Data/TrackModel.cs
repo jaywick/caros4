@@ -17,13 +17,15 @@ namespace Caros.Music
         public string Title { get; set; }
         public string Artist { get; set; }
         public string Album { get; set; }
-        public long Length { get; set; }
+        public TimeSpan Length { get; set; }
+        public int Bitrate { get; set; }
         public int PlayCount { get; set; }
         public DateTime DateAdded { get; set; }
+        public string Extension { get; set; }
 
         public Uri GetUri(IContext context)
         {
-            return new Uri(context.Storage.MusicInternalCache.Combine(HashName));
+            return new Uri(context.Storage.MusicInternalCache.Combine(HashName + Extension));
         }
     }
 }

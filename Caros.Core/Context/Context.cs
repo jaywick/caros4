@@ -30,11 +30,11 @@ namespace Caros.Core.Context
         {
             var context = new Context();
             context.RootViewModel = rootViewModel;
-            context.Theme = new Theme(Theme.Style.Light);
+            context.Theme = new Theme(context);
             context.Navigator = new Navigator(context);
-            context.Storage = new Storage();
-            context.Database = new Database();
-            context.Services = new Services();
+            context.Storage = new Storage(context);
+            context.Database = new Database(context);
+            context.Services = new Services(context);
             return context;
         }
     }
