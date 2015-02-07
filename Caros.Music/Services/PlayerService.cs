@@ -5,32 +5,33 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
+using Caros.Core;
 
 namespace Caros.Music
 {
-    class PlayerService
+    public class PlayerService : Service
     {
         private MediaPlayer _mediaPlayer = new MediaPlayer();
-        private IContext _context;
 
         public bool IsPlaying { get; set; }
         public TrackModel CurrentTrack { get; set; }
-        public Playlist<TrackModel> Playlist { get; set; }
-        
-        public void Start(IContext context)
-        {
-            var collection = context.Database.GetCollection<TrackModel>("tracks");
-            var tracks = collection.FindAllAs<TrackModel>();
-        }
+        public Playlist<TrackModel> CurrentPlaylist { get; set; }
+        public List<TrackModel> AllTracks { get; set; }
 
-        public void Load(IEnumerable<TrackModel> tracks)
+        public PlayerService(IContext context)
+            : base(context) { }
+
+        public void Start()
         {
-            Playlist = new Playlist<TrackModel>(tracks);
+            var collection = Context.Database.GetCollection<TrackModel>(DatabaseReferences.MusicTracks);
+            AllTracks = new List<TrackModel>(collection.FindAllAs<TrackModel>());
+            
+            CurrentPlaylist = new Playlist<TrackModel>(AllTracks);
         }
 
         public void Play(TrackModel track)
         {
-            _mediaPlayer.Open(track.GetUri(_context));
+            _mediaPlayer.Open(track.GetUri(Context));
             _mediaPlayer.Play();
         }
 
@@ -46,12 +47,12 @@ namespace Caros.Music
 
         public void SkipTrack()
         {
-            Play(Playlist.Next());
+            Play(CurrentPlaylist.Next());
         }
 
         public void PreviousTrack()
         {
-            Play(Playlist.Previous());
+            Play(CurrentPlaylist.Previous());
         }
     }
 }

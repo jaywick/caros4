@@ -4,23 +4,32 @@ using MongoDB.Bson;
 using System.IO;
 using System.Collections.Generic;
 using TagLib;
+using Caros.Core;
 
 namespace Caros.Music
 {
-    class ImporterService
+    public class ImporterService : Service
     {
-        public void Start(IContext context)
+        public ImporterService(IContext context)
+            : base(context)
         {
-            var importSource = context.Storage.MusicDropFolder;
-            var internalCachePath = context.Storage.MusicInternalCache.FullName;
-            var completedSinkPath = context.Storage.MusicCompletedImportFolder.FullName;
-            var ignoredSinkPath = context.Storage.MusicIgnoredImportFolder.FullName;
+        }
 
-            var database = context.Database;
+        public void Start()
+        {
+            var importSource = Context.Storage.MusicDropFolder;
+            var internalCachePath = Context.Storage.MusicInternalCache.FullName;
+            var completedSinkPath = Context.Storage.MusicCompletedImportFolder.FullName;
+            var ignoredSinkPath = Context.Storage.MusicIgnoredImportFolder.FullName;
 
-            var tracks = new List<TrackModel>();
+            var collection = Context.Database.GetCollection<TrackModel>(DatabaseReferences.MusicTracks);
+            collection.RemoveAll();
+
             foreach (var file in importSource.EnumerateFiles("*.mp3", System.IO.SearchOption.AllDirectories))
             {
+                if (file.Directory.FullName == completedSinkPath || file.Directory.FullName == ignoredSinkPath)
+                    continue;
+
                 var hashName = Guid.NewGuid().ToString();
                 var track = CreateTrackRecord(file, hashName);
 
@@ -28,7 +37,7 @@ namespace Caros.Music
                 {
                     file.CopyTo(Path.Combine(internalCachePath, hashName));
                     file.MoveTo(Path.Combine(completedSinkPath, file.Name));
-                    tracks.Add(track);
+                    collection.Insert(track);
                 }
                 else
                 {

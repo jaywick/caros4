@@ -32,7 +32,7 @@ namespace Caros
             assemblies.AddRange(base.SelectAssemblies());
             assemblies.AddRange(Directory
                 .GetFiles(AppDomain.CurrentDomain.BaseDirectory)
-                .Where(file => file.EndsWith(".dll"))
+                .Where(file => new FileInfo(file).Name.ToLower().StartsWith("caros") && file.EndsWith(".dll"))
                 .Select(file => Assembly.Load(AssemblyName.GetAssemblyName(file))));
             return assemblies;
         }

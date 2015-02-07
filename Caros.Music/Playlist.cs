@@ -15,6 +15,7 @@ namespace Caros.Music
         public Playlist(IEnumerable<T> other)
         {
             _items = new List<T>(other);
+            _index = 0;
         }
 
         public T Current
@@ -48,6 +49,11 @@ namespace Caros.Music
             _items.Shuffle();
 
             _index = _items.IndexOf(current);
+        }
+
+        public List<T> ToList()
+        {
+            return _items;
         }
     }
 }

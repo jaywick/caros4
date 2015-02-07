@@ -6,6 +6,12 @@
              mc:Ignorable="d" 
              Width="1024" Height="600">
     <Grid>
-        <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center">MUSIC</Label>
+        <ListBox ItemsSource="{Binding AllTracks}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Title}"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </Grid>
 </UserControl>

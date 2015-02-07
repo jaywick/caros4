@@ -5,25 +5,31 @@ using System.Text;
 using System.Threading.Tasks;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using System.Diagnostics;
 
 namespace Caros.Core.Context
 {
     public class Database
     {
-        public string ConnectionString
+        private const string ConnectionString = "mongodb://localhost";
+        private const string DatabaseName = "master";
+        
+        private const string MongodPath = "/dev/mongodb/bin/mongod.exe";
+        private const string MongodArguments = "--dbpath {0}";
+
+        public void StartService(IContext context)
         {
-            get { return "mongodb://localhost"; }
+            Process.Start(MongodPath, String.Format(MongodArguments, context.Storage.DataFolder));
         }
 
-        public string DatabaseName
-        {
-            get { return "master"; }
-        }
-
-        public MongoCollection<TEntity> GetCollection<TEntity>(string collectionName)
+        public MongoCollection<TEntity> GetCollection<TEntity>(string name)
         {
             var database = new MongoClient(ConnectionString).GetServer().GetDatabase(DatabaseName);
-            return database.GetCollection<TEntity>(collectionName);
+
+            if (!database.CollectionExists(name))
+                database.CreateCollection(name);
+
+            return database.GetCollection<TEntity>(name);
         }
     }
 }

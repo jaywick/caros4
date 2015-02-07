@@ -9,32 +9,37 @@ namespace Caros.Core.Context
 {
     public class Storage
     {
-        private const string SYSTEM_DIRECTORY = @"c:\caros\system\";
-        private const string DROP_DIRECTORY = @"c:\caros\drop\";
+        private const string SystemDirectory = "/caros/system/";
+        private const string DropDirectory = "/caros/drop/";
 
         public DirectoryInfo MusicInternalCache
         {
-            get { return GetFolder(SYSTEM_DIRECTORY, @"music\library"); }
+            get { return GetFolder(SystemDirectory, "music/library"); }
         }
 
         public DirectoryInfo MusicDropFolder
         {
-            get { return GetFolder(DROP_DIRECTORY, "music"); }
+            get { return GetFolder(DropDirectory, "music"); }
         }
 
         public DirectoryInfo MusicCompletedImportFolder
         {
-            get { return GetFolder(DROP_DIRECTORY, @"music\completed"); }
+            get { return GetFolder(DropDirectory, "music/completed"); }
         }
 
         public DirectoryInfo MusicIgnoredImportFolder
         {
-            get { return GetFolder(DROP_DIRECTORY, @"music\ignored"); }
+            get { return GetFolder(DropDirectory, "music/ignored"); }
         }
 
-        public DirectoryInfo GetFolder(params string[] pathComponents)
+        public DirectoryInfo DataFolder
         {
-            var directory = new DirectoryInfo(Path.Combine(pathComponents));
+            get { return GetFolder(DropDirectory, "data"); }
+        }
+
+        public DirectoryInfo GetFolder(params string[] paths)
+        {
+            var directory = new DirectoryInfo(Path.Combine(paths));
 
             if (!directory.Exists)
                 directory.Create();

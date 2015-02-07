@@ -46,8 +46,8 @@ namespace Caros
 
         private async void StartApplication()
         {
-            Context.Navigator.Visit<SplashPageViewModel>();
-            await Task.Delay(2000);
+            //Context.Navigator.Visit<SplashPageViewModel>();
+            //await Task.Delay(2000);
 
             Context.Navigator.Visit<HomePageViewModel>();
         }

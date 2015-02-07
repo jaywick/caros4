@@ -5,12 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Caros.Core.Extensions;
+using MongoDB.Bson;
 
 namespace Caros.Music
 {
     public class TrackModel
     {
-        public string ID { get; set; }
+        public ObjectId _id { get; set; }
         public string HashName { get; set; }
         public string OriginalPath { get; set; }
         public string Title { get; set; }
