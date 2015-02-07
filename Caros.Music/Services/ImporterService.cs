@@ -8,14 +8,14 @@ using Caros.Core;
 
 namespace Caros.Music
 {
-    public class ImporterService : Service
+    public class ImporterService : SystemService
     {
         public ImporterService(IContext context)
             : base(context)
         {
         }
 
-        public void Start()
+        public override void Start()
         {
             var importSource = Context.Storage.MusicDropFolder;
             var internalCachePath = Context.Storage.MusicInternalCache.FullName;

@@ -85,6 +85,7 @@
     <Compile Include="Context\Context.cs" />
     <Compile Include="Context\Database.cs" />
     <Compile Include="Context\Navigator.cs" />
+    <Compile Include="Context\Services.cs" />
     <Compile Include="Context\Theme.cs" />
     <Compile Include="Extensions\DirectoryInfoExtensions.cs" />
     <Compile Include="Extensions\IEnumerableExtensions.cs" />

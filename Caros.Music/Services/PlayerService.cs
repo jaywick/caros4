@@ -21,7 +21,7 @@ namespace Caros.Music
         public PlayerService(IContext context)
             : base(context) { }
 
-        public void Start()
+        public override void Start()
         {
             var collection = Context.Database.GetCollection<TrackModel>(DatabaseReferences.MusicTracks);
             AllTracks = new List<TrackModel>(collection.FindAllAs<TrackModel>());
