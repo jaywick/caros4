@@ -14,17 +14,9 @@ namespace Caros.Core.Context
         private const string ConnectionString = "mongodb://localhost";
         private const string DatabaseName = "master";
         
-        private const string MongodPath = "/dev/mongodb/bin/mongod.exe";
-        private const string MongodArguments = "--dbpath {0}";
-
         public Database(IContext context)
             : base(context)
         {
-        }
-
-        public void StartService(IContext context)
-        {
-            Process.Start(MongodPath, String.Format(MongodArguments, context.Storage.DataFolder));
         }
 
         public MongoCollection<TEntity> GetCollection<TEntity>(string name)
