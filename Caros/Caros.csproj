@@ -101,6 +101,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\ProfilesPageView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Pages\HomePageView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -118,9 +122,13 @@
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainViewModel.cs" />
+    <Compile Include="Pages\ProfilesPageView.xaml.cs">
+      <DependentUpon>ProfilesPageView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\HomePageView.xaml.cs">
       <DependentUpon>HomePageView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\ProfilesPageViewModel.cs" />
     <Compile Include="Pages\SplashPageView.xaml.cs">
       <DependentUpon>SplashPageView.xaml</DependentUpon>
     </Compile>

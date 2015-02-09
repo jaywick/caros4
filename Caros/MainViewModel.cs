@@ -53,7 +53,9 @@ namespace Caros
 
             //Context.Navigator.Visit<HomePageViewModel>();
 
-            Context.Navigator.Visit<HomePageViewModel>();
+            Context.Navigator.Visit<ProfilesPageViewModel>();
+
+            //Context.Navigator.Visit<HomePageViewModel>();
         }
     }
 }

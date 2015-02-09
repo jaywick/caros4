@@ -23,6 +23,7 @@ namespace Caros.Music
             var completedSinkPath = Context.Storage.MusicCompletedImportFolder.FullName;
             var ignoredSinkPath = Context.Storage.MusicIgnoredImportFolder.FullName;
 
+            return;
             var collection = Context.Database.GetCollection<TrackModel>(DatabaseReferences.MusicTracks);
             
             foreach (var file in importSource.EnumerateFiles("*.mp3", System.IO.SearchOption.AllDirectories))

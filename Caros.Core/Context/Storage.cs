@@ -14,6 +14,7 @@ namespace Caros.Core.Context
         {
         }
 
+        private const string RootDirectory = "/caros/";
         private const string SystemDirectory = "/caros/system/";
         private const string DropDirectory = "/caros/drop/";
 
@@ -39,7 +40,7 @@ namespace Caros.Core.Context
 
         public DirectoryInfo DataFolder
         {
-            get { return GetFolder(DropDirectory, "data"); }
+            get { return GetFolder(RootDirectory, "data"); }
         }
 
         public DirectoryInfo GetFolder(params string[] paths)

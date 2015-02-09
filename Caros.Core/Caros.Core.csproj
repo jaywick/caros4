@@ -86,14 +86,18 @@
     <Compile Include="Context\ContextComponent.cs" />
     <Compile Include="Context\Database.cs" />
     <Compile Include="Context\Navigator.cs" />
+    <Compile Include="Context\Profiles.cs" />
     <Compile Include="Context\Services.cs" />
     <Compile Include="Context\Theme.cs" />
+    <Compile Include="Data\DatabaseReferences.cs" />
+    <Compile Include="Data\UserModel.cs" />
     <Compile Include="Extensions\DirectoryInfoExtensions.cs" />
     <Compile Include="Extensions\IEnumerableExtensions.cs" />
     <Compile Include="Service.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RootViewModel.cs" />
     <Compile Include="Services\DatabaseService.cs" />
+    <Compile Include="User.cs" />
     <Compile Include="ViewModel.cs" />
     <Compile Include="Context\Storage.cs" />
   </ItemGroup>

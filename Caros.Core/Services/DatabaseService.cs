@@ -23,9 +23,9 @@ namespace Caros.Core.Services
             var processInfo = new ProcessStartInfo
             {
                 Arguments = String.Format(MongodArguments, Context.Storage.DataFolder),
-                CreateNoWindow = true,
+                //CreateNoWindow = true,
                 FileName = MongodPath,
-                WindowStyle = ProcessWindowStyle.Hidden,
+                //WindowStyle = ProcessWindowStyle.Hidden,
             };
             
             Process.Start(processInfo);

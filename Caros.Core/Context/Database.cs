@@ -21,7 +21,11 @@ namespace Caros.Core.Context
 
         public MongoCollection<TEntity> GetCollection<TEntity>(string name)
         {
-            var database = new MongoClient(ConnectionString).GetServer().GetDatabase(DatabaseName);
+            var server = new MongoClient(ConnectionString).GetServer();
+            var database = server.GetDatabase(DatabaseName);
+
+            if (!server.DatabaseExists(DatabaseName))
+                throw new Exception("Database 'master' is missing");
 
             if (!database.CollectionExists(name))
                 database.CreateCollection(name);

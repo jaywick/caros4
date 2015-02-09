@@ -15,6 +15,7 @@ namespace Caros.Core.Context
         Storage Storage { get; set; }
         Database Database { get; set; }
         Services Services { get; set; }
+        Profiles Profiles { get; set; }
     }
 
     public class Context : IContext
@@ -25,6 +26,7 @@ namespace Caros.Core.Context
         public Storage Storage { get; set; }
         public Database Database { get; set; }
         public Services Services { get; set; }
+        public Profiles Profiles { get; set; }
 
         public static IContext Create(RootViewModel rootViewModel)
         {
@@ -35,6 +37,7 @@ namespace Caros.Core.Context
             context.Storage = new Storage(context);
             context.Database = new Database(context);
             context.Services = new Services(context);
+            context.Profiles = new Profiles(context);
             return context;
         }
     }
