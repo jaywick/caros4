@@ -13,21 +13,24 @@ namespace Caros.Core.Context
     {
         private Dictionary<Type, Service> _instances = new Dictionary<Type, Service>();
 
+        private List<Type> _systemServices = new List<Type>();
+
         public Services(IContext context)
             : base(context)
-        {
-        }
-
-        public void StartSystemServices()
         {
             var systemServices = Directory
                 .GetFiles(AppDomain.CurrentDomain.BaseDirectory)
                 .Where(filepath => new FileInfo(filepath).Name.ToLower().StartsWith("caros") && filepath.EndsWith(".dll"))
                 .Select(filepath => Assembly.Load(AssemblyName.GetAssemblyName(filepath)))
                 .SelectMany(assembly => assembly.GetTypes())
-                .Where(type => type.BaseType == typeof(SystemService));
+                .Where(type => type.CustomAttributes
+                    .OfType<AutoStartAttribute>()
+                    .Any());
+        }
 
-            foreach (var service in systemServices)
+        public void StartSystemServices()
+        {
+            foreach (var service in _systemServices)
             {
                 Utilise(service).Start();
             }

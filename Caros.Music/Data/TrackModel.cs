@@ -22,6 +22,7 @@ namespace Caros.Music
         public int PlayCount { get; set; }
         public DateTime DateAdded { get; set; }
         public string Extension { get; set; }
+        public string UserCode { get; set; }
 
         public Uri GetUri(IContext context)
         {

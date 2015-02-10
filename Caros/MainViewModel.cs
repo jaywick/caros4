@@ -9,6 +9,7 @@ using System.Windows;
 using Caros.Core.Context;
 using Caros.Core.Contracts;
 using Caros.Pages;
+using Caros.Core.Services;
 
 namespace Caros
 {
@@ -34,8 +35,6 @@ namespace Caros
 
         public MainViewModel()
         {
-            Context = Caros.Core.Context.Context.Create(this);
-            Context.Navigator.OnNavigate += Navigator_OnNavigate;
             StartApplication();
         }
 
@@ -46,6 +45,11 @@ namespace Caros
 
         private async void StartApplication()
         {
+            Caros.Core.Integration.DatabaseServer.Start();
+            
+            Context = Caros.Core.Context.Context.Create(this);
+            Context.Navigator.OnNavigate += Navigator_OnNavigate;
+
             Context.Services.StartSystemServices();
 
             Context.Navigator.Visit<SplashPageViewModel>();

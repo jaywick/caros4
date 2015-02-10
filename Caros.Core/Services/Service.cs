@@ -18,12 +18,4 @@ namespace Caros.Core.Services
 
         public abstract void Start();
     }
-
-    public abstract class SystemService : Service
-    {
-        public SystemService(IContext context)
-            : base(context)
-        {
-        }
-    }
 }

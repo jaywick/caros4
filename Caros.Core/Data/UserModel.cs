@@ -11,6 +11,6 @@ namespace Caros.Core
     {
         public ObjectId _id { get; set; }
         public string Name { get; set; }
-        public string HashName { get; set; }
+        public string UserCode { get; set; }
     }
 }

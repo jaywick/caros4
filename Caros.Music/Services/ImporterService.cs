@@ -10,7 +10,8 @@ using Caros.Core.Services;
 
 namespace Caros.Music
 {
-    public class ImporterService : SystemService
+    [AutoStartAttribute]
+    public class ImporterService : Service
     {
         public ImporterService(IContext context)
             : base(context)
@@ -33,7 +34,7 @@ namespace Caros.Music
                     continue;
 
                 var hashName = Crypto.GenerateGuid();
-                var track = CreateTrackRecord(file, hashName);
+                var track = CreateTrackRecord(file, hashName, Context.Profiles.CurrentUser.UserCode);
 
                 if (track != null)
                 {
@@ -58,7 +59,7 @@ namespace Caros.Music
             Context.Database.GetCollection(DatabaseReferences.MusicTracks).RemoveAll();
         }
 
-        private TrackModel CreateTrackRecord(FileInfo originalFile, string hashName)
+        private TrackModel CreateTrackRecord(FileInfo originalFile, string hashName, string userCode)
         {
             TagReader tagReader = null;
 
@@ -83,6 +84,7 @@ namespace Caros.Music
                 PlayCount = 0,
                 DateAdded = DateTime.Now,
                 Extension = originalFile.Extension,
+                UserCode = userCode,
             };
         }
     }

@@ -12,18 +12,18 @@ namespace Caros.Core
         private UserModel x;
 
         public string Name { get; set; }
-        public string HashName { get; set; }
+        public string UserCode { get; set; }
 		
 		public User(string name)
 		{
 			Name = name;
-            HashName = Crypto.GenerateMD5(name);
+            UserCode = Crypto.GenerateMD5(name);
 		}
 
         public User(UserModel x)
         {
             Name = x.Name;
-            HashName = x.HashName;
+            UserCode = x.UserCode;
         }
     }
 }
