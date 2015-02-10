@@ -9,7 +9,7 @@
              mc:Ignorable="d" 
              Width="1024" Height="600">
     <Grid>
-        <Button Content="Switch Theme" cal:Message.Attach="SwitchTheme"
+        <Button Content="Switch User" cal:Message.Attach="SwitchUser"
             Width="300" Height="70" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="20"/>
 
         <laurencebunnage:TilePanel>

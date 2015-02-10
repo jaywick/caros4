@@ -6,6 +6,6 @@
              mc:Ignorable="d" 
              Width="1024" Height="600">
     <Grid>
-        <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center">Welcome back!</Label>
+        <Label Content="{Binding WelcomeMessage}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
     </Grid>
 </UserControl>

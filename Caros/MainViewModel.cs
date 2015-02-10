@@ -44,18 +44,14 @@ namespace Caros
             this.ActivePage = page;
         }
 
-        private void StartApplication()
+        private async void StartApplication()
         {
             Context.Services.StartSystemServices();
 
-            //Context.Navigator.Visit<SplashPageViewModel>();
-            //await Task.Delay(2000);
+            Context.Navigator.Visit<SplashPageViewModel>();
+            await Task.Delay(2000);
 
-            //Context.Navigator.Visit<HomePageViewModel>();
-
-            Context.Navigator.Visit<ProfilesPageViewModel>();
-
-            //Context.Navigator.Visit<HomePageViewModel>();
+            Context.Navigator.Visit<HomePageViewModel>();
         }
     }
 }

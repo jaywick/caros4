@@ -14,8 +14,6 @@ namespace Caros
     // see also: https://github.com/Caliburn-Micro/Caliburn.Micro/blob/master/src/Caliburn.Micro.Platform/Bootstrapper.cs
     public class Bootstrapper : BootstrapperBase
     {
-        public IContext ApplicateContext { get; set; }
-
         public Bootstrapper()
         {
             Initialize();

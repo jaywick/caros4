@@ -22,9 +22,9 @@ namespace Caros.Pages
             Context.Navigator.Visit<MusicPageViewModel>();
         }
 
-        public void SwitchTheme()
+        public void SwitchUser()
         {
-            Context.Theme.Set(Theme.Style.Dark);
+            Context.Navigator.Visit<ProfilesPageViewModel>();
         }
     }
 }

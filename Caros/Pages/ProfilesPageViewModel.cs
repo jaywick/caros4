@@ -25,6 +25,7 @@ namespace Caros.Pages
         public void SwitchProfile(User user)
         {
             Context.Profiles.SwitchProfile(user);
+            Context.Navigator.Visit<SplashPageViewModel>();
         }
     }
 }

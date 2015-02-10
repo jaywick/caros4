@@ -15,5 +15,10 @@ namespace Caros.Pages
             : base(context)
         {
         }
+
+        public string WelcomeMessage
+        {
+            get { return String.Format("Welcome back {0}!", Context.Profiles.CurrentUser.Name); }
+        }
     }
 }

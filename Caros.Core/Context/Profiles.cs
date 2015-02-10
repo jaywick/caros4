@@ -11,6 +11,7 @@ namespace Caros.Core.Context
         public Profiles(IContext context)
             : base(context)
         {
+            CurrentUser = Users.First();
         }
 
         public User CurrentUser { get; private set; }
