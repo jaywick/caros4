@@ -17,6 +17,12 @@ namespace Caros.Core.Context
         private const string RootDirectory = "/caros/";
         private const string SystemDirectory = "/caros/system/";
         private const string DropDirectory = "/caros/drop/";
+        private const string UsersDirectory = "/caros/users/";
+
+        public DirectoryInfo UserProfile
+        {
+            get { return GetFolder(UsersDirectory, Context.Profiles.CurrentUser.HashName); }
+        }
 
         public DirectoryInfo MusicInternalCache
         {

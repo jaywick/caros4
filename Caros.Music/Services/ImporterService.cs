@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using TagLib;
 using Caros.Core;
 using System.Linq;
+using Caros.Core.Services;
 
 namespace Caros.Music
 {
@@ -31,7 +32,7 @@ namespace Caros.Music
                 if (file.Directory.FullName == completedSinkPath || file.Directory.FullName == ignoredSinkPath)
                     continue;
 
-                var hashName = Guid.NewGuid().ToString();
+                var hashName = Crypto.GenerateGuid();
                 var track = CreateTrackRecord(file, hashName);
 
                 if (track != null)

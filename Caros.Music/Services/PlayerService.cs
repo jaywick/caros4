@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using Caros.Core;
+using Caros.Core.Services;
 
 namespace Caros.Music
 {
