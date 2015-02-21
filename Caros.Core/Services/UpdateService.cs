@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Caros.Core.Context;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,11 @@ namespace Caros.Core.Services
         private const string FtpPath = @"/caros4/packages";
         private const string FtpUserName = "caros@jay-wick.com";
         private const string FtpPassword = "_=nMqH!m@naV";
+
+        public UpdateService (IContext context)
+            : base(context)
+	    {
+	    }
 
         public override void Start()
         {
