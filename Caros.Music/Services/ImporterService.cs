@@ -10,7 +10,7 @@ using Caros.Core.Services;
 
 namespace Caros.Music
 {
-    [AutoStartAttribute]
+    [AutoStart]
     public class ImporterService : Service
     {
         public ImporterService(IContext context)

@@ -82,6 +82,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Integration\VersionMeta.cs" />
     <Compile Include="Services\AutoStartAttribute.cs" />
     <Compile Include="Context\Context.cs" />
     <Compile Include="Context\ContextComponent.cs" />

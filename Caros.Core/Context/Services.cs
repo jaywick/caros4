@@ -13,19 +13,16 @@ namespace Caros.Core.Context
     {
         private Dictionary<Type, Service> _instances = new Dictionary<Type, Service>();
 
-        private List<Type> _systemServices = new List<Type>();
+        private IEnumerable<Type> _systemServices = Enumerable.Empty<Type>();
 
         public Services(IContext context)
             : base(context)
         {
-            var systemServices = Directory
-                .GetFiles(AppDomain.CurrentDomain.BaseDirectory)
-                .Where(filepath => new FileInfo(filepath).Name.ToLower().StartsWith("caros") && filepath.EndsWith(".dll"))
+            _systemServices = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory)
+                .Where(filepath => new FileInfo(filepath).Name.ToLower().StartsWith("caros") && (filepath.EndsWith(".dll") || filepath.EndsWith(".exe")))
                 .Select(filepath => Assembly.Load(AssemblyName.GetAssemblyName(filepath)))
                 .SelectMany(assembly => assembly.GetTypes())
-                .Where(type => type.CustomAttributes
-                    .OfType<AutoStartAttribute>()
-                    .Any());
+                .Where(type => type.GetCustomAttribute<AutoStartAttribute>() != null);
         }
 
         public void StartSystemServices()
