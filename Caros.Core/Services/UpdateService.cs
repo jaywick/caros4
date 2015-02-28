@@ -32,7 +32,7 @@ namespace Caros.Core.Services
                 return UpdateInfo.None;
 
             var remoteVersion = GetRemoteVersion().ReleaseNumber;
-            var currentVersion = Versioning.CurrentVersion.ReleaseNumber;
+            var currentVersion = ClientVersion.CurrentVersion.ReleaseNumber;
 
             if (remoteVersion <= currentVersion)
                 return UpdateInfo.None;
