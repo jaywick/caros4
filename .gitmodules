@@ -1,0 +1,3 @@
+[submodule "Caros.CI"]
+	path = Caros.CI
+	url = https://bitbucket.org/jaywick_/caros.ci.git
