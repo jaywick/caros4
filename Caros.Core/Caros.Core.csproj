@@ -123,7 +123,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\CI\API\Caros.CI.API\Caros.CI.API.csproj">
+    <ProjectReference Include="..\Caros.CI\API\Caros.CI.API\Caros.CI.API.csproj">
       <Project>{2802c47b-25df-4586-ae70-997da268489f}</Project>
       <Name>Caros.CI.API</Name>
     </ProjectReference>
