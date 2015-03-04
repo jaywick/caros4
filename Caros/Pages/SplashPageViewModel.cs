@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Caliburn.Micro;
 using Caros.Core.Context;
 using Caros.Core.Contracts;
+using Caros.Core.Services;
 
 namespace Caros.Pages
 {
@@ -18,7 +19,11 @@ namespace Caros.Pages
 
         public string WelcomeMessage
         {
-            get { return String.Format("Welcome back {0}!", Context.Profiles.CurrentUser.Name); }
+            get
+            {
+                var updateService = Context.Services.Utilise<UpdateService>();
+                return String.Format("Welcome back {0}! You're running {1}", Context.Profiles.CurrentUser.Name, updateService.CurrentReleaseName);
+            }
         }
     }
 }

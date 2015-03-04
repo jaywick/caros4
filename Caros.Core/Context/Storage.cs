@@ -14,12 +14,13 @@ namespace Caros.Core.Context
         {
         }
 
-        public const string DataDirectory = "/caros/data";
+        public readonly static string DataDirectory = "/caros/data";
+        public readonly static string BinariesDirectory = "/caros/system/binaries/";
 
-        private const string RootDirectory = "/caros/";
-        private const string SystemDirectory = "/caros/system/";
-        private const string DropDirectory = "/caros/drop/";
-        private const string UsersDirectory = "/caros/users/";
+        public readonly static string RootDirectory = "/caros/";
+        public readonly static string SystemDirectory = "/caros/system/";
+        public readonly static string DropDirectory = "/caros/drop/";
+        public readonly static string UsersDirectory = "/caros/users/";
 
         public DirectoryInfo UserProfile
         {

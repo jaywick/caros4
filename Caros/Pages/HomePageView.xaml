@@ -16,5 +16,7 @@
             <metro:Tile Count="Music" cal:Message.Attach="LaunchMusic"
                 Style="{DynamicResource CarosHomeTile}" />
         </laurencebunnage:TilePanel>
+        <Button x:Name="UpdateSystem" Content="Update System"
+        	Width="300" Height="70" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,95,20,0"/>
     </Grid>
 </UserControl>

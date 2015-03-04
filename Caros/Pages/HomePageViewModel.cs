@@ -26,5 +26,21 @@ namespace Caros.Pages
         {
             Context.Navigator.Visit<ProfilesPageViewModel>();
         }
+
+        public void UpdateSystem()
+        {
+            var updateService = Context.Services.Utilise<Caros.Core.Services.UpdateService>();
+
+            updateService.CheckForUpdates();
+            if (updateService.IsUpdateAvailable)
+            {
+                //todo: toast + yes/no to update
+                updateService.DownloadUpdate();
+                updateService.Deploy();
+
+                //todo: toast + yes/no to relaunch
+                updateService.Relaunch();
+            }
+        }
     }
 }
