@@ -7,11 +7,11 @@ using Caliburn.Micro;
 using Caros.Core.Context;
 using Caros.Core.Contracts;
 
-namespace Caros.Music.Pages
+namespace Caros.Music
 {
     public class MusicPageViewModel : PageViewModel
     {
-        public BindableCollection<TrackModel> AllTracks { get; set; }
+        public BindableCollection<Track> NowPlaying { get; set; }
 
         private PlayerService Player { get; set; }
         private ImporterService Importer { get; set; }
@@ -23,28 +23,38 @@ namespace Caros.Music.Pages
             Player = Context.Services.Utilise<PlayerService>();
             Player.Start();
 
-            AllTracks = new BindableCollection<TrackModel>(Player.AllTracks);
-            NotifyOfPropertyChange(() => AllTracks);
+            NowPlaying = new BindableCollection<Track>(Player.CurrentPlaylist.ToList());
+            SelectedTrack = NowPlaying.First();
+
+            NotifyOfPropertyChange(() => NowPlaying);
         }
 
-        private TrackModel _selectedTrack;
-        public TrackModel SelectedTrack
+        public Track SelectedTrack
         {
             get
             {
-                return _selectedTrack; 
+                return Player.CurrentTrack;
             }
             set
             {
-                _selectedTrack = value;
+                Player.Play(value);
                 NotifyOfPropertyChange(() => SelectedTrack);
-                Player.Play(SelectedTrack);
             }
         }
 
-        public void PurgeLibrary()
+        public void PreviousTrack()
         {
-            Importer.PurgeLibrary();
+            SelectedTrack = Player.PreviousTrack();
+        }
+
+        public void TogglePlayback()
+        {
+            Player.TogglePlayback();
+        }
+
+        public void SkipTrack()
+        {
+            SelectedTrack = Player.SkipTrack();
         }
     }
 }

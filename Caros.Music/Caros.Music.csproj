@@ -99,6 +99,7 @@
     </Compile>
     <Compile Include="MusicPageViewModel.cs" />
     <Compile Include="TagReader.cs" />
+    <Compile Include="Track.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

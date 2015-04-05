@@ -21,13 +21,14 @@ namespace Caros.Music
         public T Current
         {
             get { return _items[_index]; }
+            set { _index = _items.IndexOf(value); }
         }
 
         public T Next()
         {
             _index++;
 
-            if (_index == _items.Count)
+            if (_index > _items.Count - 1)
                 _index = 0;
 
             return Current;
@@ -38,7 +39,7 @@ namespace Caros.Music
             _index--;
 
             if (_index < 0)
-                _index = _items.Count;
+                _index = _items.Count - 1;
 
             return Current;
         }

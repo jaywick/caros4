@@ -11,8 +11,7 @@ using System.Windows;
 
 namespace Caros.Core.Services
 {
-    [AutoStart]
-    public class UpdateService : Service
+    public class UpdateService : SystemService
     {
         private const string UpdatesPathUrl = "http://internal.jay-wick.com/caros/updates/";
         private const string PackageNameFormat = "r{0}.caros-update";

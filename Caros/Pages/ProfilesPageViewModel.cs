@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Caliburn.Micro;
 using Caros.Core.Context;
 using Caros.Core.Contracts;
-using Caros.Music.Pages;
+using Caros.Music;
 using Caros.Core;
 
 namespace Caros.Pages

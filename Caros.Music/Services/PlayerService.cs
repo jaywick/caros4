@@ -15,9 +15,8 @@ namespace Caros.Music
         private MediaPlayer _mediaPlayer = new MediaPlayer();
 
         public bool IsPlaying { get; set; }
-        public TrackModel CurrentTrack { get; set; }
-        public Playlist<TrackModel> CurrentPlaylist { get; set; }
-        public List<TrackModel> AllTracks { get; set; }
+        public Playlist<Track> CurrentPlaylist { get; set; }
+        public List<Track> TracksCollection { get; set; }
 
         public PlayerService(IContext context)
             : base(context) { }
@@ -27,37 +26,61 @@ namespace Caros.Music
             ReloadAllSongs();
         }
 
+        public Track CurrentTrack
+        {
+            get { return CurrentPlaylist.Current; }
+        }
+
         private void ReloadAllSongs()
         {
             var collection = Context.Database.GetCollection<TrackModel>(DatabaseReferences.MusicTracks);
-            AllTracks = new List<TrackModel>(collection.FindAllAs<TrackModel>());
-            CurrentPlaylist = new Playlist<TrackModel>(AllTracks);
+            TracksCollection = collection.FindAllAs<TrackModel>().Select(x => new Track(x)).ToList();
+
+            CurrentPlaylist = new Playlist<Track>(TracksCollection);
+            CurrentPlaylist.Shuffle();
         }
 
-        public void Play(TrackModel track)
+        public void Play(Track track)
         {
+            CurrentPlaylist.Current = track;
             _mediaPlayer.Open(track.GetUri(Context));
-            _mediaPlayer.Play();
+            Resume();
         }
 
         public void Resume()
         {
+            IsPlaying = true;
             _mediaPlayer.Play();
         }
 
         public void Pause()
         {
+            IsPlaying = false;
             _mediaPlayer.Pause();
         }
 
-        public void SkipTrack()
+        public void TogglePlayback()
         {
-            Play(CurrentPlaylist.Next());
+            if (IsPlaying)
+                Pause();
+            else
+                Resume();
         }
 
-        public void PreviousTrack()
+        public Track SkipTrack()
         {
-            Play(CurrentPlaylist.Previous());
+            var track = CurrentPlaylist.Next();
+            Play(track);
+
+            return track;
+        }
+
+        public Track PreviousTrack()
+        {
+            var track = CurrentPlaylist.Previous();
+            Play(track);
+
+            return track;
         }
 
         public void Dipose()

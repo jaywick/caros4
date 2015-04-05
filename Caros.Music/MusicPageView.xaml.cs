@@ -13,13 +13,21 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Caros.Music.Pages
+namespace Caros.Music
 {
     public partial class MusicPageView : UserControl
     {
         public MusicPageView()
         {
             InitializeComponent();
+        }
+
+        private void listTracks_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems.Count == 0)
+                return;
+
+            listTracks.ScrollIntoView(e.AddedItems[0]);
         }
     }
 }

@@ -22,7 +22,7 @@ namespace Caros.Core.Context
                 .Where(filepath => new FileInfo(filepath).Name.ToLower().StartsWith("caros") && (filepath.EndsWith(".dll") || filepath.EndsWith(".exe")))
                 .Select(filepath => Assembly.Load(AssemblyName.GetAssemblyName(filepath)))
                 .SelectMany(assembly => assembly.GetTypes())
-                .Where(type => type.GetCustomAttribute<AutoStartAttribute>() != null);
+                .Where(type => typeof(SystemService).IsAssignableFrom(type) && type != typeof(SystemService));
         }
 
         public void StartSystemServices()

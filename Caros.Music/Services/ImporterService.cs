@@ -7,27 +7,33 @@ using TagLib;
 using Caros.Core;
 using System.Linq;
 using Caros.Core.Services;
+using System.Threading.Tasks;
 
 namespace Caros.Music
 {
-    [AutoStart]
-    public class ImporterService : Service
+    public class ImporterService : SystemService
     {
+        public Action ImportCompleted;
+
         public ImporterService(IContext context)
             : base(context)
         {
         }
 
-        public override void Start()
+        public async override void Start()
+        {
+            await Task.Run((Action)StartImport);
+        }
+
+        private void StartImport()
         {
             var importSource = Context.Storage.MusicDropFolder;
             var internalCachePath = Context.Storage.MusicInternalCache.FullName;
             var completedSinkPath = Context.Storage.MusicCompletedImportFolder.FullName;
             var ignoredSinkPath = Context.Storage.MusicIgnoredImportFolder.FullName;
 
-            return;
             var collection = Context.Database.GetCollection<TrackModel>(DatabaseReferences.MusicTracks);
-            
+
             foreach (var file in importSource.EnumerateFiles("*.mp3", System.IO.SearchOption.AllDirectories))
             {
                 if (file.Directory.FullName == completedSinkPath || file.Directory.FullName == ignoredSinkPath)
@@ -50,6 +56,9 @@ namespace Caros.Music
                     file.Delete();
                 }
             }
+
+            if (ImportCompleted != null)
+                ImportCompleted.Invoke();
         }
 
         public void PurgeLibrary()

@@ -18,4 +18,15 @@ namespace Caros.Core.Services
 
         public abstract void Start();
     }
+
+    /// <summary>
+    /// System services start automatically with the application
+    /// </summary>
+    public abstract class SystemService : Service
+    {
+        public SystemService(IContext context)
+            : base(context)
+        {
+        }
+    }
 }
