@@ -22,10 +22,15 @@ namespace Caros.Pages
 
         public BindableCollection<User> Users { get; set; }
 
-        public void SwitchProfile(User user)
+        public async void SwitchProfile(User user)
         {
             Context.Profiles.SwitchProfile(user);
             Context.Navigator.Visit<SplashPageViewModel>();
+
+
+            await Task.Delay(2000);
+
+            Context.Navigator.Visit<HomePageViewModel>();
         }
     }
 }
