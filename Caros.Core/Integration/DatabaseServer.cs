@@ -15,6 +15,11 @@ namespace Caros.Core.Integration
 
         public static void Start()
         {
+            if (!System.IO.File.Exists(MongodPath))
+            {
+                throw new Exception("Database is not installed @ " + MongodPath);
+            }
+
             var processInfo = new ProcessStartInfo();
             processInfo.Arguments = String.Format(MongodArguments, Storage.DataDirectory);
             processInfo.FileName = MongodPath;
@@ -24,7 +29,7 @@ namespace Caros.Core.Integration
                 processInfo.CreateNoWindow = true;
                 processInfo.WindowStyle = ProcessWindowStyle.Hidden;
             }
-            
+
             Process.Start(processInfo);
         }
     }
