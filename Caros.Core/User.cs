@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Caros.Core.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
@@ -9,7 +10,7 @@ namespace Caros.Core
 {
 	public class User
 	{
-        private UserModel x;
+        private UserModel _model;
 
         public string Name { get; set; }
         public string UserCode { get; set; }
@@ -20,10 +21,12 @@ namespace Caros.Core
             UserCode = Crypto.GenerateMD5(name);
 		}
 
-        public User(UserModel x)
+        public User(UserModel model)
         {
-            Name = x.Name;
-            UserCode = x.UserCode;
+            _model = model;
+
+            Name = model.Name;
+            UserCode = model.UserCode;
         }
     }
 }

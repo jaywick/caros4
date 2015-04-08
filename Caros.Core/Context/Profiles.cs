@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Caros.Core.Extensions;
+using Caros.Core.Data;
 
 namespace Caros.Core.Context
 {
@@ -21,7 +23,7 @@ namespace Caros.Core.Context
             get
             {
                 return Context.Database
-                    .GetCollection<UserModel>(DatabaseReferences.Users)
+                    .GetCollection<UserModel>(UserModel.CollectionName)
                     .FindAllAs<UserModel>()
                     .Select(x => new User(x));
             }

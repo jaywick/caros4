@@ -45,9 +45,9 @@ namespace Caros
 
         private async void StartApplication()
         {
-            Caros.Core.Integration.DatabaseServer.Start();
+            Caros.Core.IntegrationServices.Start();
             
-            Context = Caros.Core.Context.Context.Create(this);
+            Context = Caros.Core.Context.ApplicationContext.Create(this);
             Context.Navigator.OnNavigate += Navigator_OnNavigate;
 
             Context.Services.StartSystemServices();

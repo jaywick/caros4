@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace Caros.Core.Context
 {
-    public class Services : ContextComponent
+    public class ServicesManager : ContextComponent
     {
         private Dictionary<Type, Service> _instances = new Dictionary<Type, Service>();
 
         private IEnumerable<Type> _systemServices = Enumerable.Empty<Type>();
 
-        public Services(IContext context)
+        public ServicesManager(IContext context)
             : base(context)
         {
             _systemServices = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory)

@@ -18,7 +18,6 @@ namespace Caros.Core.Services
         private const string VersionPointerName = "version.pointer";
 
         private UpdateInfo _lastUpdate;
-        private string _lastPackage;
 
         public UpdateService(IContext context)
             : base(context)
