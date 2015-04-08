@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,9 +21,21 @@ namespace Caros
     /// </summary>
     public partial class MainView : UserControl
     {
+        private const double EmulatorScale = 0.7;
+
         public MainView()
         {
             InitializeComponent();
+            ScaleWindow();
+        }
+
+        [Conditional("DEBUG")]
+        private void ScaleWindow()
+        {
+            var scale = EmulatorScale;
+            LayoutRoot.LayoutTransform = new ScaleTransform(scale, scale);
+            this.Width *= scale;
+            this.Height *= scale;
         }
     }
 }
