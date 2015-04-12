@@ -10,7 +10,7 @@ namespace Caros.Core.Contracts
 {
     public class PageViewModel : PropertyChangedBase
     {
-        public IContext Context { get; set; }
+        public virtual IContext Context { get; set; }
 
         public PageViewModel(IContext context)
         {

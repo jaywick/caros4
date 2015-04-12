@@ -9,7 +9,7 @@ namespace Caros.Core.Services
 {
     public abstract class Service
     {
-        public IContext Context { get; set; }
+        public virtual IContext Context { get; set; }
 
         public Service(IContext context)
         {

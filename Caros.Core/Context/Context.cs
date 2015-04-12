@@ -9,7 +9,6 @@ namespace Caros.Core.Context
 {
     public interface IContext
     {
-        RootViewModel RootViewModel { get; set; }
         ITheme Theme { get; set; }
         INavigator Navigator { get; set; }
         IStorage Storage { get; set; }
@@ -22,7 +21,6 @@ namespace Caros.Core.Context
 
     public class ApplicationContext : IContext
     {
-        public RootViewModel RootViewModel { get; set; }
         public ITheme Theme { get; set; }
         public INavigator Navigator { get; set; }
         public IStorage Storage { get; set; }
@@ -32,11 +30,10 @@ namespace Caros.Core.Context
         public IEnvironment Environment { get; set; }
         public IClock Clock { get; set; }
 
-        public static IContext Create(RootViewModel rootViewModel)
+        public static IContext Create()
         {
             var context = new ApplicationContext();
             context.Clock = new Clock(context);
-            context.RootViewModel = rootViewModel;
             context.Environment = new Environment(context);
             context.Theme = new Theme(context);
             context.Navigator = new Navigator(context);

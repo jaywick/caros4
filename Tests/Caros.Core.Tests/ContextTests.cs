@@ -22,79 +22,34 @@ namespace Caros.Core.Tests
         [TestCase(0, ThemeStyle.Dark)]
         [TestCase(3, ThemeStyle.Dark)]
         [TestCase(5, ThemeStyle.Dark)]
-        public void ShouldSetDarkThemeIfNightTime(int inputHour, ThemeStyle expectedTheme)
-        {
-            var inputDate = new System.DateTime(2015, 1, 1, inputHour, 0, 0);
-            var MockContext = new MockContext(inputDate);
-
-            Assert.AreEqual(MockContext.Theme.Current, expectedTheme);
-        }
-
         [TestCase(8, ThemeStyle.Light)]
         [TestCase(10, ThemeStyle.Light)]
         [TestCase(12, ThemeStyle.Light)]
         [TestCase(15, ThemeStyle.Light)]
         [TestCase(17, ThemeStyle.Light)]
-        public void ShouldSetLightThemeIfDayTime(int inputHour, ThemeStyle expectedTheme)
+        public void ShouldSetThemeBasedOnTime(int inputHour, ThemeStyle expectedTheme)
         {
+            // input
             var inputDate = new System.DateTime(2015, 1, 1, inputHour, 0, 0);
-            var MockContext = new MockContext(inputDate);
 
-            Assert.AreEqual(MockContext.Theme.Current, expectedTheme);
-        }
+            // mock
+            var context = new ApplicationContext();
 
-        private class MockContext : IContext
-        {
-            public RootViewModel RootViewModel { get; set; }
-            public ITheme Theme { get; set; }
-            public INavigator Navigator { get; set; }
-            public IStorage Storage { get; set; }
-            public IDatabase Database { get; set; }
-            public ServicesManager Services { get; set; }
-            public IProfiles Profiles { get; set; }
-            public IEnvironment Environment { get; set; }
-            public IClock Clock { get; set; }
+            var mockClock = new Mock<Clock>(context) { CallBase = true };
+            mockClock.Setup(x => x.CurrentTime).Returns(inputDate);
 
-            public MockContext(System.DateTime inputDate)
-            {
-                this.Clock = new MockClock(this, inputDate);
-                this.Environment = new Environment(this);
-                this.Theme = new MockTheme(this);
-            }
+            var mockTheme = new Mock<Theme>(context) { CallBase = true };
+            mockTheme.Setup(x => x.UpdateResources(It.IsAny<ThemeStyle>())); // setup with no implementation = dont run anything
 
-            public static IContext Create()
-            {
-                return null;
-            }
-        }
+            // work
+            context.Clock = mockClock.Object;
+            context.Environment = new Environment(context);
+            context.Theme = mockTheme.Object;
+            context.Theme.Initialise();
 
-        private class MockClock : ContextComponent, IClock
-        {
-            private System.DateTime _inputDate;
-
-            public MockClock(MockContext mockContext, System.DateTime inputDate)
-                : base(mockContext)
-            {
-                _inputDate = inputDate;
-            }
-
-            public System.DateTime CurrentTime
-            {
-                get { return _inputDate; }
-            }
-        }
-
-        private class MockTheme : Theme
-        {
-            public MockTheme(IContext context)
-                : base(context)
-            {
-            }
-
-            public override void Set(ThemeStyle style)
-            {
-                Current = style;
-            }
+            // compare
+            var actualTheme = context.Theme.Current;
+            Assert.AreEqual(expectedTheme, actualTheme);
         }
     }
 }

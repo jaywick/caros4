@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Caros.Core.Context
 {
-    public interface IStorage
+    public interface IStorage : IContextComponent
     {
         DirectoryInfo DataFolder { get; }
         DirectoryInfo GetFolder(params string[] paths);
@@ -18,11 +18,13 @@ namespace Caros.Core.Context
         DirectoryInfo UserProfile { get; }
     }
 
-    public class Storage : ContextComponent, IStorage
+    public class Storage : IStorage
     {
+        public virtual IContext Context { get; set; }
+
         public Storage(IContext context)
-            : base(context)
         {
+            Context = context;
         }
 
         public readonly static string DataDirectory = "/caros/data";

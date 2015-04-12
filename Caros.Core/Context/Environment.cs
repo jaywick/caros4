@@ -9,16 +9,18 @@ using System.Diagnostics;
 
 namespace Caros.Core.Context
 {
-    public interface IEnvironment
+    public interface IEnvironment : IContextComponent
     {
         bool IsNight { get; }
     }
 
-    public class Environment : ContextComponent, IEnvironment
+    public class Environment : IEnvironment
     {
+        public virtual IContext Context { get; set; }
+
         public Environment(IContext context)
-            : base(context)
         {
+            Context = context;
         }
 
         public bool IsNight

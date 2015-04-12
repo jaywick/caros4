@@ -9,15 +9,18 @@ using System.Threading.Tasks;
 
 namespace Caros.Core.Context
 {
-    public class ServicesManager : ContextComponent
+    public class ServicesManager : IContextComponent
     {
         private Dictionary<Type, Service> _instances = new Dictionary<Type, Service>();
 
         private IEnumerable<Type> _systemServices = Enumerable.Empty<Type>();
 
+        public virtual IContext Context { get; set; }
+
         public ServicesManager(IContext context)
-            : base(context)
         {
+            Context = context;
+
             _systemServices = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory)
                 .Where(filepath => new FileInfo(filepath).Name.ToLower().StartsWith("caros") && (filepath.EndsWith(".dll") || filepath.EndsWith(".exe")))
                 .Select(filepath => Assembly.Load(AssemblyName.GetAssemblyName(filepath)))

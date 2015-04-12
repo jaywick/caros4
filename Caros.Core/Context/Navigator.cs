@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Caros.Core.Context
 {
-    public interface INavigator
+    public interface INavigator : IContextComponent
     {
         event Action<PageViewModel> OnNavigate;
 
@@ -15,15 +15,17 @@ namespace Caros.Core.Context
         void Visit<T>() where T : Caros.Core.Contracts.PageViewModel;
     }
 
-    public class Navigator : ContextComponent, INavigator
+    public class Navigator : INavigator
     {
         public event Action<PageViewModel> OnNavigate;
+
+        public virtual IContext Context { get; set; }
 
         private Stack<PageViewModel> _history = new Stack<PageViewModel>();
         
         public Navigator(IContext context)
-            : base(context)
         {
+            Context = context;
         }
 
         public void Visit<T>() where T : PageViewModel

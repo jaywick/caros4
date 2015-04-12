@@ -9,19 +9,21 @@ using System.Diagnostics;
 
 namespace Caros.Core.Context
 {
-    public interface IClock
+    public interface IClock : IContextComponent
     {
         DateTime CurrentTime { get; }
     }
 
-    public class Clock : ContextComponent, IClock
+    public class Clock : IClock
     {
+        public virtual IContext Context { get; set; }
+
         public Clock(IContext context)
-            : base(context)
         {
+            Context = context;
         }
 
-        public DateTime CurrentTime
+        public virtual DateTime CurrentTime
         {
             get { return DateTime.Now; }
         }

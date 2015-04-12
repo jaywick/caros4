@@ -19,7 +19,7 @@ namespace Caros
 
         private PageViewModel _activePage;
 
-        public IContext Context { get; set; }
+        public virtual IContext Context { get; set; }
 
         public PageViewModel ActivePage
         {
@@ -47,7 +47,7 @@ namespace Caros
         {
             Caros.Core.IntegrationServices.Start();
             
-            Context = Caros.Core.Context.ApplicationContext.Create(this);
+            Context = ApplicationContext.Create();
             Context.Navigator.OnNavigate += Navigator_OnNavigate;
 
             Context.Services.StartSystemServices();

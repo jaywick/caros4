@@ -10,21 +10,27 @@ namespace Caros.Core.Context
 {
     public enum ThemeStyle { Light, Dark }
 
-    public interface ITheme
+    public interface ITheme : IContextComponent
     {
         ThemeStyle Current { get; set; }
         void Set(ThemeStyle style);
+        void Initialise();
     }
 
-    public class Theme : ContextComponent, ITheme
+    public class Theme : ITheme
     {
         private const string LightStyleResource = "Caros.Core;component/Styles/CarosLight.xaml";
         private const string DarkStyleResource = "Caros.Core;component/Styles/CarosDark.xaml";
 
-        public ThemeStyle Current { get; set; }
+        public virtual IContext Context { get; set; }
+        public virtual ThemeStyle Current { get; set; }
 
         public Theme(IContext context)
-            : base(context)
+        {
+            Context = context;
+        }
+
+        public virtual void Initialise()
         {
             if (Context.Environment.IsNight)
                 Set(ThemeStyle.Dark);
@@ -34,13 +40,17 @@ namespace Caros.Core.Context
 
         public virtual void Set(ThemeStyle style)
         {
-            RemovePreviousStyle(style);
+            Current = style;
+            UpdateResources(style);
+        }
+
+        public virtual void UpdateResources(ThemeStyle style)
+        {
+            RemovePreviousStyle(GetOtherStyle(style));
 
             // apply new style
             var res = LoadResource(style);
             Application.Current.Resources.MergedDictionaries.Add(res);
-
-            Current = style;
         }
 
         private ResourceDictionary LoadResource(ThemeStyle style)
@@ -50,9 +60,9 @@ namespace Caros.Core.Context
             return res;
         }
 
-        private void RemovePreviousStyle(ThemeStyle style)
+        private void RemovePreviousStyle(ThemeStyle newStyle)
         {
-            var previousResUri = GetResourceUri(GetOtherStyle(style));
+            var previousResUri = GetResourceUri(newStyle);
 
             var previousRes = Application.Current.Resources.MergedDictionaries
                 .SingleOrDefault(x => x.Source == previousResUri);
