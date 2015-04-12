@@ -84,6 +84,7 @@
   <ItemGroup>
     <Compile Include="Context\Context.cs" />
     <Compile Include="Context\ContextComponent.cs" />
+    <Compile Include="Context\Clock.cs" />
     <Compile Include="Context\Environment.cs" />
     <Compile Include="Crypto.cs" />
     <Compile Include="Context\Database.cs" />

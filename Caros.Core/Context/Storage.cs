@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace Caros.Core.Context
 {
-    interface IStorage
+    public interface IStorage
     {
-        System.IO.DirectoryInfo DataFolder { get; }
-        System.IO.DirectoryInfo GetFolder(params string[] paths);
-        System.IO.DirectoryInfo MusicCompletedImportFolder { get; }
-        System.IO.DirectoryInfo MusicDropFolder { get; }
-        System.IO.DirectoryInfo MusicIgnoredImportFolder { get; }
-        System.IO.DirectoryInfo MusicInternalCache { get; }
-        System.IO.DirectoryInfo UserProfile { get; }
+        DirectoryInfo DataFolder { get; }
+        DirectoryInfo GetFolder(params string[] paths);
+        DirectoryInfo MusicCompletedImportFolder { get; }
+        DirectoryInfo MusicDropFolder { get; }
+        DirectoryInfo MusicIgnoredImportFolder { get; }
+        DirectoryInfo MusicInternalCache { get; }
+        DirectoryInfo UserProfile { get; }
     }
 
     public class Storage : ContextComponent, IStorage

@@ -8,44 +8,49 @@ using System.Windows;
 
 namespace Caros.Core.Context
 {
+    public enum ThemeStyle { Light, Dark }
+
     public interface ITheme
     {
-        void Set(Theme.Style style);
+        ThemeStyle Current { get; set; }
+        void Set(ThemeStyle style);
     }
 
     public class Theme : ContextComponent, ITheme
     {
-        public enum Style { Light, Dark }
-
         private const string LightStyleResource = "Caros.Core;component/Styles/CarosLight.xaml";
         private const string DarkStyleResource = "Caros.Core;component/Styles/CarosDark.xaml";
+
+        public ThemeStyle Current { get; set; }
 
         public Theme(IContext context)
             : base(context)
         {
             if (Context.Environment.IsNight)
-                Set(Style.Dark);
+                Set(ThemeStyle.Dark);
             else
-                Set(Style.Light);
+                Set(ThemeStyle.Light);
         }
 
-        public void Set(Style style)
+        public virtual void Set(ThemeStyle style)
         {
             RemovePreviousStyle(style);
 
             // apply new style
             var res = LoadResource(style);
             Application.Current.Resources.MergedDictionaries.Add(res);
+
+            Current = style;
         }
 
-        private ResourceDictionary LoadResource(Style style)
+        private ResourceDictionary LoadResource(ThemeStyle style)
         {
             var res = new ResourceDictionary();
             res.Source = GetResourceUri(style);
             return res;
         }
 
-        private void RemovePreviousStyle(Style style)
+        private void RemovePreviousStyle(ThemeStyle style)
         {
             var previousResUri = GetResourceUri(GetOtherStyle(style));
 
@@ -56,11 +61,11 @@ namespace Caros.Core.Context
                 Application.Current.Resources.MergedDictionaries.Remove(previousRes);
         }
 
-        private Uri GetResourceUri(Style style)
+        private Uri GetResourceUri(ThemeStyle style)
         {
             string path = "";
 
-            if (style == Style.Light)
+            if (style == ThemeStyle.Light)
                 path = LightStyleResource;
             else
                 path = DarkStyleResource;
@@ -68,12 +73,12 @@ namespace Caros.Core.Context
             return new Uri(path, UriKind.Relative);
         }
 
-        private Style GetOtherStyle(Style style)
+        private ThemeStyle GetOtherStyle(ThemeStyle style)
         {
-            if (style == Style.Light)
-                return Style.Dark;
-            else if (style == Style.Dark)
-                return Style.Light;
+            if (style == ThemeStyle.Light)
+                return ThemeStyle.Dark;
+            else if (style == ThemeStyle.Dark)
+                return ThemeStyle.Light;
             else
                 throw new InvalidOperationException(String.Format("Unexpected style called on Theme.GetOtherStyle '0'", style.ToString()));
         }

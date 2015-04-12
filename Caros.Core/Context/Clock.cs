@@ -9,21 +9,21 @@ using System.Diagnostics;
 
 namespace Caros.Core.Context
 {
-    public interface IEnvironment
+    public interface IClock
     {
-        bool IsNight { get; }
+        DateTime CurrentTime { get; }
     }
 
-    public class Environment : ContextComponent, IEnvironment
+    public class Clock : ContextComponent, IClock
     {
-        public Environment(IContext context)
+        public Clock(IContext context)
             : base(context)
         {
         }
 
-        public bool IsNight
+        public DateTime CurrentTime
         {
-            get { return Context.Clock.CurrentTime.Hour < 6 || Context.Clock.CurrentTime.Hour > 17; }
+            get { return DateTime.Now; }
         }
     }
 }

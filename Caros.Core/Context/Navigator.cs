@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 
 namespace Caros.Core.Context
 {
-    interface INavigator
+    public interface INavigator
     {
+        event Action<PageViewModel> OnNavigate;
+
         void Return();
         void Visit<T>() where T : Caros.Core.Contracts.PageViewModel;
     }
