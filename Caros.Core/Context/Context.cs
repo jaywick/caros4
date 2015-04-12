@@ -13,9 +13,10 @@ namespace Caros.Core.Context
         Theme Theme { get; set; }
         Navigator Navigator { get; set; }
         Storage Storage { get; set; }
-        Database Database { get; set; }
+        IDatabase Database { get; set; }
         ServicesManager Services { get; set; }
-        Profiles Profiles { get; set; }
+        IProfiles Profiles { get; set; }
+        IEnvironment Environment { get; set; }
     }
 
     public class ApplicationContext : IContext
@@ -24,14 +25,16 @@ namespace Caros.Core.Context
         public Theme Theme { get; set; }
         public Navigator Navigator { get; set; }
         public Storage Storage { get; set; }
-        public Database Database { get; set; }
+        public IDatabase Database { get; set; }
         public ServicesManager Services { get; set; }
-        public Profiles Profiles { get; set; }
+        public IProfiles Profiles { get; set; }
+        public IEnvironment Environment { get; set; }
 
         public static IContext Create(RootViewModel rootViewModel)
         {
             var context = new ApplicationContext();
             context.RootViewModel = rootViewModel;
+            context.Environment = new Environment(context);
             context.Theme = new Theme(context);
             context.Navigator = new Navigator(context);
             context.Storage = new Storage(context);

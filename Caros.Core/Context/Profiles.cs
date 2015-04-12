@@ -8,7 +8,16 @@ using Caros.Core.Data;
 
 namespace Caros.Core.Context
 {
-    public class Profiles : ContextComponent
+    public interface IProfiles
+    {
+        Caros.Core.User CurrentUser { get; }
+
+        void SwitchProfile(Caros.Core.User user);
+
+        System.Collections.Generic.IEnumerable<Caros.Core.User> Users { get; }
+    }
+
+    public class Profiles : ContextComponent, IProfiles
     {
         public Profiles(IContext context)
             : base(context)

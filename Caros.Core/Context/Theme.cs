@@ -8,7 +8,12 @@ using System.Windows;
 
 namespace Caros.Core.Context
 {
-    public class Theme : ContextComponent
+    public interface ITheme
+    {
+        void Set(Theme.Style style);
+    }
+
+    public class Theme : ContextComponent, ITheme
     {
         public enum Style { Light, Dark }
 
@@ -18,7 +23,10 @@ namespace Caros.Core.Context
         public Theme(IContext context)
             : base(context)
         {
-            Set(Style.Light);
+            if (Context.Environment.IsNight)
+                Set(Style.Dark);
+            else
+                Set(Style.Light);
         }
 
         public void Set(Style style)
@@ -30,7 +38,7 @@ namespace Caros.Core.Context
             Application.Current.Resources.MergedDictionaries.Add(res);
         }
 
-        public ResourceDictionary LoadResource(Style style)
+        private ResourceDictionary LoadResource(Style style)
         {
             var res = new ResourceDictionary();
             res.Source = GetResourceUri(style);
@@ -48,7 +56,7 @@ namespace Caros.Core.Context
                 Application.Current.Resources.MergedDictionaries.Remove(previousRes);
         }
 
-        public Uri GetResourceUri(Style style)
+        private Uri GetResourceUri(Style style)
         {
             string path = "";
 

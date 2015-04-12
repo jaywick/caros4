@@ -9,7 +9,13 @@ using System.Diagnostics;
 
 namespace Caros.Core.Context
 {
-    public class Database : ContextComponent
+    public interface IDatabase
+    {
+        MongoDB.Driver.MongoCollection GetCollection(string name);
+        MongoDB.Driver.MongoCollection<TEntity> GetCollection<TEntity>(string name);
+    }
+
+    public class Database : ContextComponent, IDatabase
     {
         private const string ConnectionString = "mongodb://localhost";
         private const string DatabaseName = "master";

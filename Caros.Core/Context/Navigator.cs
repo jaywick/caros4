@@ -7,7 +7,13 @@ using System.Threading.Tasks;
 
 namespace Caros.Core.Context
 {
-    public class Navigator : ContextComponent
+    interface INavigator
+    {
+        void Return();
+        void Visit<T>() where T : Caros.Core.Contracts.PageViewModel;
+    }
+
+    public class Navigator : ContextComponent, INavigator
     {
         public event Action<PageViewModel> OnNavigate;
 
@@ -37,7 +43,7 @@ namespace Caros.Core.Context
             CallNavigate(page);
         }
 
-        public void CallNavigate(PageViewModel page)
+        private void CallNavigate(PageViewModel page)
         {
             if (OnNavigate != null)
                 OnNavigate.Invoke(page);
