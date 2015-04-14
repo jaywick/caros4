@@ -15,6 +15,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{FB52BD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Caros.CI.API", "Caros.CI\API\Caros.CI.API\Caros.CI.API.csproj", "{2802C47B-25DF-4586-AE70-997DA268489F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Caros.Recovery", "Caros.Recovery\Caros.Recovery.csproj", "{A52E07FE-F856-467B-8F24-430E04D241DF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,10 @@ Global
 		{2802C47B-25DF-4586-AE70-997DA268489F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2802C47B-25DF-4586-AE70-997DA268489F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2802C47B-25DF-4586-AE70-997DA268489F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A52E07FE-F856-467B-8F24-430E04D241DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A52E07FE-F856-467B-8F24-430E04D241DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A52E07FE-F856-467B-8F24-430E04D241DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A52E07FE-F856-467B-8F24-430E04D241DF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

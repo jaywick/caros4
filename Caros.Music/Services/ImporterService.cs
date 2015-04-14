@@ -32,7 +32,7 @@ namespace Caros.Music
             var completedSinkPath = Context.Storage.MusicCompletedImportFolder.FullName;
             var ignoredSinkPath = Context.Storage.MusicIgnoredImportFolder.FullName;
 
-            var collection = Context.Database.GetCollection<TrackModel>(DatabaseReferences.MusicTracks);
+            var collection = Context.Database.GetCollection<TrackModel>(TrackModel.CollectionName);
 
             foreach (var file in importSource.EnumerateFiles("*.mp3", System.IO.SearchOption.AllDirectories))
             {
@@ -65,7 +65,7 @@ namespace Caros.Music
         {
             Context.Services.Utilise<PlayerService>().Dipose();
             Context.Storage.MusicInternalCache.EnumerateFiles().ToList().ForEach(x => x.Delete());
-            Context.Database.GetCollection(DatabaseReferences.MusicTracks).RemoveAll();
+            Context.Database.GetCollection(TrackModel.CollectionName).RemoveAll();
         }
 
         private TrackModel CreateTrackRecord(FileInfo originalFile, string hashName, string userCode)

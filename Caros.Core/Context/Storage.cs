@@ -22,12 +22,32 @@ namespace Caros.Core.Context
     {
         public virtual IContext Context { get; set; }
 
+        static Storage()
+        {
+            CreateDirIfMissing(DataDirectory);
+            CreateDirIfMissing(LogsDirectory);
+            CreateDirIfMissing(LogDumpDirectory);
+            CreateDirIfMissing(BinariesDirectory);
+            CreateDirIfMissing(RootDirectory);
+            CreateDirIfMissing(SystemDirectory);
+            CreateDirIfMissing(DropDirectory);
+            CreateDirIfMissing(UsersDirectory);
+        }
+
+        private static void CreateDirIfMissing(string directoryPath)
+        {
+            if (!Directory.Exists(directoryPath))
+                Directory.CreateDirectory(directoryPath);
+        }
+
         public Storage(IContext context)
         {
             Context = context;
         }
 
-        public readonly static string DataDirectory = "/caros/data";
+        public readonly static string DataDirectory = "/caros/data/";
+        public readonly static string LogsDirectory = "/caros/system/logs/";
+        public readonly static string LogDumpDirectory = "/caros/system/logs/dumps/";
         public readonly static string BinariesDirectory = "/caros/system/binaries/";
 
         public readonly static string RootDirectory = "/caros/";

@@ -108,11 +108,13 @@
     <Compile Include="Context\Theme.cs" />
     <Compile Include="Data\UserModel.cs" />
     <Compile Include="Debug.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\DirectoryInfoExtensions.cs" />
     <Compile Include="Extensions\IEnumerableExtensions.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="Integration\HostMachine.cs" />
     <Compile Include="IntegrationServices.cs" />
+    <Compile Include="Log.cs" />
     <Compile Include="RootViewModel.cs" />
     <Compile Include="Services\Service.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

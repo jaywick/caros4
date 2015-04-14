@@ -48,6 +48,7 @@ namespace Caros
             Caros.Core.IntegrationServices.Start();
             
             Context = ApplicationContext.Create();
+            Context.Navigator.ErrorPage = new ErrorPageViewModel(Context);
             Context.Navigator.OnNavigate += Navigator_OnNavigate;
 
             Context.Services.StartSystemServices();

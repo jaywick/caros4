@@ -11,6 +11,8 @@ namespace Caros.Music
 {
     public class TrackModel
     {
+        public const string CollectionName = "music.tracks";
+
         public ObjectId _id { get; set; }
         public string HashName { get; set; }
         public string OriginalPath { get; set; }

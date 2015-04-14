@@ -17,16 +17,20 @@ namespace Caros
         public Bootstrapper()
         {
             Initialize();
-            
-            AppDomain.CurrentDomain.UnhandledException += (s, e) => DisplayError((Exception)e.ExceptionObject);
-            TaskScheduler.UnobservedTaskException += (s, e) => DisplayError(e.Exception);
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+            TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
         }
 
-        private void DisplayError(Exception exception)
+        void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
         {
-            MessageBox.Show(exception.Message + "\n\n" + exception.StackTrace);
+            Core.Log.HandleUnexpectedException(e.Exception);
         }
- 
+
+        void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            Core.Log.HandleUnexpectedException((Exception)e.ExceptionObject);
+        }
+
         protected override void OnStartup(object sender, StartupEventArgs e)
         {
             DisplayRootViewFor<MainViewModel>();

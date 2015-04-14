@@ -121,6 +121,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Pages\ErrorPageView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Pages\SplashPageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -141,10 +145,14 @@
       <DependentUpon>HomePageView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\ProfilesPageViewModel.cs" />
+    <Compile Include="Pages\ErrorPageView.xaml.cs">
+      <DependentUpon>ErrorPageView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\SplashPageView.xaml.cs">
       <DependentUpon>SplashPageView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\HomePageViewModel.cs" />
+    <Compile Include="Pages\ErrorPageViewModel.cs" />
     <Compile Include="Pages\SplashPageViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -184,11 +192,15 @@
       <Project>{185b546a-56e1-422c-9c29-b5166240b606}</Project>
       <Name>Caros.Music</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Caros.Recovery\Caros.Recovery.csproj">
+      <Project>{a52e07fe-f856-467b-8f24-430e04d241df}</Project>
+      <Name>Caros.Recovery</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="meta.xml">
+    <Content Include="meta.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

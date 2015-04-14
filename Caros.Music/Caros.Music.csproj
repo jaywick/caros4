@@ -102,7 +102,6 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\DatabaseReferences.cs" />
     <Compile Include="Data\TrackModel.cs" />
     <Compile Include="Services\ImporterService.cs" />
     <Compile Include="Services\PlayerService.cs" />

@@ -12,6 +12,8 @@ namespace Caros.Core.Contracts
     {
         public virtual IContext Context { get; set; }
 
+        public virtual void OnVisit() { }
+
         public PageViewModel(IContext context)
         {
             Context = context;

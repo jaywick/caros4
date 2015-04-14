@@ -17,6 +17,11 @@ namespace Caros.Pages
         {
         }
 
+        public override void OnVisit()
+        {
+            throw new Exception("sdfsdfsdf");
+        }
+
         public string WelcomeMessage
         {
             get

@@ -1,0 +1,11 @@
+﻿<Window x:Class="Caros.Recovery.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Loaded="Window_Loaded"
+        Title="MainWindow" Height="350" Width="525" ShowInTaskbar="False" WindowStartupLocation="CenterScreen" WindowState="Maximized" AllowsTransparency="True" WindowStyle="None" Background="#FF8D8D8D" Opacity="0.95">
+    <Grid>
+        <Label Background="#FF474747">
+            <TextBlock x:Name="labelError" Text="System Fault" Padding="30" FontSize="45" Foreground="White" TextWrapping="WrapWithOverflow"/>
+        </Label>
+    </Grid>
+</Window>

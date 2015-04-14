@@ -10,6 +10,7 @@ namespace Caros.Core.Context
     public interface INavigator : IContextComponent
     {
         event Action<PageViewModel> OnNavigate;
+        PageViewModel ErrorPage { get; set; }
 
         void Return();
         void Visit<T>() where T : Caros.Core.Contracts.PageViewModel;
@@ -20,6 +21,7 @@ namespace Caros.Core.Context
         public event Action<PageViewModel> OnNavigate;
 
         public virtual IContext Context { get; set; }
+        public PageViewModel ErrorPage { get; set; }
 
         private Stack<PageViewModel> _history = new Stack<PageViewModel>();
         
@@ -37,7 +39,19 @@ namespace Caros.Core.Context
 
         private PageViewModel CreateInstance(Type pageViewModelType)
         {
-            return (PageViewModel)Activator.CreateInstance(pageViewModelType, Context);
+            PageViewModel instance;
+
+            try
+            {
+                instance = (PageViewModel)Activator.CreateInstance(pageViewModelType, Context);
+            }
+            catch (Exception ex)
+            {
+                Core.Log.HandleUnexpectedException(ex, false);
+                instance = ErrorPage;
+            }
+
+            return instance;
         }
 
         public void Return()
@@ -51,6 +65,8 @@ namespace Caros.Core.Context
         {
             if (OnNavigate != null)
                 OnNavigate.Invoke(page);
+
+            page.OnVisit();
         }
     }
 }
