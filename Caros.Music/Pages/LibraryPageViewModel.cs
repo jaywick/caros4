@@ -44,7 +44,7 @@ namespace Caros.Music
 
         public void GoBack()
         {
-            Context.Navigator.Return();
+            Context.Navigator.Visit<MusicPageViewModel>();
         }
     }
 }

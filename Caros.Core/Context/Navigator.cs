@@ -56,6 +56,7 @@ namespace Caros.Core.Context
 
         public void Return()
         {
+            _history.Pop();
             var page = _history.Pop();
             _history.Push(page);
             CallNavigate(page);
