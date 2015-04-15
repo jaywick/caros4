@@ -156,9 +156,7 @@
     <Compile Include="Pages\SplashPageViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -184,6 +182,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Caros.CI\API\Caros.CI.API\Caros.CI.API.csproj">
+      <Project>{2802c47b-25df-4586-ae70-997da268489f}</Project>
+      <Name>Caros.CI.API</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Caros.Core\Caros.Core.csproj">
       <Project>{81316879-7801-4afa-ad7e-5a0c5f033c3c}</Project>
       <Name>Caros.Core</Name>
@@ -201,6 +203,9 @@
     <Content Include="meta.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

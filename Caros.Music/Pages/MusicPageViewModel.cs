@@ -12,6 +12,7 @@ namespace Caros.Music
     public class MusicPageViewModel : PageViewModel
     {
         public BindableCollection<Track> NowPlaying { get; set; }
+        public bool IsEmptyLibrary { get; set; }
 
         private PlayerService Player { get; set; }
         private ImporterService Importer { get; set; }
@@ -22,39 +23,59 @@ namespace Caros.Music
             Importer = Context.Services.Utilise<ImporterService>();
             Player = Context.Services.Utilise<PlayerService>();
             Player.Start();
+        }
+
+        public override void OnVisit()
+        {
+            if (!Player.TracksCollection.Any())
+            {
+                IsEmptyLibrary = true;
+                return;
+            }
 
             NowPlaying = new BindableCollection<Track>(Player.CurrentPlaylist.ToList());
-            SelectedTrack = NowPlaying.First();
+            Player.Play(NowPlaying.First());
 
             NotifyOfPropertyChange(() => NowPlaying);
         }
 
-        public Track SelectedTrack
+        public Track CurrentTrack
         {
-            get
-            {
-                return Player.CurrentTrack;
-            }
-            set
-            {
-                Player.Play(value);
-                NotifyOfPropertyChange(() => SelectedTrack);
-            }
+            get { return Player.CurrentTrack; }
+        }
+
+        public string TogglePlayButtonText
+        {
+            get { return Player.IsPlaying ? "Pause" : "Play"; }
         }
 
         public void PreviousTrack()
         {
-            SelectedTrack = Player.PreviousTrack();
+            Player.PreviousTrack();
+            UpdateDisplay();
         }
 
         public void TogglePlayback()
         {
             Player.TogglePlayback();
+            UpdateDisplay();
         }
 
         public void SkipTrack()
         {
-            SelectedTrack = Player.SkipTrack();
+            Player.SkipTrack();
+            UpdateDisplay();
+        }
+
+        private void UpdateDisplay()
+        {
+            NotifyOfPropertyChange(() => CurrentTrack);
+            NotifyOfPropertyChange(() => TogglePlayButtonText);
+        }
+
+        public void OpenLibrary()
+        {
+            Context.Navigator.Visit<LibraryPageViewModel>();
         }
     }
 }

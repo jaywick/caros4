@@ -15,9 +15,9 @@ using System.Windows.Shapes;
 
 namespace Caros.Music
 {
-    public partial class MusicPageView : UserControl
+    public partial class LibraryPageView : UserControl
     {
-        public MusicPageView()
+        public LibraryPageView()
         {
             InitializeComponent();
         }

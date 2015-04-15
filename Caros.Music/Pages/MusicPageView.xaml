@@ -6,9 +6,11 @@
              mc:Ignorable="d" 
              Width="1024" Height="600">
     <Grid Background="White">
-        <ListBox x:Name="listTracks" ItemsSource="{Binding NowPlaying}" DisplayMemberPath="DisplayName" SelectedItem="{Binding SelectedTrack, Mode=TwoWay}" SelectionChanged="listTracks_SelectionChanged" Margin="38,26,26,164" FontSize="38"/>
+        <TextBlock Text="{Binding CurrentTrack.Model.Artist}" Margin="64,68,264,407" FontSize="50"/>
+        <TextBlock Text="{Binding CurrentTrack.Model.Title}" Margin="64,193,298,326" FontSize="50"/>
         <Button x:Name="PreviousTrack" Height="100" Margin="47,463,709,37" Content="PREVIOUS"/>
-        <Button x:Name="TogglePlayback" Height="100" Margin="320,463,328,37" Content="PLAY/PAUSE"/>
+        <Button x:Name="TogglePlayback" Height="100" Margin="320,463,328,37" Content="{Binding TogglePlayButtonText, FallbackValue='Toggle Play'}"/>
         <Button x:Name="SkipTrack" Height="100" Margin="716,463,40,37" Content="NEXT"/>
+        <Button x:Name="OpenLibrary" Height="100" Margin="716,341,40,159" Content="Library"/>
     </Grid>
 </UserControl>

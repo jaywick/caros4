@@ -20,7 +20,13 @@ namespace Caros.Music
 
         public T Current
         {
-            get { return _items[_index]; }
+            get
+            {
+                if (!_items.Any())
+                    return null;
+
+                return _items[_index];
+            }
             set { _index = _items.IndexOf(value); }
         }
 

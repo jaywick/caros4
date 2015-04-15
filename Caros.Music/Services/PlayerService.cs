@@ -67,20 +67,14 @@ namespace Caros.Music
                 Resume();
         }
 
-        public Track SkipTrack()
+        public void SkipTrack()
         {
-            var track = CurrentPlaylist.Next();
-            Play(track);
-
-            return track;
+            Play(CurrentPlaylist.Next());
         }
 
-        public Track PreviousTrack()
+        public void PreviousTrack()
         {
-            var track = CurrentPlaylist.Previous();
-            Play(track);
-
-            return track;
+            Play(CurrentPlaylist.Previous());
         }
 
         public void Dipose()
