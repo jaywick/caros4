@@ -39,5 +39,10 @@ namespace Caros.Recovery
                 + Environment.NewLine
                 + messageParts[1];
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("caros.exe");
+        }
     }
 }
