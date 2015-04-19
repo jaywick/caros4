@@ -13,7 +13,7 @@ namespace Caros.Core.Services
 {
     public class UpdateService : SystemService
     {
-        private const string UpdatesPathUrl = "http://internal.jay-wick.com/caros/updates/";
+        private const string UpdatesPathUrl = "http://inhouse.jaywick.io/caros/updates/";
         private const string PackageNameFormat = "r{0}.caros-update";
         private const string VersionPointerName = "version.pointer";
 
@@ -28,17 +28,17 @@ namespace Caros.Core.Services
         {
         }
 
-        public void CheckForUpdates()
+        public async Task CheckForUpdates()
         {
-            _lastUpdate = GetLatestUpdateInfo();
+            _lastUpdate = await GetLatestUpdateInfo();
         }
 
-        private UpdateInfo GetLatestUpdateInfo()
+        private async Task<UpdateInfo> GetLatestUpdateInfo()
         {
             if (!NetworkInterface.GetIsNetworkAvailable())
                 _lastUpdate = UpdateInfo.None;
 
-            var remoteVersion = GetRemoteVersion().ReleaseNumber;
+            var remoteVersion = (await GetRemoteVersion()).ReleaseNumber;
             var currentVersion = ClientVersion.CurrentVersion.ReleaseNumber;
 
             if (remoteVersion <= currentVersion)
@@ -57,10 +57,10 @@ namespace Caros.Core.Services
             get { return ClientVersion.CurrentVersion.ReleaseNumber; }
         }
 
-        private ReleaseVersion GetRemoteVersion()
+        private async Task<ReleaseVersion> GetRemoteVersion()
         {
             var web = new System.Net.WebClient();
-            var contents = web.DownloadString(UpdatesPathUrl + VersionPointerName);
+            var contents = await Task.Run(() => web.DownloadString(UpdatesPathUrl + VersionPointerName));
 
             return new ReleaseVersion(int.Parse(contents));
         }
@@ -76,14 +76,14 @@ namespace Caros.Core.Services
             get { return _lastUpdate.Exists; }
         }
 
-        public void DownloadUpdate()
+        public async Task DownloadUpdate()
         {
-            var _lastPackage = _lastUpdate.Download();
+            var _lastPackage = await _lastUpdate.Download();
         }
 
-        public void Deploy()
+        public async Task Deploy()
         {
-            Deployment.Deploy(_lastUpdate, Storage.BinariesDirectory);
+            await Deployment.Deploy(_lastUpdate, Storage.BinariesDirectory);
         }
 
         public void Relaunch()
