@@ -17,7 +17,7 @@ namespace Caros.Pages
         {
         }
 
-        public override void OnVisit()
+        public override void OnVisit(bool isNew)
         {
         }
 

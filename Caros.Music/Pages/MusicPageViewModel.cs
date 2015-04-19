@@ -25,8 +25,11 @@ namespace Caros.Music
             Player.Start();
         }
 
-        public override void OnVisit()
+        public override void OnVisit(bool isFirst)
         {
+            if (!isFirst)
+                return;
+
             if (!Player.TracksCollection.Any())
             {
                 IsEmptyLibrary = true;

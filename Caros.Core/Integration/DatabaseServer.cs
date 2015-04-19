@@ -24,11 +24,11 @@ namespace Caros.Core.Integration
             processInfo.Arguments = String.Format(MongodArguments, Storage.DataDirectory);
             processInfo.FileName = MongodPath;
 
-            if (!Debug.IsDebugging)
-            {
+            //if (!Debug.IsDebugging)
+            //{
                 processInfo.CreateNoWindow = true;
                 processInfo.WindowStyle = ProcessWindowStyle.Hidden;
-            }
+            //}
 
             Process.Start(processInfo);
         }

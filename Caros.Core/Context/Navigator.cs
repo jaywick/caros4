@@ -24,7 +24,8 @@ namespace Caros.Core.Context
         public PageViewModel ErrorPage { get; set; }
 
         private Stack<PageViewModel> _history = new Stack<PageViewModel>();
-        
+        private Dictionary<Type, PageViewModel> _instances = new Dictionary<Type, PageViewModel>();
+
         public Navigator(IContext context)
         {
             Context = context;
@@ -32,9 +33,19 @@ namespace Caros.Core.Context
 
         public void Visit<T>() where T : PageViewModel
         {
-            var page = CreateInstance(typeof(T));
+            var type = typeof(T);
+            var isNew = false;
+
+            if (!_instances.ContainsKey(type))
+            {
+                CreateInstance(typeof(T));
+                isNew = true;
+            }
+
+            var page = _instances[type];
             _history.Push(page);
-            CallNavigate(page);
+
+            CallNavigate(page, isNew);
         }
 
         private PageViewModel CreateInstance(Type pageViewModelType)
@@ -51,23 +62,25 @@ namespace Caros.Core.Context
                 instance = ErrorPage;
             }
 
+            _instances.Add(pageViewModelType, instance);
+
             return instance;
         }
 
         public void Return()
         {
+            // pop current
             _history.Pop();
-            var page = _history.Pop();
-            _history.Push(page);
-            CallNavigate(page);
+
+            CallNavigate(_history.Peek(), false);
         }
 
-        private void CallNavigate(PageViewModel page)
+        private void CallNavigate(PageViewModel page, bool isNew)
         {
             if (OnNavigate != null)
                 OnNavigate.Invoke(page);
 
-            page.OnVisit();
+            page.OnVisit(isNew);
         }
     }
 }

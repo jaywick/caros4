@@ -11,7 +11,7 @@ namespace Caros.Music
 {
     public class LibraryPageViewModel : PageViewModel
     {
-        public BindableCollection<Track> NowPlaying { get; set; }
+        public BindableCollection<Track> AllTracks { get; set; }
 
         private PlayerService Player { get; set; }
         private ImporterService Importer { get; set; }
@@ -21,12 +21,10 @@ namespace Caros.Music
         {
             Importer = Context.Services.Utilise<ImporterService>();
             Player = Context.Services.Utilise<PlayerService>();
-            Player.Start();
 
-            NowPlaying = new BindableCollection<Track>(Player.CurrentPlaylist.ToList());
-            SelectedTrack = NowPlaying.First();
+            AllTracks = new BindableCollection<Track>(Player.CurrentPlaylist.ToList());
 
-            NotifyOfPropertyChange(() => NowPlaying);
+            NotifyOfPropertyChange(() => AllTracks);
         }
 
         public Track SelectedTrack

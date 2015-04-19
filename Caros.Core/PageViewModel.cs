@@ -12,7 +12,7 @@ namespace Caros.Core.Contracts
     {
         public virtual IContext Context { get; set; }
 
-        public virtual void OnVisit() { }
+        public virtual void OnVisit(bool isFirst) { }
 
         public PageViewModel(IContext context)
         {
