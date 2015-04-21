@@ -8,10 +8,17 @@
              mc:Ignorable="d" 
              Width="1024" Height="600">
     <Grid x:Name="LayoutRoot">
-        <metro:TransitioningContentControl Transition="Right" cal:View.Model="{Binding ActivePage}" />
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="50"/>
+            </Grid.ColumnDefinitions>
+
+            <metro:TransitioningContentControl Grid.Column="0" Transition="Right" cal:View.Model="{Binding ActivePage}" />
+            <ContentControl x:Name="NavigationBarControl" Grid.Column="1"/>
+        </Grid>
         
         <ContentControl x:Name="Notifications"/>
         <ContentControl x:Name="Menu"/>
-        <ContentControl x:Name="NavigationBar"/>
     </Grid>
 </UserControl>

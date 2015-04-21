@@ -10,10 +10,13 @@ namespace Caros.Core.Context
     public interface INavigator : IContextComponent
     {
         event Action<PageViewModel> OnNavigate;
-        PageViewModel ErrorPage { get; set; }
+        Reference<PageViewModel> ErrorPage { get; set; }
+        Reference<PageViewModel> HomePage { get; set; }
+        PageViewModel CurrentPage { get; }
 
+        void GoHome();
         void Return();
-        void Visit<T>() where T : Caros.Core.Contracts.PageViewModel;
+        void Visit<T>(bool bypassHistory = false) where T : Caros.Core.Contracts.PageViewModel;
     }
 
     public class Navigator : INavigator
@@ -21,7 +24,8 @@ namespace Caros.Core.Context
         public event Action<PageViewModel> OnNavigate;
 
         public virtual IContext Context { get; set; }
-        public PageViewModel ErrorPage { get; set; }
+        public Reference<PageViewModel> ErrorPage { get; set; }
+        public Reference<PageViewModel> HomePage { get; set; }
 
         private Stack<PageViewModel> _history = new Stack<PageViewModel>();
         private Dictionary<Type, PageViewModel> _instances = new Dictionary<Type, PageViewModel>();
@@ -31,21 +35,32 @@ namespace Caros.Core.Context
             Context = context;
         }
 
-        public void Visit<T>() where T : PageViewModel
+        public PageViewModel CurrentPage
         {
-            var type = typeof(T);
+            get { return _history.Peek(); }
+        }
+
+        private void Visit(Type type, bool bypassHistory)
+        {
             var isNew = false;
 
             if (!_instances.ContainsKey(type))
             {
-                CreateInstance(typeof(T));
+                CreateInstance(type);
                 isNew = true;
             }
 
             var page = _instances[type];
-            _history.Push(page);
+
+            if (!bypassHistory)
+                _history.Push(page);
 
             CallNavigate(page, isNew);
+        }
+
+        public void Visit<T>(bool bypassHistory = false) where T : PageViewModel
+        {
+            Visit(typeof(T), bypassHistory);
         }
 
         private PageViewModel CreateInstance(Type pageViewModelType)
@@ -59,7 +74,7 @@ namespace Caros.Core.Context
             catch (Exception ex)
             {
                 Core.Log.HandleUnexpectedException(ex, false);
-                instance = ErrorPage;
+                instance = ErrorPage.Instantiate(Context);
             }
 
             _instances.Add(pageViewModelType, instance);
@@ -67,10 +82,18 @@ namespace Caros.Core.Context
             return instance;
         }
 
+        public void GoHome()
+        {
+            Visit(HomePage.Type, false);
+        }
+
         public void Return()
         {
             // pop current
             _history.Pop();
+
+            if (!_history.Any())
+                return;
 
             CallNavigate(_history.Peek(), false);
         }

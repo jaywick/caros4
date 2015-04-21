@@ -10,6 +10,7 @@ using Caros.Core.Context;
 using Caros.Core.Contracts;
 using Caros.Pages;
 using Caros.Core.Services;
+using Caros.Core;
 
 namespace Caros
 {
@@ -17,10 +18,11 @@ namespace Caros
     {
         #region Properties
 
-        private PageViewModel _activePage;
+        public Components.NavigationBarViewModel NavigationBarControl { get; set; }
 
         public virtual IContext Context { get; set; }
 
+        private PageViewModel _activePage;
         public PageViewModel ActivePage
         {
             get { return _activePage; }
@@ -36,6 +38,12 @@ namespace Caros
         public MainViewModel()
         {
             StartApplication();
+            RenderLayout();
+        }
+
+        private void RenderLayout()
+        {
+            NavigationBarControl = new Components.NavigationBarViewModel(Context);
         }
 
         void Navigator_OnNavigate(PageViewModel page)
@@ -48,12 +56,13 @@ namespace Caros
             Caros.Core.IntegrationServices.Start();
             
             Context = ApplicationContext.Create();
-            Context.Navigator.ErrorPage = new ErrorPageViewModel(Context);
+            Context.Navigator.ErrorPage = new TypeOf<ErrorPageViewModel>();
+            Context.Navigator.HomePage = new TypeOf<HomePageViewModel>();
             Context.Navigator.OnNavigate += Navigator_OnNavigate;
 
             Context.Services.StartSystemServices();
 
-            Context.Navigator.Visit<SplashPageViewModel>();
+            Context.Navigator.Visit<SplashPageViewModel>(bypassHistory: true);
             await Task.Delay(2000);
 
             Context.Navigator.Visit<HomePageViewModel>();

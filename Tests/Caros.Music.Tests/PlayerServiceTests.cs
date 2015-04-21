@@ -32,13 +32,18 @@ namespace Caros.Music.Tests
             player.HistoryManager = mockHistoryManager.Object;
 
             // act
+            int minute = 0;
             foreach (var trackToPlay in tracksToPlay)
             {
+                var mockClock = new Mock<Clock>(context) { CallBase = true };
+                mockClock.Setup(x => x.CurrentTime).Returns(new DateTime(2000, 1, 1, 0, ++minute, 0));
+                context.Clock = mockClock.Object;
+
                 player.Play(trackToPlay);
             }
 
             // compare
-            var expected = tracksToPlay;
+            var expected = tracksToPlay.Reverse();
             var actual = player.GetRecentTracks();
 
             CollectionAssert.AreEqual(expected, actual);
@@ -63,6 +68,9 @@ namespace Caros.Music.Tests
             var mockHistoryManager = new Mock<History>(context) { CallBase = true };
             mockHistoryManager.Setup(x => x.AddToDatabase(It.IsAny<HistoryModel>()));
             player.HistoryManager = mockHistoryManager.Object;
+
+            var mockClock = new Mock<Clock>(context) { CallBase = true };
+            context.Clock = mockClock.Object;
 
             // act
             /// ..do nothing!
@@ -94,6 +102,9 @@ namespace Caros.Music.Tests
             var mockHistoryManager = new Mock<History>(context) { CallBase = true };
             mockHistoryManager.Setup(x => x.AddToDatabase(It.IsAny<HistoryModel>()));
             player.HistoryManager = mockHistoryManager.Object;
+
+            var mockClock = new Mock<Clock>(context) { CallBase = true };
+            context.Clock = mockClock.Object;
 
             // act
             foreach (var trackToPlay in tracksToPlay)
@@ -130,6 +141,9 @@ namespace Caros.Music.Tests
             mockHistoryManager.Setup(x => x.AddToDatabase(It.IsAny<HistoryModel>()));
             player.HistoryManager = mockHistoryManager.Object;
 
+            var mockClock = new Mock<Clock>(context) { CallBase = true };
+            context.Clock = mockClock.Object;
+
             // act
             foreach (var trackToPlay in tracksToPlay)
             {
@@ -165,6 +179,9 @@ namespace Caros.Music.Tests
             mockHistoryManager.Setup(x => x.AddToDatabase(It.IsAny<HistoryModel>()));
             player.HistoryManager = mockHistoryManager.Object;
 
+            var mockClock = new Mock<Clock>(context) { CallBase = true };
+            context.Clock = mockClock.Object;
+
             // act
             foreach (var trackToPlay in tracksToPlay)
             {
@@ -199,6 +216,9 @@ namespace Caros.Music.Tests
             mockHistoryManager.Setup(x => x.AddToDatabase(It.IsAny<HistoryModel>()));
             player.HistoryManager = mockHistoryManager.Object;
 
+            var mockClock = new Mock<Clock>(context) { CallBase = true };
+            context.Clock = mockClock.Object;
+
             // act
             foreach (var trackToPlay in tracksToPlay)
             {
@@ -231,6 +251,9 @@ namespace Caros.Music.Tests
             var mockHistoryManager = new Mock<History>(context) { CallBase = true };
             mockHistoryManager.Setup(x => x.AddToDatabase(It.IsAny<HistoryModel>()));
             player.HistoryManager = mockHistoryManager.Object;
+
+            var mockClock = new Mock<Clock>(context) { CallBase = true };
+            context.Clock = mockClock.Object;
 
             // act
             // ... do nothing
@@ -271,6 +294,9 @@ namespace Caros.Music.Tests
             var mockHistoryManager = new Mock<History>(context) { CallBase = true };
             mockHistoryManager.Setup(x => x.AddToDatabase(It.IsAny<HistoryModel>()));
             player.HistoryManager = mockHistoryManager.Object;
+
+            var mockClock = new Mock<Clock>(context) { CallBase = true };
+            context.Clock = mockClock.Object;
 
             // act
             foreach (var trackToPlay in tracksToPlay)
@@ -317,6 +343,9 @@ namespace Caros.Music.Tests
             mockHistoryManager.Setup(x => x.AddToDatabase(It.IsAny<HistoryModel>()));
             player.HistoryManager = mockHistoryManager.Object;
 
+            var mockClock = new Mock<Clock>(context) { CallBase = true };
+            context.Clock = mockClock.Object;
+
             // act
             foreach (var trackToPlay in tracksToPlay)
             {
@@ -350,6 +379,9 @@ namespace Caros.Music.Tests
             mockHistoryManager.Setup(x => x.AddToDatabase(It.IsAny<HistoryModel>()));
             player.HistoryManager = mockHistoryManager.Object;
 
+            var mockClock = new Mock<Clock>(context) { CallBase = true };
+            context.Clock = mockClock.Object;
+
             // act
             // ... do nothing
 
@@ -369,7 +401,7 @@ namespace Caros.Music.Tests
             {
                 var trackModel = new TrackModel { HashName = (++hashCodeIndex).ToString() };
                 var mockTrack = new Mock<Track>(trackModel);
-                
+
                 mockTrack
                     .Setup(x => x.GetUri(It.IsAny<IContext>()))
                     .Returns(It.IsAny<Uri>());

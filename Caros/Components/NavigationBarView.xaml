@@ -1,0 +1,16 @@
+﻿<UserControl x:Class="Caros.Components.NavigationBarView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             Width="50" Height="600">
+    <Grid>
+        <UniformGrid Columns="1">
+            <Button x:Name="GoHome" Content="Home"/>
+            <Button x:Name="OpenMenu" Content="Menu"/>
+            <Button x:Name="OpenSearch" Content="Search"/>
+            <Button x:Name="GoBack" Content="Back"/>
+        </UniformGrid>
+    </Grid>
+</UserControl>

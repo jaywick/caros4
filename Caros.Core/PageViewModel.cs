@@ -14,6 +14,10 @@ namespace Caros.Core.Contracts
 
         public virtual void OnVisit(bool isFirst) { }
 
+        public virtual void OnExtra() { }
+
+        public virtual void OnSearch() { }
+
         public PageViewModel(IContext context)
         {
             Context = context;
