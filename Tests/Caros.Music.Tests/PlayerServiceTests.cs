@@ -38,8 +38,8 @@ namespace Caros.Music.Tests
             }
 
             // compare
-            var expected = tracksToPlay.Select(x => x.Model.HashName);
-            var actual = player.GetRecentTracks().Select(x => x.Model.HashName);
+            var expected = tracksToPlay;
+            var actual = player.GetRecentTracks();
 
             CollectionAssert.AreEqual(expected, actual);
         }
@@ -69,7 +69,7 @@ namespace Caros.Music.Tests
 
             // compare
             var expected = Enumerable.Empty<Track>();
-            var actual = player.GetRecentTracks().Select(x => x.Model.HashName);
+            var actual = player.GetRecentTracks();
 
             CollectionAssert.AreEqual(expected, actual);
         }
@@ -102,8 +102,8 @@ namespace Caros.Music.Tests
             }
 
             // compare
-            var expected = tracksToPlay.Select(x => x.Model.HashName);
-            var actual = player.GetRecentTracks().Select(x => x.Model.HashName);
+            var expected = tracksToPlay;
+            var actual = player.GetRecentTracks();
 
             CollectionAssert.AreEqual(expected, actual);
         }
@@ -137,8 +137,8 @@ namespace Caros.Music.Tests
             }
 
             // compare
-            var expected = localTracksToPlay.Select(x => x.Model.HashName);
-            var actual = player.GetRecentTracks().Select(x => x.Model.HashName);
+            var expected = localTracksToPlay;
+            var actual = player.GetRecentTracks();
 
             CollectionAssert.AreEqual(expected, actual);
         }
@@ -172,8 +172,8 @@ namespace Caros.Music.Tests
             }
 
             // compare
-            var expected = tracksNotPlayed.Select(x => x.Model.HashName);
-            var actual = player.GetUnheardTracks().Select(x => x.Model.HashName);
+            var expected = tracksNotPlayed;
+            var actual = player.GetUnheardTracks();
 
             CollectionAssert.AreEqual(expected, actual);
         }
@@ -207,7 +207,7 @@ namespace Caros.Music.Tests
 
             // compare
             var expected = Enumerable.Empty<Track>();
-            var actual = player.GetUnheardTracks().Select(x => x.Model.HashName);
+            var actual = player.GetUnheardTracks();
 
             CollectionAssert.AreEqual(expected, actual);
         }
@@ -236,8 +236,8 @@ namespace Caros.Music.Tests
             // ... do nothing
 
             // compare
-            var expected = allTracks.Select(x => x.Model.HashName);
-            var actual = player.GetUnheardTracks().Select(x => x.Model.HashName);
+            var expected = allTracks;
+            var actual = player.GetUnheardTracks();
 
             CollectionAssert.AreEqual(expected, actual);
         }
@@ -279,8 +279,8 @@ namespace Caros.Music.Tests
             }
 
             // compare
-            var expected = new[] { allTracks[3], allTracks[7], allTracks[0] }.Select(x => x.Model.HashName);
-            var actual = player.GetFavouriteTracks().Select(x => x.Model.HashName);
+            var expected = new[] { allTracks[3], allTracks[7], allTracks[0] };
+            var actual = player.GetFavouriteTracks();
 
             CollectionAssert.AreEqual(expected, actual);
         }
@@ -324,8 +324,8 @@ namespace Caros.Music.Tests
             }
 
             // compare
-            var notexpected = tracksNotToPlay.Select(x => x.Model.HashName);
-            var actual = player.GetFavouriteTracks().Select(x => x.Model.HashName);
+            var notexpected = tracksNotToPlay;
+            var actual = player.GetFavouriteTracks();
 
             CollectionAssert.DoesNotContain(notexpected, actual);
         }
@@ -355,7 +355,7 @@ namespace Caros.Music.Tests
 
             // compare
             var expected = Enumerable.Empty<Track>();
-            var actual = player.GetFavouriteTracks().Select(x => x.Model.HashName);
+            var actual = player.GetFavouriteTracks();
 
             CollectionAssert.AreEqual(expected, actual);
         }

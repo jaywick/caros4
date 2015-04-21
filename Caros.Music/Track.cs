@@ -39,11 +39,17 @@ namespace Caros.Music
 
         public static bool operator ==(Track a, Track b)
         {
+            if (b == null)
+                return false;
+
             return a.Model.HashName == b.Model.HashName;
         }
 
         public static bool operator !=(Track a, Track b)
         {
+            if (b == null)
+                return true;
+
             return a.Model.HashName != b.Model.HashName;
         }
     }
