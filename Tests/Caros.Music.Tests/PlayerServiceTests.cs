@@ -142,6 +142,105 @@ namespace Caros.Music.Tests
             CollectionAssert.AreEqual(expected, actual);
         }
 
+        [TestCase]
+        public void ShouldGetUnplayedTracks()
+        {
+            // input
+            var allTracks = CreateTestTracks(10);
+            var tracksToPlay = allTracks.Take(3);
+            var tracksNotPlayed = allTracks.Skip(3);
+
+            // mock
+            var context = new ApplicationContext();
+
+            var mockPlayerService = new Mock<PlayerService>(context) { CallBase = true };
+            var player = mockPlayerService.Object;
+            player.TracksCollection = allTracks.ToList();
+
+            var mockMediaPlayer = new Mock<IMediaPlayer>();
+            player.MediaPlayer = mockMediaPlayer.Object;
+
+            var mockHistoryManager = new Mock<History>(context) { CallBase = true };
+            mockHistoryManager.Setup(x => x.AddToDatabase(It.IsAny<HistoryModel>()));
+            player.HistoryManager = mockHistoryManager.Object;
+
+            // act
+            foreach (var trackToPlay in tracksToPlay)
+            {
+                player.Play(trackToPlay);
+            }
+
+            // compare
+            var expected = tracksNotPlayed.Select(x => x.Model.HashName);
+            var actual = player.GetUnheardTracks().Select(x => x.Model.HashName);
+
+            CollectionAssert.AreEqual(expected, actual);
+        }
+
+        [TestCase]
+        public void ShouldReturnEmptyIfNoUnheardTracks()
+        {
+            // input
+            var allTracks = CreateTestTracks(10);
+            var tracksToPlay = allTracks.Take(10);
+
+            // mock
+            var context = new ApplicationContext();
+
+            var mockPlayerService = new Mock<PlayerService>(context) { CallBase = true };
+            var player = mockPlayerService.Object;
+            player.TracksCollection = allTracks.ToList();
+
+            var mockMediaPlayer = new Mock<IMediaPlayer>();
+            player.MediaPlayer = mockMediaPlayer.Object;
+
+            var mockHistoryManager = new Mock<History>(context) { CallBase = true };
+            mockHistoryManager.Setup(x => x.AddToDatabase(It.IsAny<HistoryModel>()));
+            player.HistoryManager = mockHistoryManager.Object;
+
+            // act
+            foreach (var trackToPlay in tracksToPlay)
+            {
+                player.Play(trackToPlay);
+            }
+
+            // compare
+            var expected = Enumerable.Empty<Track>();
+            var actual = player.GetUnheardTracks().Select(x => x.Model.HashName);
+
+            CollectionAssert.AreEqual(expected, actual);
+        }
+
+        [TestCase]
+        public void ShouldReturnAllTracksIfAllUnheard()
+        {
+            // input
+            var allTracks = CreateTestTracks(10);
+
+            // mock
+            var context = new ApplicationContext();
+
+            var mockPlayerService = new Mock<PlayerService>(context) { CallBase = true };
+            var player = mockPlayerService.Object;
+            player.TracksCollection = allTracks.ToList();
+
+            var mockMediaPlayer = new Mock<IMediaPlayer>();
+            player.MediaPlayer = mockMediaPlayer.Object;
+
+            var mockHistoryManager = new Mock<History>(context) { CallBase = true };
+            mockHistoryManager.Setup(x => x.AddToDatabase(It.IsAny<HistoryModel>()));
+            player.HistoryManager = mockHistoryManager.Object;
+
+            // act
+            // ... do nothing
+
+            // compare
+            var expected = allTracks.Select(x => x.Model.HashName);
+            var actual = player.GetUnheardTracks().Select(x => x.Model.HashName);
+
+            CollectionAssert.AreEqual(expected, actual);
+        }
+
         static int hashCodeIndex;
         private IReadOnlyCollection<Track> CreateTestTracks(int amount)
         {

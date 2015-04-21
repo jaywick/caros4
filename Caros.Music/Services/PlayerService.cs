@@ -92,19 +92,32 @@ namespace Caros.Music
 
         public IEnumerable<Track> GetRecentTracks()
         {
-            var plays = HistoryManager.Items
+            var playHistory = HistoryManager.Items
                 .OrderByDescending(x => x.DatePlayed)
                 .Take(50);
 
-            if (!plays.Any())
+            if (!playHistory.Any())
                 return Enumerable.Empty<Track>();
 
-            return plays
+            return playHistory
                 .Join(TracksCollection,
                       h => h.TrackHashName,
                       t => t.Model.HashName,
                       (a, b) => b)
                 .ToList();
         }
-    }
+
+        public IEnumerable<Track> GetUnheardTracks()
+        {
+            var playHistory = HistoryManager.Items;
+
+            if (!playHistory.Any())
+                return TracksCollection;
+
+            return TracksCollection.
+                Where(t => !playHistory.
+                    Any(h => h.TrackHashName == t.Model.HashName))
+                .ToList();
+        }
+   }
 }

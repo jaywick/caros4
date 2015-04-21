@@ -27,7 +27,7 @@ namespace Caros.Music
             Folders.Add(new LibraryFolder("Now Playing", Player.CurrentPlaylist.ToList()));
             Folders.Add(new LibraryFolder("All Tracks", Player.TracksCollection));
             Folders.Add(new LibraryFolder("Recent", Player.GetRecentTracks()));
-            //Folders.Add(new LibraryFolder("Unheard", Player.GetUnheardTracks()));
+            Folders.Add(new LibraryFolder("Unheard", Player.GetUnheardTracks()));
             //Folders.Add(new LibraryFolder("Favourites", Player.GetFavourites()));
             //Folders.Add(new LibraryFolder("Artists", null));
             //Folders.Add(new LibraryFolder("Albums", null));

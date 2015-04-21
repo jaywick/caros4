@@ -27,5 +27,12 @@ namespace Caros.Core.Extensions
         {
             return target.Where(x => x.Equals(candidate));
         }
+
+        public static IEnumerable<T> SymmetricDifference<T>(this IEnumerable<T> target, IEnumerable<T> other)
+        {
+            return target
+                .Except(other)
+                .Union(other.Except(target));
+        }
     }
 }
