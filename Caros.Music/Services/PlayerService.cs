@@ -114,9 +114,31 @@ namespace Caros.Music
             if (!playHistory.Any())
                 return TracksCollection;
 
-            return TracksCollection.
-                Where(t => !playHistory.
+            return TracksCollection
+                .Where(t => !playHistory.
                     Any(h => h.TrackHashName == t.Model.HashName))
+                .ToList();
+        }
+
+        public IEnumerable<Track> GetFavouriteTracks()
+        {
+            var playHistory = HistoryManager.Items;
+
+            if (!playHistory.Any())
+                return Enumerable.Empty<Track>();
+
+            var favouriteTrackHashes = playHistory
+                .GroupBy(x => x.TrackHashName)
+                .Select(x => new { Track = x.Key, Count = x.Count() })
+                .OrderByDescending(x => x.Count)
+                .Select(x => x.Track)
+                .Take(50);
+
+            return favouriteTrackHashes
+                .Join(TracksCollection,
+                      x => x,
+                      t => t.Model.HashName,
+                      (a, b) => b)
                 .ToList();
         }
    }

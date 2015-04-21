@@ -4,6 +4,7 @@ using Moq;
 using Caros.Core.Context;
 using System.Collections.Generic;
 using System.Linq;
+using Caros.Core.Extensions;
 
 namespace Caros.Music.Tests
 {
@@ -237,6 +238,124 @@ namespace Caros.Music.Tests
             // compare
             var expected = allTracks.Select(x => x.Model.HashName);
             var actual = player.GetUnheardTracks().Select(x => x.Model.HashName);
+
+            CollectionAssert.AreEqual(expected, actual);
+        }
+
+        [TestCase]
+        public void ShouldOrderPlayedTracksByPlayCountOnGetFavourites()
+        {
+            // input
+            var allTracks = CreateTestTracks(10).ToList();
+
+            var tracksToPlay = new[]
+            {
+                allTracks[3],
+                allTracks[7],
+                allTracks[3],
+                allTracks[3],
+                allTracks[7],
+                allTracks[0]
+            };
+
+            // mock
+            var context = new ApplicationContext();
+
+            var mockPlayerService = new Mock<PlayerService>(context) { CallBase = true };
+            var player = mockPlayerService.Object;
+            player.TracksCollection = allTracks.ToList();
+
+            var mockMediaPlayer = new Mock<IMediaPlayer>();
+            player.MediaPlayer = mockMediaPlayer.Object;
+
+            var mockHistoryManager = new Mock<History>(context) { CallBase = true };
+            mockHistoryManager.Setup(x => x.AddToDatabase(It.IsAny<HistoryModel>()));
+            player.HistoryManager = mockHistoryManager.Object;
+
+            // act
+            foreach (var trackToPlay in tracksToPlay)
+            {
+                player.Play(trackToPlay);
+            }
+
+            // compare
+            var expected = new[] { allTracks[3], allTracks[7], allTracks[0] }.Select(x => x.Model.HashName);
+            var actual = player.GetFavouriteTracks().Select(x => x.Model.HashName);
+
+            CollectionAssert.AreEqual(expected, actual);
+        }
+
+        [TestCase]
+        public void ShouldNeverIncludeUnplayedInFavourites()
+        {
+            // input
+            var allTracks = CreateTestTracks(10).ToList();
+
+            var tracksToPlay = new[]
+            {
+                allTracks[3],
+                allTracks[7],
+                allTracks[3],
+                allTracks[3],
+                allTracks[7],
+                allTracks[0]
+            };
+
+            var tracksNotToPlay = allTracks.SymmetricDifference(tracksToPlay);
+
+            // mock
+            var context = new ApplicationContext();
+
+            var mockPlayerService = new Mock<PlayerService>(context) { CallBase = true };
+            var player = mockPlayerService.Object;
+            player.TracksCollection = allTracks.ToList();
+
+            var mockMediaPlayer = new Mock<IMediaPlayer>();
+            player.MediaPlayer = mockMediaPlayer.Object;
+
+            var mockHistoryManager = new Mock<History>(context) { CallBase = true };
+            mockHistoryManager.Setup(x => x.AddToDatabase(It.IsAny<HistoryModel>()));
+            player.HistoryManager = mockHistoryManager.Object;
+
+            // act
+            foreach (var trackToPlay in tracksToPlay)
+            {
+                player.Play(trackToPlay);
+            }
+
+            // compare
+            var notexpected = tracksNotToPlay.Select(x => x.Model.HashName);
+            var actual = player.GetFavouriteTracks().Select(x => x.Model.HashName);
+
+            CollectionAssert.DoesNotContain(notexpected, actual);
+        }
+
+        [TestCase]
+        public void ShouldReturnEmptyIfNoPlaysOnGetFavourites()
+        {
+            // input
+            var allTracks = CreateTestTracks(10).ToList();
+
+            // mock
+            var context = new ApplicationContext();
+
+            var mockPlayerService = new Mock<PlayerService>(context) { CallBase = true };
+            var player = mockPlayerService.Object;
+            player.TracksCollection = allTracks.ToList();
+
+            var mockMediaPlayer = new Mock<IMediaPlayer>();
+            player.MediaPlayer = mockMediaPlayer.Object;
+
+            var mockHistoryManager = new Mock<History>(context) { CallBase = true };
+            mockHistoryManager.Setup(x => x.AddToDatabase(It.IsAny<HistoryModel>()));
+            player.HistoryManager = mockHistoryManager.Object;
+
+            // act
+            // ... do nothing
+
+            // compare
+            var expected = Enumerable.Empty<Track>();
+            var actual = player.GetFavouriteTracks().Select(x => x.Model.HashName);
 
             CollectionAssert.AreEqual(expected, actual);
         }
