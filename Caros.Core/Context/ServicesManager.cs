@@ -20,7 +20,11 @@ namespace Caros.Core.Context
         public ServicesManager(IContext context)
         {
             Context = context;
+            CollectSystemServices();
+        }
 
+        public void CollectSystemServices()
+        {
             _systemServices = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory)
                 .Where(filepath => new FileInfo(filepath).Name.ToLower().StartsWith("caros") && (filepath.EndsWith(".dll") || filepath.EndsWith(".exe")))
                 .Select(filepath => Assembly.Load(AssemblyName.GetAssemblyName(filepath)))

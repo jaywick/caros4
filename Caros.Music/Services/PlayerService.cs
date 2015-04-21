@@ -4,22 +4,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Media;
 using Caros.Core;
 using Caros.Core.Services;
 
 namespace Caros.Music
 {
     public class PlayerService : Service
-    {
-        private MediaPlayer _mediaPlayer = new MediaPlayer();
-
+   {
         public bool IsPlaying { get; set; }
+        public IMediaPlayer MediaPlayer { get; set; }
         public Playlist<Track> CurrentPlaylist { get; set; }
         public List<Track> TracksCollection { get; set; }
+        public History HistoryManager { get; set; }
 
         public PlayerService(IContext context)
-            : base(context) { }
+            : base(context)
+        {
+            CurrentPlaylist = new Playlist<Track>();
+            MediaPlayer = new MediaPlayer();
+            HistoryManager = new History(context);
+        }
 
         public override void Start()
         {
@@ -36,6 +40,8 @@ namespace Caros.Music
             var collection = Context.Database.GetCollection<TrackModel>(TrackModel.CollectionName);
             TracksCollection = collection.FindAllAs<TrackModel>().Select(x => new Track(x)).ToList();
 
+            HistoryManager.Load();
+
             CurrentPlaylist = new Playlist<Track>(TracksCollection);
             CurrentPlaylist.Shuffle();
         }
@@ -43,20 +49,21 @@ namespace Caros.Music
         public void Play(Track track)
         {
             CurrentPlaylist.Current = track;
-            _mediaPlayer.Open(track.GetUri(Context));
+            MediaPlayer.Open(track.GetUri(Context));
+            HistoryManager.Add(track.Model);
             Resume();
         }
 
         public void Resume()
         {
             IsPlaying = true;
-            _mediaPlayer.Play();
+            MediaPlayer.Play();
         }
 
         public void Pause()
         {
             IsPlaying = false;
-            _mediaPlayer.Pause();
+            MediaPlayer.Pause();
         }
 
         public void TogglePlayback()
@@ -79,8 +86,25 @@ namespace Caros.Music
 
         public void Dipose()
         {
-            _mediaPlayer.Stop();
-            _mediaPlayer = null;
+            MediaPlayer.Stop();
+            MediaPlayer = null;
+        }
+
+        public IEnumerable<Track> GetRecentTracks()
+        {
+            var plays = HistoryManager.Items
+                .OrderByDescending(x => x.DatePlayed)
+                .Take(50);
+
+            if (!plays.Any())
+                return Enumerable.Empty<Track>();
+
+            return plays
+                .Join(TracksCollection,
+                      h => h.TrackHashName,
+                      t => t.Model.HashName,
+                      (a, b) => b)
+                .ToList();
         }
     }
 }

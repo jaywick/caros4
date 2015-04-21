@@ -12,6 +12,11 @@ namespace Caros.Music
         private List<T> _items;
         private int _index;
 
+        public Playlist()
+            : this(Enumerable.Empty<T>())
+        {
+        }
+
         public Playlist(IEnumerable<T> other)
         {
             _items = new List<T>(other);

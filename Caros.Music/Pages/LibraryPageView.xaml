@@ -6,7 +6,15 @@
              mc:Ignorable="d" 
              Width="1024" Height="600">
     <Grid Background="White">
-        <ListBox x:Name="listTracks" ItemsSource="{Binding AllTracks}" DisplayMemberPath="DisplayName" SelectedItem="{Binding SelectedTrack, Mode=TwoWay}" SelectionChanged="listTracks_SelectionChanged" Margin="29,26,41,27" FontSize="38"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.4*"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+        </Grid>
+
+        <ListBox Grid.Column="0" ItemsSource="{Binding Folders}" SelectedItem="{Binding SelectedFolder}" FontSize="35"/>
+        <ListBox Grid.Column="1" x:Name="listTracks" ItemsSource="{Binding Folders.Tracks}" DisplayMemberPath="DisplayName" SelectedItem="{Binding SelectedTrack, Mode=TwoWay}" SelectionChanged="listTracks_SelectionChanged" FontSize="38"/>
         <Button x:Name="GoBack" Height="100" Margin="715,473,41,27" Content="Back"/>
     </Grid>
 </UserControl>

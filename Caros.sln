@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Caros.CI.API", "Caros.CI\AP
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Caros.Recovery", "Caros.Recovery\Caros.Recovery.csproj", "{A52E07FE-F856-467B-8F24-430E04D241DF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Caros.Music.Tests", "Tests\Caros.Music.Tests\Caros.Music.Tests.csproj", "{3E527830-A128-4A12-B0F4-25BC44FC01B3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{A52E07FE-F856-467B-8F24-430E04D241DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A52E07FE-F856-467B-8F24-430E04D241DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A52E07FE-F856-467B-8F24-430E04D241DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E527830-A128-4A12-B0F4-25BC44FC01B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E527830-A128-4A12-B0F4-25BC44FC01B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E527830-A128-4A12-B0F4-25BC44FC01B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E527830-A128-4A12-B0F4-25BC44FC01B3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

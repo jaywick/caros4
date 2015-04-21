@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 using Caliburn.Micro;
 using Caros.Core.Context;
 using Caros.Core.Contracts;
+using Caros.Music.Pages;
 
 namespace Caros.Music
 {
     public class LibraryPageViewModel : PageViewModel
     {
-        public BindableCollection<Track> AllTracks { get; set; }
+        public BindableCollection<LibraryFolder> Folders { get; set; }
 
         private PlayerService Player { get; set; }
         private ImporterService Importer { get; set; }
@@ -22,21 +23,29 @@ namespace Caros.Music
             Importer = Context.Services.Utilise<ImporterService>();
             Player = Context.Services.Utilise<PlayerService>();
 
-            AllTracks = new BindableCollection<Track>(Player.CurrentPlaylist.ToList());
+            Folders = new BindableCollection<LibraryFolder>();
+            Folders.Add(new LibraryFolder("Now Playing", Player.CurrentPlaylist.ToList()));
+            Folders.Add(new LibraryFolder("All Tracks", Player.TracksCollection));
+            Folders.Add(new LibraryFolder("Recent", Player.GetRecentTracks()));
+            //Folders.Add(new LibraryFolder("Unheard", Player.GetUnheardTracks()));
+            //Folders.Add(new LibraryFolder("Favourites", Player.GetFavourites()));
+            //Folders.Add(new LibraryFolder("Artists", null));
+            //Folders.Add(new LibraryFolder("Albums", null));
 
-            NotifyOfPropertyChange(() => AllTracks);
+            Folders.Refresh();
         }
 
-        public Track SelectedTrack
+        private Track _selectedFolder;
+        public Track SelectedFolder
         {
             get
             {
-                return Player.CurrentTrack;
+                return _selectedFolder;
             }
             set
             {
-                Player.Play(value);
-                NotifyOfPropertyChange(() => SelectedTrack);
+                _selectedFolder = value;
+                NotifyOfPropertyChange(() => SelectedFolder);
             }
         }
 

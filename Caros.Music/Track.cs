@@ -17,7 +17,7 @@ namespace Caros.Music
             Model = model;
         }
 
-        public Uri GetUri(IContext context)
+        public virtual Uri GetUri(IContext context)
         {
             return new Uri(context.Storage.MusicInternalCache.Combine(Model.HashName + Model.Extension));
         }
@@ -25,6 +25,26 @@ namespace Caros.Music
         public string DisplayName
         {
             get { return String.Format("{0} - {1}", Model.Artist, Model.Title); }
+        }
+
+        public override bool Equals(object other)
+        {
+            var otherTrackModel = other as Track;
+
+            if (otherTrackModel == null)
+                return false;
+
+            return this.Model.HashName == otherTrackModel.Model.HashName;
+        }
+
+        public static bool operator ==(Track a, Track b)
+        {
+            return a.Model.HashName == b.Model.HashName;
+        }
+
+        public static bool operator !=(Track a, Track b)
+        {
+            return a.Model.HashName != b.Model.HashName;
         }
     }
 }
