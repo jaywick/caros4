@@ -31,7 +31,7 @@ namespace Caros.Music
         {
             var otherTrackModel = other as Track;
 
-            if (otherTrackModel == null)
+            if ((object)otherTrackModel == null)
                 return false;
 
             return this.Model.HashName == otherTrackModel.Model.HashName;
@@ -39,7 +39,7 @@ namespace Caros.Music
 
         public static bool operator ==(Track a, Track b)
         {
-            if (b == null)
+            if ((object)b == null)
                 return false;
 
             return a.Model.HashName == b.Model.HashName;
@@ -47,7 +47,7 @@ namespace Caros.Music
 
         public static bool operator !=(Track a, Track b)
         {
-            if (b == null)
+            if ((object)b == null)
                 return true;
 
             return a.Model.HashName != b.Model.HashName;

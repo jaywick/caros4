@@ -37,7 +37,7 @@ namespace Caros.Music
         {
             var historyModel = new HistoryModel
             {
-                DatePlayed = new DateTime(2000, 1, 1),
+                DatePlayed = DateTime.Now,
                 TrackHashName = track.HashName,
             };
 

@@ -11,10 +11,10 @@
                 <ColumnDefinition Width="0.4*"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
+            
+            <ListBox Grid.Column="0" ItemsSource="{Binding Folders}" SelectedItem="{Binding SelectedFolder, Mode=TwoWay}" DisplayMemberPath="Name" FontSize="35"/>
+            <ListBox Grid.Column="1" x:Name="listTracks" ItemsSource="{Binding SelectedFolder.Tracks}" DisplayMemberPath="DisplayName" SelectedItem="{Binding SelectedTrack, Mode=TwoWay}" SelectionChanged="listTracks_SelectionChanged" FontSize="38"/>
         </Grid>
-
-        <ListBox Grid.Column="0" ItemsSource="{Binding Folders}" SelectedItem="{Binding SelectedFolder}" FontSize="35"/>
-        <ListBox Grid.Column="1" x:Name="listTracks" ItemsSource="{Binding Folders.Tracks}" DisplayMemberPath="DisplayName" SelectedItem="{Binding SelectedTrack, Mode=TwoWay}" SelectionChanged="listTracks_SelectionChanged" FontSize="38"/>
         <Button x:Name="GoBack" Height="100" Margin="715,473,41,27" Content="Back"/>
     </Grid>
 </UserControl>

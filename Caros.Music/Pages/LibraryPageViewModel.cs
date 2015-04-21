@@ -35,8 +35,8 @@ namespace Caros.Music
             Folders.Refresh();
         }
 
-        private Track _selectedFolder;
-        public Track SelectedFolder
+        private LibraryFolder _selectedFolder;
+        public LibraryFolder SelectedFolder
         {
             get
             {
@@ -45,6 +45,7 @@ namespace Caros.Music
             set
             {
                 _selectedFolder = value;
+                NotifyOfPropertyChange(() => Folders);
                 NotifyOfPropertyChange(() => SelectedFolder);
             }
         }
