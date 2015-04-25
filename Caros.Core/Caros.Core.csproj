@@ -96,6 +96,8 @@
     <Compile Include="Integration\HostMachine.cs" />
     <Compile Include="IntegrationServices.cs" />
     <Compile Include="Log.cs" />
+    <Compile Include="IMenuDisplay.cs" />
+    <Compile Include="NamedAction.cs" />
     <Compile Include="RootViewModel.cs" />
     <Compile Include="Services\Service.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

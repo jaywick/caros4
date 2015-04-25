@@ -14,7 +14,7 @@ namespace Caros.Core.Contracts
 
         public virtual void OnVisit(bool isFirst) { }
 
-        public virtual void OnExtra() { }
+        public virtual void OnExtra(NamedActionBuilder builder) { }
 
         public virtual void OnSearch() { }
 

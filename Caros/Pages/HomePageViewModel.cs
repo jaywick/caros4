@@ -17,6 +17,12 @@ namespace Caros.Pages
         {
         }
 
+        public override void OnExtra(Core.NamedActionBuilder builder)
+        {
+            builder.Add("shortcut to music", LaunchMusic);
+            builder.Add("switch user", SwitchUser);
+        }
+
         public void LaunchMusic()
         {
             Context.Navigator.Visit<MusicPageViewModel>();

@@ -7,6 +7,7 @@ using Caliburn.Micro;
 using Caros.Core.Context;
 using Caros.Core.Contracts;
 using Caros.Core.Services;
+using Caros.Core;
 
 namespace Caros.Components
 {
@@ -26,7 +27,7 @@ namespace Caros.Components
 
         public void OpenMenu()
         {
-            Context.Navigator.CurrentPage.OnExtra();
+            Context.Navigator.OpenMenu();
         }
 
         public void OpenSearch()

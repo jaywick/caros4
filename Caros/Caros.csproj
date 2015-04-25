@@ -98,6 +98,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\MenuPageView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Pages\ProfilesPageView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -127,6 +131,10 @@
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainViewModel.cs" />
+    <Compile Include="Pages\MenuPageView.xaml.cs">
+      <DependentUpon>MenuPageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\MenuPageViewModel.cs" />
     <Compile Include="Pages\ProfilesPageView.xaml.cs">
       <DependentUpon>ProfilesPageView.xaml</DependentUpon>
     </Compile>

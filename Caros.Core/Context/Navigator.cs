@@ -12,10 +12,13 @@ namespace Caros.Core.Context
         event Action<PageViewModel> OnNavigate;
         Reference<PageViewModel> ErrorPage { get; set; }
         Reference<PageViewModel> HomePage { get; set; }
+        Reference<PageViewModel> MenuPage { get; set; }
         PageViewModel CurrentPage { get; }
+        bool IsMenuOpen { get; }
 
         void GoHome();
         void Return();
+        void OpenMenu();
         void Visit<T>(bool bypassHistory = false) where T : Caros.Core.Contracts.PageViewModel;
     }
 
@@ -26,6 +29,8 @@ namespace Caros.Core.Context
         public virtual IContext Context { get; set; }
         public Reference<PageViewModel> ErrorPage { get; set; }
         public Reference<PageViewModel> HomePage { get; set; }
+        public Reference<PageViewModel> MenuPage { get; set; }
+        public bool IsMenuOpen { get; private set; }
 
         private Stack<PageViewModel> _history = new Stack<PageViewModel>();
         private Dictionary<Type, PageViewModel> _instances = new Dictionary<Type, PageViewModel>();
@@ -37,7 +42,13 @@ namespace Caros.Core.Context
 
         public PageViewModel CurrentPage
         {
-            get { return _history.Peek(); }
+            get
+            {
+                if (!_history.Any())
+                    return null;
+
+                return _history.Peek();
+            }
         }
 
         private void Visit(Type type, bool bypassHistory)
@@ -98,8 +109,30 @@ namespace Caros.Core.Context
             CallNavigate(_history.Peek(), false);
         }
 
+        public void OpenMenu()
+        {
+            if (IsMenuOpen)
+            {
+                Return();
+                return;
+            }
+
+            if (CurrentPage == null)
+                return;
+
+            var menuBuilder = new NamedActionBuilder();
+            CurrentPage.OnExtra(menuBuilder);
+            Visit(MenuPage.Type, false);
+            (_instances[MenuPage.Type] as IMenuDisplay).LoadTasks(menuBuilder.Items);
+            IsMenuOpen = true;
+        }
+
         private void CallNavigate(PageViewModel page, bool isNew)
         {
+            // close menu if navigating elsewhere
+            if (page.GetType() != MenuPage.Type)
+                IsMenuOpen = false;
+
             if (OnNavigate != null)
                 OnNavigate.Invoke(page);
 
