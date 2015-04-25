@@ -12,5 +12,7 @@
         <Button x:Name="TogglePlayback" Height="100" Margin="320,463,328,37" Content="{Binding TogglePlayButtonText, FallbackValue='Toggle Play'}"/>
         <Button x:Name="SkipTrack" Height="100" Margin="716,463,40,37" Content="NEXT"/>
         <Button x:Name="OpenLibrary" Height="100" Margin="716,341,40,159" Content="Library"/>
+        <Button x:Name="IncreaseVolume" Height="100" Margin="894,28,40,472" Content="+"/>
+        <Button x:Name="DecreaseVolume" Height="100" Margin="799,28,135,472" Content="-"/>
     </Grid>
 </UserControl>

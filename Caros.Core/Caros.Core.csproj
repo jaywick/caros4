@@ -95,6 +95,7 @@
     <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="Integration\HostMachine.cs" />
     <Compile Include="IntegrationServices.cs" />
+    <Compile Include="Integration\Volume.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="IMenuDisplay.cs" />
     <Compile Include="NamedAction.cs" />

@@ -80,5 +80,15 @@ namespace Caros.Music
         {
             Context.Navigator.Visit<LibraryPageViewModel>();
         }
+
+        public void IncreaseVolume()
+        {
+            Caros.Core.Integration.Volume.Instance.Increase();
+        }
+
+        public void DecreaseVolume()
+        {
+            Caros.Core.Integration.Volume.Instance.Decrease();
+        }
     }
 }
