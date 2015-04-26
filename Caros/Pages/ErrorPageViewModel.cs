@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Caliburn.Micro;
 using Caros.Core.Context;
-using Caros.Core.Contracts;
+using Caros.Core.UI;
 using Caros.Core.Services;
 
 namespace Caros.Pages

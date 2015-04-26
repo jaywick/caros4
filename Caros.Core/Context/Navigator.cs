@@ -1,4 +1,4 @@
-﻿using Caros.Core.Contracts;
+﻿using Caros.Core.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +19,7 @@ namespace Caros.Core.Context
         void GoHome();
         void Return();
         void OpenMenu();
-        void Visit<T>(bool bypassHistory = false) where T : Caros.Core.Contracts.PageViewModel;
+        void Visit<T>(bool bypassHistory = false) where T : Caros.Core.UI.PageViewModel;
     }
 
     public class Navigator : INavigator

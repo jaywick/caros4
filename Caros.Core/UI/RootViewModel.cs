@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Caros.Core.Contracts
+namespace Caros.Core.UI
 {
     public class RootViewModel : PropertyChangedBase
     {

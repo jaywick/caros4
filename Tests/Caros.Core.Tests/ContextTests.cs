@@ -4,7 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using Caros.Core.Context;
-using Caros.Core.Contracts;
+using Caros.Core.UI;
 using Moq;
 
 namespace Caros.Core.Tests

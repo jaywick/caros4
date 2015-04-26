@@ -7,7 +7,7 @@ using System.Windows.Controls;
 using Caliburn.Micro;
 using System.Windows;
 using Caros.Core.Context;
-using Caros.Core.Contracts;
+using Caros.Core.UI;
 using Caros.Pages;
 using Caros.Core.Services;
 using Caros.Core;

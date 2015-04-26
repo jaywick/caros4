@@ -97,9 +97,9 @@
     <Compile Include="IntegrationServices.cs" />
     <Compile Include="Integration\Volume.cs" />
     <Compile Include="Log.cs" />
-    <Compile Include="IMenuDisplay.cs" />
+    <Compile Include="UI\IMenuDisplay.cs" />
     <Compile Include="NamedAction.cs" />
-    <Compile Include="RootViewModel.cs" />
+    <Compile Include="UI\RootViewModel.cs" />
     <Compile Include="Services\Service.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Integration\DatabaseServer.cs" />
@@ -107,18 +107,18 @@
     <Compile Include="TypeOf.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Context\Storage.cs" />
-    <Compile Include="PageViewModel.cs" />
+    <Compile Include="UI\PageViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Styles\CarosCommon.xaml">
+    <Page Include="UI\Styles\CarosCommon.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Styles\CarosDark.xaml">
+    <Page Include="UI\Styles\CarosDark.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Styles\CarosLight.xaml">
+    <Page Include="UI\Styles\CarosLight.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

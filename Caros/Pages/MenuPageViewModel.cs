@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Caliburn.Micro;
 using Caros.Core.Context;
-using Caros.Core.Contracts;
+using Caros.Core.UI;
 using Caros.Music;
 using Caros.Core;
 

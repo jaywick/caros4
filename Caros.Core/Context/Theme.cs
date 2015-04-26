@@ -19,8 +19,8 @@ namespace Caros.Core.Context
 
     public class Theme : ITheme
     {
-        private const string LightStyleResource = "Caros.Core;component/Styles/CarosLight.xaml";
-        private const string DarkStyleResource = "Caros.Core;component/Styles/CarosDark.xaml";
+        private const string LightStyleResource = "Caros.Core;component/UI/Styles/CarosLight.xaml";
+        private const string DarkStyleResource = "Caros.Core;component/UI/Styles/CarosDark.xaml";
 
         public virtual IContext Context { get; set; }
         public virtual ThemeStyle Current { get; set; }
