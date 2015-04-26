@@ -7,6 +7,7 @@ using Caliburn.Micro;
 using Caros.Core.Context;
 using Caros.Core.UI;
 using Caros.Music;
+using Caros.Core;
 
 namespace Caros.Pages
 {
@@ -31,6 +32,15 @@ namespace Caros.Pages
         public void SwitchUser()
         {
             Context.Navigator.Visit<ProfilesPageViewModel>();
+        }
+
+        public void ShowToast()
+        {
+            var tasks = new List<NamedAction>();
+            tasks.Add(new NamedAction("Task 1", () => { }));
+            tasks.Add(new NamedAction("Task 2", () => { }));
+            tasks.Add(new NamedAction("Task 3", () => { }));
+            Context.Events.Post("Test poast", "hey there!", tasks);
         }
 
         public async void UpdateSystem()

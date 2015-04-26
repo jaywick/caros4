@@ -11,7 +11,7 @@ using Caros.Core;
 
 namespace Caros.Components
 {
-    public class NavigationBarViewModel : PropertyChangedBase
+    public class NavigationBarViewModel : ViewModel
     {
         private IContext Context { get; set; }
 

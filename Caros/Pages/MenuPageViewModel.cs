@@ -10,7 +10,7 @@ using Caros.Core;
 
 namespace Caros.Pages
 {
-    public class MenuPageViewModel : PageViewModel, IMenuDisplay
+    public class MenuPageViewModel : PageViewModel, IMenuDisplayer
     {
         public BindableCollection<NamedAction> Tasks { get; set; }
 

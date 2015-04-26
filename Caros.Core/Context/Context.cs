@@ -17,6 +17,7 @@ namespace Caros.Core.Context
         IProfiles Profiles { get; set; }
         IEnvironment Environment { get; set; }
         IClock Clock { get; set; }
+        IEvents Events { get; set; }
     }
 
     public class ApplicationContext : IContext
@@ -29,6 +30,7 @@ namespace Caros.Core.Context
         public IProfiles Profiles { get; set; }
         public IEnvironment Environment { get; set; }
         public IClock Clock { get; set; }
+        public IEvents Events { get; set; }
 
         public static IContext Create()
         {
@@ -41,6 +43,7 @@ namespace Caros.Core.Context
             context.Database = new Database(context);
             context.Services = new ServicesManager(context);
             context.Profiles = new Profiles(context);
+            context.Events = new Events(context);
             return context;
         }
     }

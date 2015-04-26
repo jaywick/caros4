@@ -1,5 +1,4 @@
 ﻿using Caliburn.Micro;
-using Caros.Core.Context;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,8 +7,7 @@ using System.Threading.Tasks;
 
 namespace Caros.Core.UI
 {
-    public interface IMenuDisplay
+    public class ViewModel : PropertyChangedBase
     {
-        void LoadTasks(IEnumerable<NamedAction> tasks);
     }
 }

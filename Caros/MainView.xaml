@@ -18,7 +18,6 @@
             <ContentControl x:Name="NavigationBarControl" Grid.Column="1"/>
         </Grid>
         
-        <ContentControl x:Name="Notifications"/>
-        <ContentControl x:Name="Menu"/>
+        <ContentControl x:Name="EventsControl" Grid.Column="0"/>
     </Grid>
 </UserControl>

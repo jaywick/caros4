@@ -10,6 +10,7 @@ namespace Caros.Core.Context
     public interface INavigator : IContextComponent
     {
         event Action<PageViewModel> OnNavigate;
+
         Reference<PageViewModel> ErrorPage { get; set; }
         Reference<PageViewModel> HomePage { get; set; }
         Reference<PageViewModel> MenuPage { get; set; }
@@ -123,7 +124,7 @@ namespace Caros.Core.Context
             var menuBuilder = new NamedActionBuilder();
             CurrentPage.OnExtra(menuBuilder);
             Visit(MenuPage.Type, false);
-            (_instances[MenuPage.Type] as IMenuDisplay).LoadTasks(menuBuilder.Items);
+            (_instances[MenuPage.Type] as IMenuDisplayer).LoadTasks(menuBuilder.Items);
             IsMenuOpen = true;
         }
 

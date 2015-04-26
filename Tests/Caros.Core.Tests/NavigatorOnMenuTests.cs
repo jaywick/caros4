@@ -88,7 +88,7 @@ namespace Caros.Core.Tests
             Assert.AreEqual(expected, actual);
         }
 
-        class MockMenuViewModel : PageViewModel, IMenuDisplay
+        class MockMenuViewModel : PageViewModel, IMenuDisplayer
         {
             public MockMenuViewModel(IContext context)
                 : base(context) { }

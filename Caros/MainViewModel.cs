@@ -11,14 +11,71 @@ using Caros.Core.UI;
 using Caros.Pages;
 using Caros.Core.Services;
 using Caros.Core;
+using Caros.Components;
 
 namespace Caros
 {
-    class MainViewModel : RootViewModel
+    class MainViewModel : ViewModel
     {
+        public MainViewModel()
+        {
+            StartApplication();
+            RenderLayout();
+        }
+
+        private void RenderLayout()
+        {
+            NavigationBarControl = new Components.NavigationBarViewModel(Context);
+        }
+
+        private async void StartApplication()
+        {
+            Caros.Core.IntegrationServices.Start();
+
+            SetupContext();
+
+            Context.Services.StartSystemServices();
+
+            Context.Navigator.Visit<SplashPageViewModel>(bypassHistory: true);
+            await Task.Delay(2000);
+
+            Context.Navigator.Visit<HomePageViewModel>();
+        }
+
+        private void SetupContext()
+        {
+            Context = ApplicationContext.Create();
+
+            Context.Navigator.ErrorPage = new TypeOf<ErrorPageViewModel>();
+            Context.Navigator.HomePage = new TypeOf<HomePageViewModel>();
+            Context.Navigator.MenuPage = new TypeOf<MenuPageViewModel>();
+            Context.Navigator.OnNavigate += Navigator_OnNavigate;
+
+            Context.Events.OnToast += Events_OnToast;
+        }
+
+        private void Navigator_OnNavigate(PageViewModel page)
+        {
+            this.ActivePage = page;
+        }
+
+        private void Events_OnToast(EventPost post)
+        {
+            EventsControl = new EventsBarViewModel(post);
+            EventsControl.RequestClose += EventsControl_RequestClose;
+            NotifyOfPropertyChange(() => EventsControl);
+        }
+
+        private void EventsControl_RequestClose()
+        {
+            EventsControl = null;
+            NotifyOfPropertyChange(() => EventsControl);
+        }
+
         #region Properties
 
         public Components.NavigationBarViewModel NavigationBarControl { get; set; }
+        public Components.EventsBarViewModel EventsControl { get; set; }
 
         public virtual IContext Context { get; set; }
 
@@ -35,38 +92,5 @@ namespace Caros
 
         #endregion
 
-        public MainViewModel()
-        {
-            StartApplication();
-            RenderLayout();
-        }
-
-        private void RenderLayout()
-        {
-            NavigationBarControl = new Components.NavigationBarViewModel(Context);
-        }
-
-        void Navigator_OnNavigate(PageViewModel page)
-        {
-            this.ActivePage = page;
-        }
-
-        private async void StartApplication()
-        {
-            Caros.Core.IntegrationServices.Start();
-            
-            Context = ApplicationContext.Create();
-            Context.Navigator.ErrorPage = new TypeOf<ErrorPageViewModel>();
-            Context.Navigator.HomePage = new TypeOf<HomePageViewModel>();
-            Context.Navigator.MenuPage = new TypeOf<MenuPageViewModel>();
-            Context.Navigator.OnNavigate += Navigator_OnNavigate;
-
-            Context.Services.StartSystemServices();
-
-            Context.Navigator.Visit<SplashPageViewModel>(bypassHistory: true);
-            await Task.Delay(2000);
-
-            Context.Navigator.Visit<HomePageViewModel>();
-        }
     }
 }

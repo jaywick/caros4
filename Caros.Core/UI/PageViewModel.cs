@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Caros.Core.UI
 {
-    public class PageViewModel : PropertyChangedBase
+    public class PageViewModel : ViewModel
     {
         public virtual IContext Context { get; set; }
 
