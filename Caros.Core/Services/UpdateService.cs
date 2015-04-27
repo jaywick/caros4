@@ -76,6 +76,11 @@ namespace Caros.Core.Services
             get { return _lastUpdate.Exists; }
         }
 
+        public string UpdateVersion
+        {
+            get { return _lastUpdate.Version.ReleaseName; }
+        }
+
         public async Task DownloadUpdate()
         {
             var _lastPackage = await _lastUpdate.Download();

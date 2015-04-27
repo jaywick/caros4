@@ -50,11 +50,19 @@ namespace Caros.Pages
             await updateService.CheckForUpdates();
             if (updateService.IsUpdateAvailable)
             {
-                //todo: toast + yes/no to update
-                await updateService.Deploy();
+                Context.Events.Post("An update is available",
+                                    String.Format("Do you wish to deploy the latest update {0}", updateService.UpdateVersion),
+                                    new[]
+                                    {
+                                        new NamedAction("Deploy", async () => await updateService.Deploy())
+                                    });
 
-                //todo: toast + yes/no to relaunch
-                updateService.Relaunch();
+                Context.Events.Post("Caros update installed",
+                                    String.Format("Do you wish to relaunch Caros with the latest version ({0})", updateService.UpdateVersion),
+                                    new[]
+                                    {
+                                        new NamedAction("Relaunch", () => updateService.Relaunch())
+                                    });
             }
         }
     }
