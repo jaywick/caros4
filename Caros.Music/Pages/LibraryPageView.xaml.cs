@@ -29,5 +29,11 @@ namespace Caros.Music
 
             listTracks.ScrollIntoView(e.AddedItems[0]);
         }
+
+        private void TextBox_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if ((bool)e.NewValue)
+                ((TextBox)sender).Focus();
+        }
     }
 }

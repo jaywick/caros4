@@ -12,13 +12,17 @@ namespace Caros.Music.Pages
         public string Name { get; set; }
 
         public BindableCollection<Track> Tracks { get; set; }
-        
-        public LibraryFolder(string name, IEnumerable<Track> tracks)
+
+        public bool IsEnabled { get; set; }
+
+        public LibraryFolder(string name, IEnumerable<Track> tracks, bool isEnabled = true)
         {
             Name = name;
 
-            Tracks = new BindableCollection<Track>(tracks);
-            Tracks.Refresh();
+            Tracks = new BindableCollection<Track>();
+            Tracks.AddRange(tracks ?? Enumerable.Empty<Track>());
+
+            IsEnabled = isEnabled;
         }
     }
 }

@@ -16,6 +16,7 @@ namespace Caros.Music
 
         private PlayerService Player { get; set; }
         private ImporterService Importer { get; set; }
+        private LibraryFolder _searchFolder;
 
         public LibraryPageViewModel(IContext context)
             : base(context)
@@ -29,8 +30,9 @@ namespace Caros.Music
             Folders.Add(new LibraryFolder("Recent", Player.GetRecentTracks()));
             Folders.Add(new LibraryFolder("Unheard", Player.GetUnheardTracks()));
             Folders.Add(new LibraryFolder("Favourites", Player.GetFavouriteTracks()));
-            //Folders.Add(new LibraryFolder("Artists", null));
-            //Folders.Add(new LibraryFolder("Albums", null));
+
+            _searchFolder = new LibraryFolder("Search", null, isEnabled: false);
+            Folders.Add(_searchFolder);
 
             Folders.Refresh();
         }
@@ -45,14 +47,43 @@ namespace Caros.Music
             set
             {
                 _selectedFolder = value;
-                NotifyOfPropertyChange(() => Folders);
-                NotifyOfPropertyChange(() => SelectedFolder);
+                UpdateFolderChange();
             }
         }
 
-        public void GoBack()
+        private string _searchText;
+        public string SearchText
         {
-            Context.Navigator.Visit<MusicPageViewModel>();
+            get { return _searchText; }
+            set
+            {
+                _searchText = value;
+                NotifyOfPropertyChange(() => SearchText);
+                UpdateSearch(value);
+            }
+        }
+
+        public override void OnSearch()
+        {
+            SelectedFolder = _searchFolder;
+        }
+
+        public bool IsSearching
+        {
+            get { return SelectedFolder == _searchFolder; }
+        }
+
+        private void UpdateFolderChange()
+        {
+            NotifyOfPropertyChange(() => Folders);
+            NotifyOfPropertyChange(() => IsSearching);
+            NotifyOfPropertyChange(() => SelectedFolder);
+        }
+
+        private void UpdateSearch(string searchText)
+        {
+            _searchFolder.Tracks.Clear();
+            _searchFolder.Tracks.AddRange(Player.SearchTracks(searchText));
         }
     }
 }

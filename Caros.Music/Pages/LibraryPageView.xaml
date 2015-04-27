@@ -2,7 +2,9 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:e="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:cal="http://www.caliburnproject.org"
              mc:Ignorable="d" 
              Width="1024" Height="600">
     <Grid Background="White">
@@ -13,8 +15,16 @@
             </Grid.ColumnDefinitions>
             
             <ListBox Grid.Column="0" ItemsSource="{Binding Folders}" SelectedItem="{Binding SelectedFolder, Mode=TwoWay}" DisplayMemberPath="Name" FontSize="35"/>
-            <ListBox Grid.Column="1" x:Name="listTracks" ItemsSource="{Binding SelectedFolder.Tracks}" DisplayMemberPath="DisplayName" SelectedItem="{Binding SelectedTrack, Mode=TwoWay}" SelectionChanged="listTracks_SelectionChanged" FontSize="38"/>
+            
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                
+                <TextBox Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding IsSearching, Converter={StaticResource BooleanToVisibilityConverter}}" IsVisibleChanged="TextBox_IsVisibleChanged" FontSize="40"/>
+                <ListBox Grid.Row="1" x:Name="listTracks" ItemsSource="{Binding SelectedFolder.Tracks}" DisplayMemberPath="DisplayName" SelectedItem="{Binding SelectedTrack, Mode=TwoWay}" SelectionChanged="listTracks_SelectionChanged" FontSize="38"/>
+            </Grid>
         </Grid>
-        <Button x:Name="GoBack" Height="100" Margin="715,473,41,27" Content="Back"/>
     </Grid>
 </UserControl>

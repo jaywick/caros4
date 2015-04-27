@@ -34,5 +34,13 @@ namespace Caros.Core.Extensions
                 .Except(other)
                 .Union(other.Except(target));
         }
+
+        public static IEnumerable<Tuple<T, T>> JoinWhere<T>(this IEnumerable<T> target, IEnumerable<T> second, Func<T, T, bool> predicate)
+        {
+            foreach (var t in target)
+                foreach (var s in second)
+                    if (predicate(t, s))
+                        yield return Tuple.Create(t, s);
+        }
     }
 }

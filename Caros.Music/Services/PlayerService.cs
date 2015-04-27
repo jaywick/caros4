@@ -6,11 +6,13 @@ using System.Text;
 using System.Threading.Tasks;
 using Caros.Core;
 using Caros.Core.Services;
+using System.Text.RegularExpressions;
+using Caros.Core.Extensions;
 
 namespace Caros.Music
 {
     public class PlayerService : Service
-   {
+    {
         public bool IsPlaying { get; set; }
         public IMediaPlayer MediaPlayer { get; set; }
         public Playlist<Track> CurrentPlaylist { get; set; }
@@ -141,5 +143,34 @@ namespace Caros.Music
                       (a, b) => b)
                 .ToList();
         }
-   }
+
+        public IEnumerable<Track> SearchTracks(string searchText)
+        {
+            var results = TracksCollection
+                .Select(x => new
+                    {
+                        Track = x,
+                        Score = GetSearchScore(x.DisplayName, searchText)
+                    })
+                .Where(x => x.Score > 0)
+                .OrderByDescending(x => x.Score)
+                .Select(x => x.Track);
+
+            return results
+                .Take(50);
+        }
+
+        private int GetSearchScore(string target, string searchText)
+        {
+            var spaceString = " ";
+
+            var searchWords = searchText.ToLower().Split(spaceString, true).Distinct();
+            var targetWords = target.ToLower().Split(spaceString, true).Distinct();
+
+            return targetWords
+                .JoinWhere(searchWords, (t, s) => t.StartsWith(s))
+                .Select(x => x.Item1)
+                .Count();
+        }
+    }
 }

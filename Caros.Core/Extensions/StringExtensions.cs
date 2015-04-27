@@ -14,6 +14,11 @@ namespace Caros.Core.Extensions
             return target.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
         }
 
+        public static IEnumerable<string> Split(this string target, string separator, bool ignoreEmpty = false)
+        {
+            return target.Split(new[] { separator }, ignoreEmpty ? StringSplitOptions.RemoveEmptyEntries : StringSplitOptions.None);
+        }
+
         public static string IfEmpty(this string target, string defaultValue)
         {
             if (String.IsNullOrWhiteSpace(target))
