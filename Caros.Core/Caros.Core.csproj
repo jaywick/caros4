@@ -99,7 +99,6 @@
     <Compile Include="IntegrationServices.cs" />
     <Compile Include="Integration\Volume.cs" />
     <Compile Include="Log.cs" />
-    <Compile Include="UI\IToastDisplayer.cs" />
     <Compile Include="UI\IMenuDisplayer.cs" />
     <Compile Include="NamedAction.cs" />
     <Compile Include="Services\Service.cs" />

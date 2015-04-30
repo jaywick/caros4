@@ -17,7 +17,8 @@
             <metro:TransitioningContentControl Grid.Column="0" Transition="Right" cal:View.Model="{Binding ActivePage}" />
             <ContentControl x:Name="NavigationBarControl" Grid.Column="1"/>
         </Grid>
-        
-        <ContentControl x:Name="EventsControl" Grid.Column="0"/>
+
+        <ContentControl x:Name="EventsControl"/>
+        <ContentControl x:Name="KeyboardControl" VerticalAlignment="Bottom"/>
     </Grid>
 </UserControl>

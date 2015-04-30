@@ -50,6 +50,7 @@ namespace Caros
             Context.Navigator.HomePage = new TypeOf<HomePageViewModel>();
             Context.Navigator.MenuPage = new TypeOf<MenuPageViewModel>();
             Context.Navigator.OnNavigate += Navigator_OnNavigate;
+            Context.Navigator.OnShowKeyboard += Navigator_OnShowKeyboard;
 
             Context.Events.OnToast += Events_OnToast;
         }
@@ -71,11 +72,25 @@ namespace Caros
             EventsControl = null;
             NotifyOfPropertyChange(() => EventsControl);
         }
+        
+        private void Navigator_OnShowKeyboard(bool value)
+        {
+            KeyboardControl = new KeyboardViewModel();
+            KeyboardControl.RequestClose += KeyboardControl_RequestClose;
+            NotifyOfPropertyChange(() => KeyboardControl);
+        }
+
+        private void KeyboardControl_RequestClose()
+        {
+            KeyboardControl = null;
+            NotifyOfPropertyChange(() => KeyboardControl);
+        }
 
         #region Properties
 
         public Components.NavigationBarViewModel NavigationBarControl { get; set; }
         public Components.EventsBarViewModel EventsControl { get; set; }
+        public Components.KeyboardViewModel KeyboardControl { get; set; }
 
         public virtual IContext Context { get; set; }
 

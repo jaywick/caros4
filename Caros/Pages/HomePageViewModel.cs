@@ -34,6 +34,11 @@ namespace Caros.Pages
             Context.Navigator.Visit<ProfilesPageViewModel>();
         }
 
+        public void ShowKeyboard()
+        {
+            Context.Navigator.ShowKeyboard();
+        }
+
         public void ShowToast()
         {
             var tasks = new List<NamedAction>();

@@ -1,0 +1,58 @@
+﻿<UserControl x:Class="Caros.Components.KeyboardView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:cal="http://www.caliburnproject.org"
+             mc:Ignorable="d"
+             Width="1024" Height="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal">
+            <Button Content="Q" FontSize="50" Width="90"/>
+            <Button Content="W" FontSize="50" Width="90"/>
+            <Button Content="E" FontSize="50" Width="90"/>
+            <Button Content="R" FontSize="50" Width="90"/>
+            <Button Content="T" FontSize="50" Width="90"/>
+            <Button Content="Y" FontSize="50" Width="90"/>
+            <Button Content="U" FontSize="50" Width="90"/>
+            <Button Content="I" FontSize="50" Width="90"/>
+            <Button Content="O" FontSize="50" Width="90"/>
+            <Button Content="P" FontSize="50" Width="90"/>
+            <Button Content="BS" FontSize="50" Width="120"/>
+        </StackPanel>
+
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <Button Content="A" FontSize="50" Width="90"/>
+            <Button Content="S" FontSize="50" Width="90"/>
+            <Button Content="D" FontSize="50" Width="90"/>
+            <Button Content="F" FontSize="50" Width="90"/>
+            <Button Content="G" FontSize="50" Width="90"/>
+            <Button Content="H" FontSize="50" Width="90"/>
+            <Button Content="J" FontSize="50" Width="90"/>
+            <Button Content="K" FontSize="50" Width="90"/>
+            <Button Content="L" FontSize="50" Width="90"/>
+            <Button Content="ENTER" FontSize="50" Width="210"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal">
+            <Button Content="Z" FontSize="50" Width="90"/>
+            <Button Content="X" FontSize="50" Width="90"/>
+            <Button Content="C" FontSize="50" Width="90"/>
+            <Button Content="V" FontSize="50" Width="90"/>
+            <Button Content="B" FontSize="50" Width="90"/>
+            <Button Content="N" FontSize="50" Width="90"/>
+            <Button Content="M" FontSize="50" Width="90"/>
+            <Button Content="SPACE" FontSize="50" Width="300"/>
+            <Button Content="*" FontSize="50" Width="90"/>
+        </StackPanel>
+
+    </Grid>
+</UserControl>

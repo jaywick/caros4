@@ -10,6 +10,7 @@ namespace Caros.Core.Context
     public interface INavigator : IContextComponent
     {
         event Action<PageViewModel> OnNavigate;
+        event Action<bool> OnShowKeyboard;
 
         Reference<PageViewModel> ErrorPage { get; set; }
         Reference<PageViewModel> HomePage { get; set; }
@@ -20,12 +21,14 @@ namespace Caros.Core.Context
         void GoHome();
         void Return();
         void OpenMenu();
+        void ShowKeyboard(bool value = true);
         void Visit<T>(bool bypassHistory = false) where T : Caros.Core.UI.PageViewModel;
     }
 
     public class Navigator : INavigator
     {
         public event Action<PageViewModel> OnNavigate;
+        public event Action<bool> OnShowKeyboard;
 
         public virtual IContext Context { get; set; }
         public Reference<PageViewModel> ErrorPage { get; set; }
@@ -126,6 +129,12 @@ namespace Caros.Core.Context
             Visit(MenuPage.Type, false);
             (_instances[MenuPage.Type] as IMenuDisplayer).LoadTasks(menuBuilder.Items);
             IsMenuOpen = true;
+        }
+
+        public void ShowKeyboard(bool value = true)
+        {
+            if (OnShowKeyboard != null)
+                OnShowKeyboard(value);
         }
 
         private void CallNavigate(PageViewModel page, bool isNew)
