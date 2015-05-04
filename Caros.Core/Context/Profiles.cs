@@ -24,7 +24,7 @@ namespace Caros.Core.Context
         public Profiles(IContext context)
         {
             Context = context;
-            CurrentUser = Users.First();
+            CurrentUser = Users.FirstOrDefault() ?? new User("Default");
         }
 
         public User CurrentUser { get; private set; }
@@ -34,8 +34,7 @@ namespace Caros.Core.Context
             get
             {
                 return Context.Database
-                    .GetCollection<UserModel>(UserModel.CollectionName)
-                    .FindAllAs<UserModel>()
+                    .Load<UserModel>()
                     .Select(x => new User(x));
             }
         }

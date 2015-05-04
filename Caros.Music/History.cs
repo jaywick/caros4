@@ -29,8 +29,7 @@ namespace Caros.Music
         public void Load()
         {
             Items = Context.Database
-                .GetCollection<HistoryModel>(HistoryModel.CollectionName)
-                .FindAllAs<HistoryModel>();
+                .Load<HistoryModel>();
         }
 
         public void Add(TrackModel track)
@@ -48,7 +47,6 @@ namespace Caros.Music
         public virtual void AddToDatabase(HistoryModel historyModel)
         {
             Context.Database
-                .GetCollection<HistoryModel>(HistoryModel.CollectionName)
                 .Insert(historyModel);
         }
     }

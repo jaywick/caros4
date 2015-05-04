@@ -6,13 +6,15 @@ using System.Threading.Tasks;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System.Diagnostics;
+using Caros.Core.Extensions;
 
 namespace Caros.Core.Context
 {
     public interface IDatabase : IContextComponent
     {
-        MongoDB.Driver.MongoCollection GetCollection(string name);
-        MongoDB.Driver.MongoCollection<TEntity> GetCollection<TEntity>(string name);
+        IEnumerable<TEntity> Load<TEntity>();
+        void Insert<TEntity>(TEntity entity);
+        void Clear<TEntity>();
     }
 
     public class Database : IDatabase
@@ -27,10 +29,12 @@ namespace Caros.Core.Context
             Context = context;
         }
 
-        public MongoCollection<TEntity> GetCollection<TEntity>(string name)
+        private MongoCollection<TEntity> GetCollection<TEntity>()
         {
             var server = new MongoClient(ConnectionString).GetServer();
             var database = server.GetDatabase(DatabaseName);
+
+            var name = typeof(TEntity).GetAttribute<CollectionAttribute>().Name;
 
             if (!database.CollectionExists(name))
                 database.CreateCollection(name);
@@ -38,9 +42,19 @@ namespace Caros.Core.Context
             return database.GetCollection<TEntity>(name);
         }
 
-        public MongoCollection GetCollection(string name)
+        public IEnumerable<TEntity> Load<TEntity>()
         {
-            return GetCollection<object>(name);
+            return GetCollection<TEntity>().FindAllAs<TEntity>();
+        }
+
+        public void Insert<TEntity>(TEntity entity)
+        {
+            GetCollection<TEntity>().Insert(entity);
+        }
+
+        public void Clear<TEntity>()
+        {
+            GetCollection<TEntity>().RemoveAll();
         }
     }
 }

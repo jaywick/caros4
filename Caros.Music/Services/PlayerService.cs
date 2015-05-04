@@ -39,8 +39,9 @@ namespace Caros.Music
 
         private void ReloadAllSongs()
         {
-            var collection = Context.Database.GetCollection<TrackModel>(TrackModel.CollectionName);
-            TracksCollection = collection.FindAllAs<TrackModel>().Select(x => new Track(x)).ToList();
+            TracksCollection = Context.Database.Load<TrackModel>()
+                .Select(x => new Track(x))
+                .ToList();
 
             HistoryManager.Load();
 

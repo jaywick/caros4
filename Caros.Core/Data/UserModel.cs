@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 
 namespace Caros.Core.Data
 {
-    public class UserModel
+    [Collection("users")]
+    public class UserModel : DataEntity
     {
-        public const string CollectionName = "users";
-
         public ObjectId _id { get; set; }
         public string Name { get; set; }
         public string UserCode { get; set; }

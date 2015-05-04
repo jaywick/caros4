@@ -6,13 +6,13 @@ using System.Text;
 using System.Threading.Tasks;
 using Caros.Core.Extensions;
 using MongoDB.Bson;
+using Caros.Core;
 
 namespace Caros.Music
 {
+    [Collection("music.history")]
     public class HistoryModel
     {
-        public const string CollectionName = "music.history";
-
         public ObjectId _id { get; set; }
         public string TrackHashName { get; set; }
         public DateTime DatePlayed { get; set; }

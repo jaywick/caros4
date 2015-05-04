@@ -11,6 +11,10 @@ namespace Caros.Core.Extensions
         public static TAttribute GetAttribute<TAttribute>(this Type target) where TAttribute : Attribute
         {
             var attributes = Attribute.GetCustomAttributes(target);
+
+            if (!attributes.Any())
+                return null;
+
             return attributes.Cast<TAttribute>().Single();
         }
     }

@@ -6,13 +6,13 @@ using System.Text;
 using System.Threading.Tasks;
 using Caros.Core.Extensions;
 using MongoDB.Bson;
+using Caros.Core;
 
 namespace Caros.Music
 {
+    [Collection("music.tracks")]
     public class TrackModel
     {
-        public const string CollectionName = "music.tracks";
-
         public ObjectId _id { get; set; }
         public string HashName { get; set; }
         public string OriginalPath { get; set; }
