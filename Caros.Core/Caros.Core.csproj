@@ -62,6 +62,7 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Windows" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.1.2.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
@@ -92,6 +93,7 @@
     <Compile Include="DataEntity.cs" />
     <Compile Include="Data\UserModel.cs" />
     <Compile Include="Debug.cs" />
+    <Compile Include="Device.cs" />
     <Compile Include="EventPost.cs" />
     <Compile Include="Extensions\ObjectExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
@@ -100,8 +102,10 @@
     <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="Integration\HostMachine.cs" />
     <Compile Include="IntegrationServices.cs" />
+    <Compile Include="Integration\UsbSerialNumber.cs" />
     <Compile Include="Integration\Volume.cs" />
     <Compile Include="Log.cs" />
+    <Compile Include="Services\DeviceService.cs" />
     <Compile Include="UI\IMenuDisplayer.cs" />
     <Compile Include="NamedAction.cs" />
     <Compile Include="Services\Service.cs" />

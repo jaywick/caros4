@@ -17,6 +17,7 @@ namespace Caros.Core.Context
         List<EventPost> Items { get; set; }
 
         void Post(string title, string summary, IEnumerable<NamedAction> tasks);
+        void Post(string title, string summary, params NamedAction[] tasks);
     }
 
     public class Events : IEvents
@@ -37,6 +38,11 @@ namespace Caros.Core.Context
             var post = new EventPost(title, summary, tasks);
             Items.Add(post);
             OnToast.Invoke(post);
+        }
+
+        public void Post(string title, string summary, params NamedAction[] tasks)
+        {
+            Post(title, summary, tasks.AsEnumerable());
         }
     }
 }
