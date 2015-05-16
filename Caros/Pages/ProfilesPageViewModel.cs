@@ -27,7 +27,6 @@ namespace Caros.Pages
             Context.Profiles.SwitchProfile(user);
             Context.Navigator.Visit<SplashPageViewModel>();
 
-
             await Task.Delay(2000);
 
             Context.Navigator.Visit<HomePageViewModel>();

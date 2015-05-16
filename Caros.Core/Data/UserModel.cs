@@ -13,5 +13,6 @@ namespace Caros.Core.Data
         public ObjectId _id { get; set; }
         public string Name { get; set; }
         public string UserCode { get; set; }
+        public DateTime Added { get; set; }
     }
 }

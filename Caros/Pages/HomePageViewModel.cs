@@ -70,5 +70,11 @@ namespace Caros.Pages
                                     });
             }
         }
+
+        public async void ShowPrompt()
+        {
+            var x = await Context.Navigator.Prompt("hello", "default");
+            Context.Events.Post(x, "got this value back");
+        }
     }
 }

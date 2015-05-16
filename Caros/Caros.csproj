@@ -106,6 +106,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\InputPageView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Pages\MenuPageView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -147,6 +151,10 @@
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainViewModel.cs" />
+    <Compile Include="Pages\InputPageView.xaml.cs">
+      <DependentUpon>InputPageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\InputPageViewModel.cs" />
     <Compile Include="Pages\MenuPageView.xaml.cs">
       <DependentUpon>MenuPageView.xaml</DependentUpon>
     </Compile>

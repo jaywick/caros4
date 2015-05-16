@@ -49,6 +49,7 @@ namespace Caros
             Context.Navigator.ErrorPage = new TypeOf<ErrorPageViewModel>();
             Context.Navigator.HomePage = new TypeOf<HomePageViewModel>();
             Context.Navigator.MenuPage = new TypeOf<MenuPageViewModel>();
+            Context.Navigator.PromptPage = new TypeOf<InputPageViewModel>();
             Context.Navigator.OnNavigate += Navigator_OnNavigate;
             Context.Navigator.OnShowKeyboard += Navigator_OnShowKeyboard;
 

@@ -10,11 +10,11 @@ namespace Caros.Core.Context
 {
     public interface IProfiles : IContextComponent
     {
-        Caros.Core.User CurrentUser { get; }
+        User CurrentUser { get; }
+        IEnumerable<Caros.Core.User> Users { get; }
 
-        void SwitchProfile(Caros.Core.User user);
-
-        System.Collections.Generic.IEnumerable<Caros.Core.User> Users { get; }
+        void SwitchProfile(User user);
+        void Add(string name);
     }
 
     public class Profiles : IProfiles
@@ -42,6 +42,16 @@ namespace Caros.Core.Context
         public void SwitchProfile(User user)
         {
             CurrentUser = user;
+        }
+
+        public void Add(string name)
+        {
+            Context.Database.Insert(new UserModel
+            {
+                Name = name,
+                UserCode = String.Format("{0}_{1}", name, Guid.NewGuid()),
+                Added = DateTime.Now,
+            });
         }
     }
 }

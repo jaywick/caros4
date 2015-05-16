@@ -113,6 +113,7 @@
     <Compile Include="Integration\DatabaseServer.cs" />
     <Compile Include="Services\UpdateService.cs" />
     <Compile Include="TypeOf.cs" />
+    <Compile Include="UI\IPromptDisplayer.cs" />
     <Compile Include="UI\ViewModel.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Context\Storage.cs" />
