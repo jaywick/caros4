@@ -40,7 +40,7 @@ namespace Caros.Music
                     continue;
 
                 var hashName = Crypto.GenerateGuid();
-                var track = CreateTrackRecord(file, hashName, Context.Profiles.CurrentUser.UserCode);
+                var track = CreateTrackRecord(file, hashName, Context.Profiles.CurrentUser.Name);
 
                 if (track != null)
                 {

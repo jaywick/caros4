@@ -57,7 +57,7 @@ namespace Caros.Core.Context
 
         public DirectoryInfo UserProfile
         {
-            get { return GetFolder(UsersDirectory, Context.Profiles.CurrentUser.UserCode); }
+            get { return GetFolder(UsersDirectory, Context.Profiles.CurrentUser.Name); }
         }
 
         public DirectoryInfo MusicInternalCache

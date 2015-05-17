@@ -40,7 +40,12 @@ namespace Caros.Recovery
                 + messageParts[1];
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Exit(object sender, RoutedEventArgs e)
+        {
+            System.Environment.Exit(0);
+        }
+
+        private void Restart(object sender, RoutedEventArgs e)
         {
             System.Diagnostics.Process.Start("caros.exe");
         }

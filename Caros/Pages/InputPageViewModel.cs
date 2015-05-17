@@ -11,11 +11,11 @@ using Caros.Core;
 
 namespace Caros.Pages
 {
-    class InputPageViewModel : PageViewModel, IPromptDisplayer
+    class InputPageViewModel : PageViewModel, IAlertDisplayer
     {
         public event Action<string> RequestAccept;
         public event System.Action RequestCancel;
-        
+
         public InputPageViewModel(IContext context)
             : base(context)
         {
@@ -24,10 +24,10 @@ namespace Caros.Pages
         private string _message;
         public string Message
         {
-            get { return _okButtonText; }
+            get { return _message; }
             set
             {
-                _okButtonText = value;
+                _message = value;
                 NotifyOfPropertyChange(() => Message);
             }
         }
@@ -57,30 +57,50 @@ namespace Caros.Pages
         private string _cancelButtonText;
         public string CancelButtonText
         {
-            get { return _okButtonText; }
+            get { return _cancelButtonText; }
             set
             {
-                _okButtonText = value;
+                _cancelButtonText = value;
                 NotifyOfPropertyChange(() => CancelButtonText);
+            }
+        }
+
+        private bool _isPrompt;
+        public bool IsPrompt
+        {
+            get { return _isPrompt; }
+            set
+            {
+                _isPrompt = value;
+                NotifyOfPropertyChange(() => IsPrompt);
             }
         }
 
         public void Accept()
         {
-            if (RequestAccept != null)
-                RequestAccept.Invoke(Value);
+            RequestAccept.Invoke(Value);
         }
 
         public void Cancel()
         {
-            if (RequestCancel != null)
-                RequestCancel.Invoke();
+            RequestCancel.Invoke();
         }
 
         public void ShowPrompt(string message, string defautValue = "")
         {
             Message = message;
             Value = defautValue;
+
+            OkButtonText = "Accept";
+            CancelButtonText = "Cancel";
+
+            IsPrompt = true;
+        }
+
+        public void ShowAlert(string message)
+        {
+            Message = message;
+            IsPrompt = false;
         }
     }
 }

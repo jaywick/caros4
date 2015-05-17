@@ -73,8 +73,21 @@ namespace Caros.Pages
 
         public async void ShowPrompt()
         {
-            var x = await Context.Navigator.Prompt("hello", "default");
-            Context.Events.Post(x, "got this value back");
+            var result = await Context.Navigator.Prompt("hello", "default");
+            Context.Events.Post(result, "got this value back");
+        }
+
+        public async void AddUser()
+        {
+            var userName = await Context.Navigator.Prompt("Please enter username");
+
+            if (Context.Profiles.NameExists(userName))
+            {
+                await Context.Navigator.Alert("Username is already taken.");
+                return;
+            }
+
+            Context.Profiles.Add(userName);
         }
     }
 }

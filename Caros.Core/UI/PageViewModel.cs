@@ -12,6 +12,8 @@ namespace Caros.Core.UI
     {
         public virtual IContext Context { get; set; }
 
+        public bool ShowInHistory { get; set; }
+
         public virtual void OnVisit(bool isFirst) { }
 
         public virtual void OnExtra(NamedActionBuilder builder) { }

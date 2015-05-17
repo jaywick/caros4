@@ -25,7 +25,12 @@ namespace Caros.Core.Context
         void OpenMenu();
         void ShowKeyboard(bool value = true);
         void Visit<T>(bool bypassHistory = false) where T : PageViewModel;
-        Task<string> Prompt(string message, string defaultValue);
+        Task<string> Prompt(string message, string defaultValue = "");
+        Task Alert(string message);
+        Task WaitForUserResponse();
+
+        void UserRequestsPromptAccept(string value);
+        void UserRequestsPromptCancel();
     }
 
     public class Navigator : INavigator
@@ -51,6 +56,11 @@ namespace Caros.Core.Context
             Context = context;
         }
 
+        private Stack<PageViewModel> VisibleHistory
+        {
+            get { return new Stack<PageViewModel>(_history.Where(x => !x.ShowInHistory)); }
+        }
+
         public PageViewModel CurrentPage
         {
             get
@@ -62,7 +72,7 @@ namespace Caros.Core.Context
             }
         }
 
-        private PageViewModel Visit(Type type, bool bypassHistory)
+        private PageViewModel Visit(Type type, bool bypassHistory = false)
         {
             var isNew = false;
 
@@ -73,9 +83,9 @@ namespace Caros.Core.Context
             }
 
             var page = _instances[type];
+            page.ShowInHistory = !bypassHistory;
 
-            if (!bypassHistory)
-                _history.Push(page);
+            _history.Push(page);
 
             CallNavigate(page, isNew);
 
@@ -116,10 +126,10 @@ namespace Caros.Core.Context
             // pop current
             _history.Pop();
 
-            if (!_history.Any())
+            if (!VisibleHistory.Any())
                 return;
 
-            CallNavigate(_history.Peek(), false);
+            CallNavigate(VisibleHistory.Peek(), false);
         }
 
         public void OpenMenu()
@@ -149,36 +159,56 @@ namespace Caros.Core.Context
         public async Task<string> Prompt(string message, string defaultValue = "")
         {
             var page = Visit(PromptPage.Type, false);
-            var promptDisplayer = (IPromptDisplayer)page;
+
+            var promptDisplayer = (IAlertDisplayer)page;
             promptDisplayer.ShowPrompt(message, defaultValue);
+            promptDisplayer.RequestAccept += UserRequestsPromptAccept;
+            promptDisplayer.RequestCancel += UserRequestsPromptCancel;
 
-            promptDisplayer.RequestAccept += promptDisplayer_RequestAccept;
-            promptDisplayer.RequestCancel += promptDisplayer_RequestCancel;
-
-            await WaitForResponse();
+            await WaitForUserResponse();
+            Return();
 
             return _promptResult;
         }
 
-        private async Task WaitForResponse()
+        public async Task Alert(string message)
         {
-            await Task.Factory.StartNew(() =>
-            {
-                // wait for response
-                while(!_responseRecieved) { }
+            var page = Visit(PromptPage.Type, false);
 
-                // reset flag
-                _responseRecieved = false;
-            });
+            var promptDisplayer = (IAlertDisplayer)page;
+            promptDisplayer.ShowAlert(message);
+            promptDisplayer.RequestCancel += UserRequestsPromptCancel;
+
+            await WaitForUserResponse();
+            Return();
         }
 
-        private void promptDisplayer_RequestCancel()
+        public virtual async Task WaitForUserResponse()
+        {
+            try
+            {
+                await Task.Factory.StartNew(() =>
+                {
+                    // wait for response
+                    while (!_responseRecieved) { }
+
+                    // reset flag
+                    _responseRecieved = false;
+                });
+            }
+            catch(ThreadAbortException)
+            {
+                return;
+            }
+        }
+
+        public virtual void UserRequestsPromptCancel()
         {
             _promptResult = null;
             _responseRecieved = true;
         }
 
-        private void promptDisplayer_RequestAccept(string value)
+        public virtual void UserRequestsPromptAccept(string value)
         {
             _promptResult = value ?? "";
             _responseRecieved = true;

@@ -3,10 +3,24 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Loaded="Window_Loaded"
         Title="MainWindow" Height="600" Width="1024" ShowInTaskbar="False" WindowStartupLocation="CenterScreen" WindowState="Maximized" AllowsTransparency="True" WindowStyle="None" Background="#FF8D8D8D" Opacity="0.95">
-    <Grid>
-        <Label Background="#FF474747">
-            <TextBlock x:Name="labelError" Text="System Fault" Padding="30" FontSize="45" Foreground="White" TextWrapping="WrapWithOverflow"/>
+    <Grid Background="#FF474747">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <Label Grid.Row="0">
+            <TextBlock x:Name="labelError" Text="System Fault" Padding="30" FontSize="30" Foreground="White" TextWrapping="WrapWithOverflow"/>
         </Label>
-        <Button Height="100" Margin="716,463,40,37" Content="RESTART" Click="Button_Click"/>
+        
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0" Height="100" Width="500" HorizontalAlignment="Right" Content="RESTART" Click="Restart" FontSize="40"/>
+            <Button Grid.Column="1" Height="100" Width="500" HorizontalAlignment="Right" Content="EXIT" Click="Exit" FontSize="40"/>
+        </Grid>
     </Grid>
 </Window>

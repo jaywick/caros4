@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace Caros.Core.UI
 {
-    public interface IPromptDisplayer
+    public interface IAlertDisplayer
     {
         event Action<string> RequestAccept;
         event Action RequestCancel;
 
         void ShowPrompt(string message, string defaultValue);
+        void ShowAlert(string message);
     }
 }

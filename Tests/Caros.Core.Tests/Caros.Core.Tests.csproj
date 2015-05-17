@@ -98,6 +98,7 @@
   <ItemGroup>
     <Compile Include="ContextTests.cs" />
     <Compile Include="NavigatorOnMenuTests.cs" />
+    <Compile Include="NavigatorPromptTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -8,18 +8,21 @@
              xmlns:cal="http://www.caliburnproject.org"
              mc:Ignorable="d" 
              Width="1024" Height="600">
-    <Grid VerticalAlignment="Center" >
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
+    <Grid>
+        <Grid Background="#E0505050" cal:Message.Attach="[Event MouseDown] = [Action Cancel]"/>
+        <Grid Height="300" Background="White">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Text="{Binding Message, FallbackValue='Enter value'}" FontSize="36" TextWrapping="Wrap"/>
-        <TextBox    Grid.Row="1" Text="{Binding Value, Mode=TwoWay}" FontSize="36"/>
-        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Height="100">
-            <Button x:Name="Accept" Content="{Binding OkButtonText, FallbackValue='Accept'}" Width="300" Margin="20,5"/>
-            <Button x:Name="Cancel" Content="{Binding CancelButtonText, FallbackValue='Cancel'}" Width="300" Margin="20,5"/>
-        </StackPanel>
+            <TextBlock  Grid.Row="0" Text="{Binding Message, FallbackValue='Title'}" FontSize="38" Margin="20"/>
+            <TextBox    Grid.Row="1" Text="{Binding Value, Mode=TwoWay}" FontSize="36" Visibility="{Binding IsPrompt, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="20"/>
+            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Height="100" Visibility="{Binding IsPrompt, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <Button x:Name="Accept" Content="{Binding OkButtonText, FallbackValue='Accept'}" Width="300" Margin="20,5"/>
+                <Button x:Name="Cancel" Content="{Binding CancelButtonText, FallbackValue='Cancel'}" Width="300" Margin="20,5"/>
+            </StackPanel>
+        </Grid>
     </Grid>
 </UserControl>

@@ -14,6 +14,7 @@ namespace Caros.Core.Context
         IEnumerable<Caros.Core.User> Users { get; }
 
         void SwitchProfile(User user);
+        bool NameExists(string name);
         void Add(string name);
     }
 
@@ -39,17 +40,34 @@ namespace Caros.Core.Context
             }
         }
 
+        public void SwitchProfile(string name)
+        {
+            var user = Users.SingleOrDefault(x => x.Name.Equals(name,StringComparison.InvariantCultureIgnoreCase));
+
+            if (user == null)
+                throw new Exception("User not found by name");
+
+            SwitchProfile(user);
+        }
+
         public void SwitchProfile(User user)
         {
             CurrentUser = user;
         }
 
+        public bool NameExists(string name)
+        {
+            return Users.Any(x => x.Name == name);
+        }
+
         public void Add(string name)
         {
+            if (NameExists(name))
+                throw new Exception("Username exists!");
+
             Context.Database.Insert(new UserModel
             {
                 Name = name,
-                UserCode = String.Format("{0}_{1}", name, Guid.NewGuid()),
                 Added = DateTime.Now,
             });
         }

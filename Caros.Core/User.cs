@@ -13,12 +13,10 @@ namespace Caros.Core
         private UserModel _model;
 
         public string Name { get; set; }
-        public string UserCode { get; set; }
 		
 		public User(string name)
 		{
 			Name = name;
-            UserCode = Crypto.GenerateMD5(name);
 		}
 
         public User(UserModel model)
@@ -26,7 +24,6 @@ namespace Caros.Core
             _model = model;
 
             Name = model.Name;
-            UserCode = model.UserCode;
         }
     }
 }
