@@ -8,6 +8,7 @@ using Caros.Core.Context;
 using Caros.Core.UI;
 using Caros.Music;
 using Caros.Core;
+using Caros.Core.Extensions;
 
 namespace Caros.Pages
 {
@@ -56,18 +57,12 @@ namespace Caros.Pages
             if (updateService.IsUpdateAvailable)
             {
                 Context.Events.Post("An update is available",
-                                    String.Format("Do you wish to deploy the latest update {0}", updateService.UpdateVersion),
-                                    new[]
-                                    {
-                                        new NamedAction("Deploy", async () => await updateService.Deploy())
-                                    });
+                                    "Do you wish to deploy the latest update {0}".ApplyArguments(updateService.UpdateVersion),
+                                    new NamedAction("Deploy", async () => await updateService.Deploy()));
 
                 Context.Events.Post("Caros update installed",
-                                    String.Format("Do you wish to relaunch Caros with the latest version ({0})", updateService.UpdateVersion),
-                                    new[]
-                                    {
-                                        new NamedAction("Relaunch", () => updateService.Relaunch())
-                                    });
+                                    "Do you wish to relaunch Caros with the latest version ({0})".ApplyArguments(updateService.UpdateVersion),
+                                    new NamedAction("Relaunch", () => updateService.Relaunch()));
             }
         }
 
@@ -79,15 +74,24 @@ namespace Caros.Pages
 
         public async void AddUser()
         {
-            var userName = await Context.Navigator.Prompt("Please enter username");
+            bool waitingForUser = true;
+            string userName = null;
 
-            if (Context.Profiles.NameExists(userName))
+            while (waitingForUser)
             {
-                await Context.Navigator.Alert("Username is already taken.");
-                return;
-            }
+                userName = await Context.Navigator.Prompt("Please enter username");
 
+                if (userName == null)
+                    return;
+
+                if (!Context.Profiles.NameExists(userName))
+                    break;
+
+                Context.Events.Tip("Username is already taken.");
+            }
+            
             Context.Profiles.Add(userName);
+            Context.Profiles.Switch(userName);
         }
     }
 }

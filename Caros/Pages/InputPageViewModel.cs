@@ -11,7 +11,7 @@ using Caros.Core;
 
 namespace Caros.Pages
 {
-    class InputPageViewModel : PageViewModel, IAlertDisplayer
+    class InputPageViewModel : PageViewModel, IPromptDisplayer
     {
         public event Action<string> RequestAccept;
         public event System.Action RequestCancel;

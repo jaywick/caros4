@@ -19,6 +19,7 @@
         </Grid>
 
         <ContentControl x:Name="EventsControl"/>
+        <ContentControl x:Name="TipControl"/>
         <ContentControl x:Name="KeyboardControl" VerticalAlignment="Bottom"/>
     </Grid>
 </UserControl>

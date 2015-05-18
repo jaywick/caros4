@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Caros.Core.Extensions;
 using Caros.Core.Data;
+using Caros.Core.UI;
 
 namespace Caros.Core.Context
 {
@@ -13,7 +14,11 @@ namespace Caros.Core.Context
         User CurrentUser { get; }
         IEnumerable<Caros.Core.User> Users { get; }
 
-        void SwitchProfile(User user);
+        Reference<PageViewModel> HomePage { get; set; }
+        Reference<PageViewModel> SplashPage { get; set; }
+
+        void Switch(string name);
+        void Switch(User user);
         bool NameExists(string name);
         void Add(string name);
     }
@@ -21,6 +26,9 @@ namespace Caros.Core.Context
     public class Profiles : IProfiles
     {
         public virtual IContext Context { get; set; }
+
+        public Reference<PageViewModel> HomePage { get; set; }
+        public Reference<PageViewModel> SplashPage { get; set; }
 
         public Profiles(IContext context)
         {
@@ -40,19 +48,22 @@ namespace Caros.Core.Context
             }
         }
 
-        public void SwitchProfile(string name)
+        public void Switch(string name)
         {
-            var user = Users.SingleOrDefault(x => x.Name.Equals(name,StringComparison.InvariantCultureIgnoreCase));
+            var user = Users.SingleOrDefault(x => x.Name.Equals(name,StringComparison.CurrentCultureIgnoreCase));
 
             if (user == null)
                 throw new Exception("User not found by name");
 
-            SwitchProfile(user);
+            Switch(user);
         }
 
-        public void SwitchProfile(User user)
+        public async void Switch(User user)
         {
             CurrentUser = user;
+            Context.Navigator.Visit(SplashPage);
+            await Task.Delay(2000);
+            Context.Navigator.Visit(HomePage);
         }
 
         public bool NameExists(string name)

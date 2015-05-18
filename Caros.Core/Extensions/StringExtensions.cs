@@ -26,5 +26,10 @@ namespace Caros.Core.Extensions
 
             return target;
         }
+
+        public static string ApplyArguments(this string message, params string[] argument)
+        {
+            return String.Format(message, argument);
+        }
     }
 }

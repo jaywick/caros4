@@ -36,15 +36,15 @@ namespace Caros
 
             Context.Services.StartSystemServices();
 
-            Context.Navigator.Visit<SplashPageViewModel>(bypassHistory: true);
-            await Task.Delay(2000);
-
-            Context.Navigator.Visit<HomePageViewModel>();
+            Context.Profiles.Switch(Context.Profiles.CurrentUser);
         }
 
         private void SetupContext()
         {
             Context = ApplicationContext.Create();
+
+            Context.Profiles.HomePage = new TypeOf<HomePageViewModel>();
+            Context.Profiles.SplashPage = new TypeOf<SplashPageViewModel>();
 
             Context.Navigator.ErrorPage = new TypeOf<ErrorPageViewModel>();
             Context.Navigator.HomePage = new TypeOf<HomePageViewModel>();
@@ -53,7 +53,8 @@ namespace Caros
             Context.Navigator.OnNavigate += Navigator_OnNavigate;
             Context.Navigator.OnShowKeyboard += Navigator_OnShowKeyboard;
 
-            Context.Events.OnToast += Events_OnToast;
+            Context.Events.OnPost += Events_OnToast;
+            Context.Events.OnTip += Events_OnTip;
         }
 
         private void Navigator_OnNavigate(PageViewModel page)
@@ -64,16 +65,28 @@ namespace Caros
         private void Events_OnToast(EventPost post)
         {
             EventsControl = new EventsBarViewModel(post);
-            EventsControl.RequestClose += EventsControl_RequestClose;
+            EventsControl.RequestClose += () =>
+            {
+                EventsControl = null;
+                NotifyOfPropertyChange(() => EventsControl);
+            };
+
             NotifyOfPropertyChange(() => EventsControl);
         }
 
-        private void EventsControl_RequestClose()
+        private void Events_OnTip(string message)
         {
-            EventsControl = null;
-            NotifyOfPropertyChange(() => EventsControl);
+            TipControl = new TipViewModel(message);
+            TipControl.RequestClose += () =>
+            {
+                TipControl = null;
+                NotifyOfPropertyChange(() => TipControl);
+            };
+
+            NotifyOfPropertyChange(() => TipControl);
         }
-        
+
+
         private void Navigator_OnShowKeyboard(bool value)
         {
             KeyboardControl = new KeyboardViewModel();
@@ -91,6 +104,7 @@ namespace Caros
 
         public Components.NavigationBarViewModel NavigationBarControl { get; set; }
         public Components.EventsBarViewModel EventsControl { get; set; }
+        public Components.TipViewModel TipControl { get; set; }
         public Components.KeyboardViewModel KeyboardControl { get; set; }
 
         public virtual IContext Context { get; set; }

@@ -1,0 +1,16 @@
+﻿<UserControl x:Class="Caros.Components.TipView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:laurencebunnage="clr-namespace:TilePanel;assembly=TilePanel"
+             xmlns:cal="http://www.caliburnproject.org"
+             mc:Ignorable="d"
+             Width="1024" Height="600">
+    <Grid>
+        <Label Width="500" Height="Auto" Background="#AA000000" HorizontalContentAlignment="Center" VerticalAlignment="Center" Margin="262,257,262,133">
+            <TextBlock Text="{Binding Message, FallbackValue='test sdf sdfsdf sdf sfdsffsdf sdfsdfsdfsdf sdfsdfsdfs sdfsdfs fsd fsdfsd fsdf'}" Foreground="White" FontSize="30" Padding="40" TextWrapping="Wrap" TextAlignment="Center"/>
+        </Label>
+    </Grid>
+</UserControl>

@@ -31,6 +31,9 @@ namespace Caros.Core.Tests
             Context.Navigator = navigatorMock.Object;
             Context.Navigator.MenuPage = new Mock<Reference<PageViewModel>>().Object;
             Context.Navigator.PromptPage = new TypeOf<MockPromptViewModel>();
+
+            var eventsMock = new Mock<Events>(Context) { CallBase = true };
+            Context.Events = eventsMock.Object;
         }
 
         [TestCase]
@@ -69,24 +72,10 @@ namespace Caros.Core.Tests
 
             Assert.IsNull(result);
         }
-        
-        [TestCase]
-        public async void ShouldReturnToPromptAfterAlert()
-        {
-            SetUp(() => Context.Navigator.UserRequestsPromptCancel());
-
-            Context.Navigator.Visit<MockPageViewModel_1>();
-            var result = await Context.Navigator.Prompt("Hey there!");
-            await Context.Navigator.Alert("alert!");
-
-            var expected = Context.Navigator.PromptPage.Type;
-            var actual = Context.Navigator.CurrentPage.GetType();
-            Assert.AreEqual(expected, actual);
-        }
 
         #region Mocked Classes
 
-        class MockPromptViewModel : PageViewModel, IAlertDisplayer
+        class MockPromptViewModel : PageViewModel, IPromptDisplayer
         {
             public MockPromptViewModel(IContext context)
                 : base(context) { }

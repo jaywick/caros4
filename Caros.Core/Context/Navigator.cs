@@ -25,8 +25,8 @@ namespace Caros.Core.Context
         void OpenMenu();
         void ShowKeyboard(bool value = true);
         void Visit<T>(bool bypassHistory = false) where T : PageViewModel;
+        void Visit(Reference<PageViewModel> pageReference, bool bypassHistory = false);
         Task<string> Prompt(string message, string defaultValue = "");
-        Task Alert(string message);
         Task WaitForUserResponse();
 
         void UserRequestsPromptAccept(string value);
@@ -62,7 +62,7 @@ namespace Caros.Core.Context
 
         private Stack<PageViewModel> VisibleHistory
         {
-            get { return new Stack<PageViewModel>(_history.Where(x => !x.ShowInHistory)); }
+            get { return new Stack<PageViewModel>(_history.Where(x => x.ShowInHistory)); }
         }
 
         public PageViewModel CurrentPage
@@ -99,6 +99,11 @@ namespace Caros.Core.Context
         public void Visit<T>(bool bypassHistory = false) where T : PageViewModel
         {
             Visit(typeof(T), bypassHistory);
+        }
+
+        public void Visit(Reference<PageViewModel> pageReference, bool bypassHistory = false)
+        {
+            Visit(pageReference.Type, bypassHistory);
         }
 
         private PageViewModel CreateInstance(Type pageViewModelType)
@@ -163,7 +168,7 @@ namespace Caros.Core.Context
         {
             var page = Visit(PromptPage.Type, false);
 
-            var promptDisplayer = (IAlertDisplayer)page;
+            var promptDisplayer = (IPromptDisplayer)page;
             promptDisplayer.ShowPrompt(message, defaultValue);
             promptDisplayer.RequestAccept += UserRequestsPromptAccept;
             promptDisplayer.RequestCancel += UserRequestsPromptCancel;
@@ -172,18 +177,6 @@ namespace Caros.Core.Context
             Return();
 
             return _promptResult;
-        }
-
-        public async Task Alert(string message)
-        {
-            var page = Visit(PromptPage.Type, false);
-
-            var promptDisplayer = (IAlertDisplayer)page;
-            promptDisplayer.ShowAlert(message);
-            promptDisplayer.RequestCancel += UserRequestsPromptCancel;
-
-            await WaitForUserResponse();
-            Return();
         }
 
         public virtual async Task WaitForUserResponse()

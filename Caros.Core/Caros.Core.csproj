@@ -96,6 +96,7 @@
     <Compile Include="Device.cs" />
     <Compile Include="EventPost.cs" />
     <Compile Include="Extensions\ObjectExtensions.cs" />
+    <Compile Include="Extensions\ActionExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\DirectoryInfoExtensions.cs" />
     <Compile Include="Extensions\IEnumerableExtensions.cs" />
