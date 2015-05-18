@@ -43,7 +43,11 @@ namespace Caros.Core.Context
         public Reference<PageViewModel> HomePage { get; set; }
         public Reference<PageViewModel> MenuPage { get; set; }
         public Reference<PageViewModel> PromptPage { get; set; }
-        public bool IsMenuOpen { get; private set; }
+        
+        public bool IsMenuOpen
+        {
+            get { return MenuPage.Type == CurrentPage.GetType(); }
+        }
 
         private Stack<PageViewModel> _history = new Stack<PageViewModel>();
         private Dictionary<Type, PageViewModel> _instances = new Dictionary<Type, PageViewModel>();
@@ -147,7 +151,6 @@ namespace Caros.Core.Context
             CurrentPage.OnExtra(menuBuilder);
             Visit(MenuPage.Type, false);
             (_instances[MenuPage.Type] as IMenuDisplayer).LoadTasks(menuBuilder.Items);
-            IsMenuOpen = true;
         }
 
         public void ShowKeyboard(bool value = true)
@@ -216,10 +219,6 @@ namespace Caros.Core.Context
 
         private void CallNavigate(PageViewModel page, bool isNew)
         {
-            // close menu if navigating elsewhere
-            if (page.GetType() != MenuPage.Type)
-                IsMenuOpen = false;
-
             if (OnNavigate != null)
                 OnNavigate.Invoke(page);
 
